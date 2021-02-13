@@ -20,8 +20,9 @@ exports.router.get('/:id', function (_a, res) {
     res.json(event);
 });
 exports.router.post('', function (_a, res) {
-    var _b = _a.body, type = _b.type, place = _b.place, dateTime = _b.dateTime;
+    var _b = _a.body, name = _b.name, type = _b.type, place = _b.place, dateTime = _b.dateTime;
     var event = {
+        name: name,
         id: uuid_1.v4(),
         type: type,
         place: place,

@@ -16,8 +16,9 @@ router.get('/:id', ({params:{id}}, res) =>{
     res.json(event)
 })
 
-router.post('', ({body: {type, place, dateTime}}, res) =>{
+router.post('', ({body: {name,type, place, dateTime}}, res) =>{
     let event: IEvent = {
+        name,
         id: uuidv4(),
         type,
         place,
