@@ -1,6 +1,8 @@
+import {ITicket} from './ITicket'
+
 export interface IUser{
     name: string,
     username: string,
     password: string,
-    events : Array<any>
+    events : ITicket []
 }
