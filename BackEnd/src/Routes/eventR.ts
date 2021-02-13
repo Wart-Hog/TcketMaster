@@ -25,15 +25,13 @@ router.post('', ({body: {type, place, dateTime}}, res) =>{
     }
     events_list = events_list.concat(event)
     const new_events_list = JSON.stringify(events_list);
-    console.log(event)
-    console.log(new_events_list)
     fs.writeFileSync('events_list.json', new_events_list);
     res.json("ok")
 })
 router.delete('',({body:{id}}, res)=>{
     let toDelete = events_list.find((item: { id: string; }) => item.id == id)
     if(!toDelete) res.status(404).json({message:"resource not found"})
-    events_list.splice(toDelete,1)
+    events_list = events_list.splice(toDelete,1)
     const new_events_list = JSON.stringify(events_list);
     fs.writeFileSync('events_list.json', new_events_list);
     res.status(201).json({message: "resource deleted"})

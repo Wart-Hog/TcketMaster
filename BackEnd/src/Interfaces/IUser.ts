@@ -4,5 +4,5 @@ export interface IUser{
     name: string,
     username: string,
     password: string,
-    events : ITicket []
+    tickets : ITicket []
 }
