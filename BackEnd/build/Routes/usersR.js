@@ -40,9 +40,11 @@ exports.router.post('/:username/tickets', function (_a, res) {
     var userIndex = users_list.findIndex(function (item) { return item.username == username; });
     if (userIndex == -1)
         return res.status(404).json({ message: "user not found" });
-    users_list[userIndex].tickets = users_list[userIndex].tickets.concat(event);
+    console.log(userIndex);
+    users_list[userIndex].tickets.push(event);
     var new_users_list = JSON.stringify(users_list);
     fs.writeFileSync('users_list.json', new_users_list);
+    res.json({ message: "ticket created" });
 });
 exports.router.delete('/', function (_a, res) {
     var username = _a.body.username;

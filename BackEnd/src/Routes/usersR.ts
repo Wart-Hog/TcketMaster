@@ -35,9 +35,11 @@ router.post('/:username/tickets', ({body: {eventId}, params: {username}}, res) =
     if(!event) return res.status(404).json({message: "event not found"})
     const userIndex = users_list.findIndex((item: { username: any }) => item.username == username)
     if(userIndex ==-1) return res.status(404).json({message: "user not found"})
-    users_list[userIndex].tickets = users_list[userIndex].tickets.concat(event)
+    console.log(userIndex)
+    users_list[userIndex].tickets.push(event)
     const new_users_list = JSON.stringify(users_list);
     fs.writeFileSync('users_list.json', new_users_list);
+    res.json({message: "ticket created"})
 })
 
 router.delete('/',({body: {username}},res)=>{
