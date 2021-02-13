@@ -1,4 +1,4 @@
-import express, { Response, response } from 'express' 
+import express  from 'express' 
 import {router as tickets} from './Routes/ticketsR'
 import {router as users} from  './Routes/usersR'
 import {router as events} from  './Routes/eventR'
