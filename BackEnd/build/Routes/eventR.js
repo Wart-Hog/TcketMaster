@@ -7,10 +7,17 @@ exports.router = void 0;
 var express_1 = __importDefault(require("express"));
 var uuid_1 = require("uuid");
 exports.router = express_1.default.Router();
-var db = require('../../DB.json');
+var events_list = require('../../events_list.json');
 var fs = require('fs');
 exports.router.get('', function (_, res) {
-    res.json("ciao");
+    res.json(events_list);
+});
+exports.router.get('/:id', function (_a, res) {
+    var id = _a.params.id;
+    var event = events_list.find(function (item) { return item.id == id; });
+    if (!event)
+        res.status(404).json({ message: "resource not found" });
+    res.json(event);
 });
 exports.router.post('', function (_a, res) {
     var _b = _a.body, type = _b.type, place = _b.place, dateTime = _b.dateTime;
@@ -20,10 +27,20 @@ exports.router.post('', function (_a, res) {
         place: place,
         dateTime: dateTime
     };
-    db = db.concat(event);
-    var newDb = JSON.stringify(db);
+    events_list = events_list.concat(event);
+    var new_events_list = JSON.stringify(events_list);
     console.log(event);
-    console.log(newDb);
-    fs.writeFileSync('DB.json', newDb);
+    console.log(new_events_list);
+    fs.writeFileSync('events_list.json', new_events_list);
     res.json("ok");
+});
+exports.router.delete('', function (_a, res) {
+    var id = _a.body.id;
+    var toDelete = events_list.find(function (item) { return item.id == id; });
+    if (!toDelete)
+        res.status(404).json({ message: "resource not found" });
+    events_list.splice(toDelete, 1);
+    var new_events_list = JSON.stringify(events_list);
+    fs.writeFileSync('events_list.json', new_events_list);
+    res.status(201).json({ message: "resource deleted" });
 });
