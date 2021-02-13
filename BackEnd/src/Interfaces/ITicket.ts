@@ -3,6 +3,5 @@ import {IUser} from './IUser'
 
 export interface ITicket {
     id : string, 
-    event : IEvent,
-    user : IUser
+    event : IEvent
 }
