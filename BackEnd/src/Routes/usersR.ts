@@ -42,6 +42,12 @@ router.post('/:username/tickets', ({body: {eventId}, params: {username}}, res) =
     res.json({message: "ticket created"})
 })
 
+router.get('/:username/tickets', ({params: {username}}, res) =>{
+    const usernameIndex = users_list.findIndex((item: { username: string }) => item.username == username)
+    if (usernameIndex == -1) return res.status(404).json({message:"user not found"})
+    res.json(users_list[usernameIndex].tickets)
+})
+
 router.delete('/',({body: {username}},res)=>{
     const toDeleted = users_list.find((item: { username: string }) => item.username == username)
     if(!toDeleted) res.status(404).json({message:"resource not found"})

@@ -46,6 +46,14 @@ exports.router.post('/:username/tickets', function (_a, res) {
     fs.writeFileSync('users_list.json', new_users_list);
     res.json({ message: "ticket created" });
 });
+exports.router.get('/:username/tickets', function (_a, res) {
+    var username = _a.params.username;
+    var usernameIndex = users_list.findIndex(function (item) { return item.username == username; });
+    if (usernameIndex == -1)
+        return res.status(404).json({ message: "user not found" });
+    console.log(users_list[usernameIndex].tickets);
+    res.json(users_list[usernameIndex].tickets);
+});
 exports.router.delete('/', function (_a, res) {
     var username = _a.body.username;
     var toDeleted = users_list.find(function (item) { return item.username == username; });
