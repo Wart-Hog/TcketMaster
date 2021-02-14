@@ -51,20 +51,8 @@ exports.router.get('/:username/tickets', function (_a, res) {
     var usernameIndex = users_list.findIndex(function (item) { return item.username == username; });
     if (usernameIndex == -1)
         return res.status(404).json({ message: "user not found" });
+    console.log(users_list[usernameIndex].tickets);
     res.json(users_list[usernameIndex].tickets);
-});
-exports.router.delete('/:username/tickets', function (_a, res) {
-    var username = _a.params.username, eventId = _a.body.eventId;
-    var usernameIndex = users_list.findIndex(function (item) { return item.username == username; });
-    if (usernameIndex == -1)
-        return res.status(404).json({ message: "user not found" });
-    var ticketIndex = users_list[usernameIndex].tickets.findIndex(function (item) { return item.id == eventId; });
-    if (ticketIndex == -1)
-        return res.status(404).json({ message: "ticket not found" });
-    users_list[usernameIndex].tickets.splice(ticketIndex, 1);
-    var new_users_list = JSON.stringify(users_list);
-    fs.writeFileSync('users_list.json', new_users_list);
-    res.json({ message: "ticket deleted" });
 });
 exports.router.delete('/', function (_a, res) {
     var username = _a.body.username;
