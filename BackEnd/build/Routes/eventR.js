@@ -29,7 +29,6 @@ exports.router.post('', function (_a, res) {
         place: place,
         dateTime: dateTime
     };
-    console.log(type);
     if (!checkDate(dateTime))
         return res.status(400).json({ message: 'incorrect date' });
     if ((type == "music" || type == "sport" || type == "theatre")) {

@@ -1,0 +1,10 @@
+<div class = "row"> 
+  <div class="card" style="width: 18rem;" *ngFor = "let t of types">
+        <img class="card-img-top" src="{{t.img}}" alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title">{{t.name}}</h5>
+        <p class="card-text">{{t.description}}</p>
+        <a class="btn btn-primary">Discover more</a>
+        </div>
+    </div>
+</div> 
