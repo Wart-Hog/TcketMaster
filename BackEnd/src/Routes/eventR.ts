@@ -27,7 +27,6 @@ router.post('',({body: {name,type, place, dateTime}}, res) =>{
         place,
         dateTime
     }
-    console.log(type);
     if (!checkDate(dateTime)) return res.status(400).json({message: 'incorrect date'});
     if ((type == "music" || type == "sport" || type == "theatre")){
         events_list = events_list.concat(event)
