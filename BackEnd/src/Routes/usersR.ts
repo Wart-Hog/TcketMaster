@@ -27,7 +27,7 @@ router.post('', ({body: {name,username,password,tickets=[]}},res)=>{
     users_list = users_list.concat(user)
     const new_users_list = JSON.stringify(users_list);
     fs.writeFileSync('users_list.json', new_users_list);
-    res.json("ok")
+    res.json("created")
 })
 
 router.post('/:username/tickets', ({body: {eventId}, params: {username}}, res) =>{
