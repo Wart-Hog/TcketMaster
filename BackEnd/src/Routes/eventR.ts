@@ -13,19 +13,35 @@ router.get('', (_, res) =>{
     res.json(events_list)
 })
 
+router.get('/music', (_, res) =>{
+    let events = events_list.filter((item: any) => item.type === "music")
+    res.json(events)
+})
+
+router.get('/theatre', (_, res) =>{
+    let events = events_list.filter((item: any) => item.type === "theatre")
+    res.json(events)
+})
+
+router.get('/sport', (_, res) =>{
+    let events = events_list.filter((item: any) => item.type === "sport")
+    res.json(events)
+})
+
 router.get('/:id', ({params:{id}}, res) =>{
     let event = events_list.find((item: { id: string; }) => item.id == id)
     if(!event) res.status(404).json({message:"resource not found"})
     res.json(event)
 })
 
-router.post('',({body: {name,type, place, dateTime}}, res) =>{
+router.post('',({body: {name,type, place, dateTime, price}}, res) =>{
     let event: IEvent = {
         name,
         id: uuidv4(),
         type,
         place,
-        dateTime
+        dateTime,
+        price
     }
     if (!checkDate(dateTime)) return res.status(400).json({message: 'incorrect date'});
     if ((type == "music" || type == "sport" || type == "theatre")){

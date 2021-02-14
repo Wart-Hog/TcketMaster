@@ -4,4 +4,5 @@ export interface IEvent {
     type: "music" | "sport" | "theatre",
     place: string,
     dateTime: string,
+    price: number
 } 

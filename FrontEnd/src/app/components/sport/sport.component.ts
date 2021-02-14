@@ -3,15 +3,17 @@ import { EventServiceService } from 'src/app/services/event-service.service';
 import { IEvent } from '../../../../../BackEnd/src/Interfaces/IEvent';
 
 @Component({
-  selector: 'app-music',
-  templateUrl: './music.component.html',
-  styleUrls: ['./music.component.css']
+  selector: 'app-sport',
+  templateUrl: './sport.component.html',
+  styleUrls: ['./sport.component.css']
 })
-export class MusicComponent implements OnInit {
+export class SportComponent implements OnInit {
+
   public events : IEvent[] = []
   constructor(private eventService: EventServiceService) { }
 
   async ngOnInit() {
-    this.events = await this.eventService.getMusicEvents()
+    this.events = await this.eventService.getSportEvents()
   }
+
 }

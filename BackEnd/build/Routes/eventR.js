@@ -13,6 +13,18 @@ var fs = require('fs');
 exports.router.get('', function (_, res) {
     res.json(events_list);
 });
+exports.router.get('/music', function (_, res) {
+    var events = events_list.filter(function (item) { return item.type === "music"; });
+    res.json(events);
+});
+exports.router.get('/theatre', function (_, res) {
+    var events = events_list.filter(function (item) { return item.type === "theatre"; });
+    res.json(events);
+});
+exports.router.get('/sport', function (_, res) {
+    var events = events_list.filter(function (item) { return item.type === "sport"; });
+    res.json(events);
+});
 exports.router.get('/:id', function (_a, res) {
     var id = _a.params.id;
     var event = events_list.find(function (item) { return item.id == id; });
@@ -21,13 +33,14 @@ exports.router.get('/:id', function (_a, res) {
     res.json(event);
 });
 exports.router.post('', function (_a, res) {
-    var _b = _a.body, name = _b.name, type = _b.type, place = _b.place, dateTime = _b.dateTime;
+    var _b = _a.body, name = _b.name, type = _b.type, place = _b.place, dateTime = _b.dateTime, price = _b.price;
     var event = {
         name: name,
         id: uuid_1.v4(),
         type: type,
         place: place,
-        dateTime: dateTime
+        dateTime: dateTime,
+        price: price
     };
     if (!checkDate(dateTime))
         return res.status(400).json({ message: 'incorrect date' });

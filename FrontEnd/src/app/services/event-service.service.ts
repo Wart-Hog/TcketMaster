@@ -11,4 +11,7 @@ export class EventServiceService {
   constructor(private httpClient: HttpClient) {}
 
   all = (): Promise<IEvent[]> => this.httpClient.get(this.url).toPromise() as Promise<IEvent[]>
+  getMusicEvents = (): Promise<IEvent[]> => this.httpClient.get(this.url + "/music").toPromise() as Promise<IEvent[]>
+  getSportEvents = (): Promise<IEvent[]> => this.httpClient.get(this.url + "/sport").toPromise() as Promise<IEvent[]>
+  getTheatreEvents = (): Promise<IEvent[]> => this.httpClient.get(this.url + "/theatre").toPromise() as Promise<IEvent[]>
 }

@@ -8,6 +8,8 @@ import { EventComponent } from './components/event/event.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { MusicComponent } from './components/music/music.component';
+import { SportComponent } from './components/sport/sport.component';
+import { TheatreComponent } from './components/theatre/theatre.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { MusicComponent } from './components/music/music.component';
     EventComponent,
     HomeComponent,
     MusicComponent,
+    SportComponent,
+    TheatreComponent,
   ],
   imports: [
     BrowserModule,
