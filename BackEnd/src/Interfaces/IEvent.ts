@@ -3,5 +3,5 @@ export interface IEvent {
     name: string,
     type: "music" | "sport" | "theatre",
     place: string,
-    dateTime: Date,
+    dateTime: string,
 } 

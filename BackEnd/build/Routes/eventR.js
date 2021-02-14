@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var express_1 = __importDefault(require("express"));
 var uuid_1 = require("uuid");
+var _a = require('../middle/middlewere'), myValidationResult = _a.myValidationResult, checkDate = _a.checkDate;
 exports.router = express_1.default.Router();
 var events_list = require('../../events_list.json');
 var fs = require('fs');
@@ -28,10 +29,18 @@ exports.router.post('', function (_a, res) {
         place: place,
         dateTime: dateTime
     };
-    events_list = events_list.concat(event);
-    var new_events_list = JSON.stringify(events_list);
-    fs.writeFileSync('events_list.json', new_events_list);
-    res.json("ok");
+    console.log(type);
+    if (!checkDate(dateTime))
+        return res.status(400).json({ message: 'incorrect date' });
+    if ((type == "music" || type == "sport" || type == "theatre")) {
+        events_list = events_list.concat(event);
+        var new_events_list = JSON.stringify(events_list, null, 2);
+        fs.writeFileSync('events_list.json', new_events_list);
+        res.json("succesfully recorded");
+    }
+    else {
+        res.status(400).json({ message: "invalid body" });
+    }
 });
 exports.router.delete('', function (_a, res) {
     var id = _a.body.id;
