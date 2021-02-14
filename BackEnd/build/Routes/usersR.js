@@ -36,6 +36,8 @@ exports.router.post('', function (_a, res) {
 });
 exports.router.post('/login', function (_a, res) {
     var _b = _a.body, username = _b.username, password = _b.password;
+    console.log(username);
+    console.log(password);
     var newtoken = token.generate();
     var userIndex = users_list.findIndex(function (item) {
         return item.username === username && item.password === password;
@@ -45,7 +47,7 @@ exports.router.post('/login', function (_a, res) {
     users_list[userIndex].token = newtoken;
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
-    res.json({ message: "successfully login", token: newtoken });
+    res.json(newtoken);
 });
 exports.router.post('/:username/tickets', function (_a, res) {
     var eventId = _a.body.eventId, username = _a.params.username;

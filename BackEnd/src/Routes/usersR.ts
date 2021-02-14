@@ -31,6 +31,8 @@ router.post('', ({body: {name,username,password,tickets=[]}},res)=>{
     res.json("created")
 })
 router.post('/login',({body: {username, password}}, res) =>{
+    console.log(username)
+    console.log(password)
     const newtoken = token.generate()
     const userIndex = users_list.findIndex((item: { username: string, password: string }) => 
                         item.username === username && item.password === password)
@@ -38,7 +40,7 @@ router.post('/login',({body: {username, password}}, res) =>{
     users_list[userIndex].token = newtoken
     const new_users_list = JSON.stringify(users_list,null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
-    res.json({message: "successfully login", token : newtoken})
+    res.json(newtoken)
 })
 
 router.post('/:username/tickets', ({body: {eventId}, params: {username}}, res) =>{
