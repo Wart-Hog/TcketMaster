@@ -48,6 +48,17 @@ router.get('/:username/tickets', ({params: {username}}, res) =>{
     res.json(users_list[usernameIndex].tickets)
 })
 
+router.delete('/:username/tickets', ({params:{username}, body:{eventId}}, res) =>{
+    const usernameIndex = users_list.findIndex((item: { username: string }) => item.username == username)
+    if(usernameIndex == -1) return res.status(404).json({message:"user not found"})
+    const ticketIndex = users_list[usernameIndex].tickets.findIndex((item: { id: string }) => item.id == eventId)
+    if(ticketIndex == -1) return res.status(404).json({message: "ticket not found"})
+    users_list[usernameIndex].tickets.splice(ticketIndex, 1)
+    const new_users_list = JSON.stringify(users_list);
+    fs.writeFileSync('users_list.json', new_users_list);
+    res.json({message: "ticket deleted"})
+})
+
 router.delete('/',({body: {username}},res)=>{
     const toDeleted = users_list.find((item: { username: string }) => item.username == username)
     if(!toDeleted) res.status(404).json({message:"resource not found"})
