@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { EventComponent } from './components/event/event.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
+import { MusicComponent } from './components/music/music.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
     NavbarComponent,
     EventComponent,
     HomeComponent,
+    MusicComponent,
   ],
   imports: [
     BrowserModule,

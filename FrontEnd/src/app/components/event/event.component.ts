@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EventServiceService } from 'src/app/services/event-service.service';
 import {IEvent} from '../../../../../BackEnd/src/Interfaces/IEvent'
 
@@ -8,11 +8,8 @@ import {IEvent} from '../../../../../BackEnd/src/Interfaces/IEvent'
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  public events : IEvent[] = []
-  constructor(private eventService: EventServiceService) { }
-
+  constructor() { }
   async ngOnInit() {
-    this.events = await this.eventService.all()
   }
 
 }

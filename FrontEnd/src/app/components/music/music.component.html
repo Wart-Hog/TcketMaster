@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="card" style="width: 18rem;" *ngFor = 'let event of events'>
+        <img class="card-img-top, bank-img" src="https://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Bank-icon.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{event.name}}</h5>
+            <h6 class="card-text">Balance: {{event.type}}</h6>
+            <h6 class="card-text">Commissione: {{event.dateTime}}</h6>
+            <!-- <a [href] = "'banks/' + bank.name">Dettagli</a> -->
+            <br>
+        </div>
+        
+    </div>
+</div>
