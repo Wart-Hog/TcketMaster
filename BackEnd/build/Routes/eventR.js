@@ -60,7 +60,7 @@ exports.router.delete('', function (_a, res) {
     if (!toDelete)
         res.status(404).json({ message: "resource not found" });
     events_list = events_list.splice(toDelete, 1);
-    var new_events_list = JSON.stringify(events_list);
+    var new_events_list = JSON.stringify(events_list, null, 2);
     fs.writeFileSync('events_list.json', new_events_list);
     res.status(201).json({ message: "resource deleted" });
 });

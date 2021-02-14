@@ -2,6 +2,8 @@ import express from 'express'
 import {IUser} from '../Interfaces/IUser'
 import { IEvent } from '../Interfaces/IEvent'
 export const router = express.Router()
+const TokenGenerator = require('uuid-token-generator');
+const token = new TokenGenerator()
 var events_list = require ('../../events_list.json')
 var users_list = require ('../../users_list.json')
 var fs = require('fs')
@@ -16,28 +18,36 @@ router.get('/:username', ({params:{username}}, res) =>{
     res.json(user)
 })
 
-
 router.post('', ({body: {name,username,password,tickets=[]}},res)=>{
     let user : IUser = {
         name,
         username,
         password,
-        tickets
+        tickets,
     }
     users_list = users_list.concat(user)
-    const new_users_list = JSON.stringify(users_list);
+    const new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.json("created")
 })
+router.post('/login',({body: {username, password}}, res) =>{
+    const newtoken = token.generate()
+    const userIndex = users_list.findIndex((item: { username: string, password: string }) => 
+                        item.username === username && item.password === password)
+    if(userIndex ==-1) return res.status(404).json({message: "user not found"})
+    users_list[userIndex].token = newtoken
+    const new_users_list = JSON.stringify(users_list,null, 2);
+    fs.writeFileSync('users_list.json', new_users_list);
+    res.json({message: "successfully login", token : newtoken})
+})
 
 router.post('/:username/tickets', ({body: {eventId}, params: {username}}, res) =>{
-    const event = events_list.find((item: { id: any }) => item.id == eventId)
+    const event = events_list.find((item: { id: string }) => item.id == eventId)
     if(!event) return res.status(404).json({message: "event not found"})
-    const userIndex = users_list.findIndex((item: { username: any }) => item.username == username)
+    const userIndex = users_list.findIndex((item: { username: string }) => item.username == username)
     if(userIndex ==-1) return res.status(404).json({message: "user not found"})
-    console.log(userIndex)
     users_list[userIndex].tickets.push(event)
-    const new_users_list = JSON.stringify(users_list);
+    const new_users_list = JSON.stringify(users_list,null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.json({message: "ticket created"})
 })
@@ -52,7 +62,7 @@ router.delete('/',({body: {username}},res)=>{
     const toDeleted = users_list.find((item: { username: string }) => item.username == username)
     if(!toDeleted) res.status(404).json({message:"resource not found"})
     users_list = users_list.splice(toDeleted,1)
-    const new_users_list = JSON.stringify(users_list);
+    const new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.status(201).json({message: "resource deleted"})
 })

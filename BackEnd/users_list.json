@@ -1,1 +1,30 @@
-[{"name":"pippo4","username":"pippo4","password":"pippo4","tickets":[{"name":"Spacchiuuu","id":"f9418111-301d-4fff-bd38-18a63c594e29","type":"ooook","place":"suca","dateTime":"01/02/2000"},{"name":"Spacchiuuu","id":"f9418111-301d-4fff-bd38-18a63c594e29","type":"ooook","place":"suca","dateTime":"01/02/2000"}]}]
+[
+  {
+    "name": "pippo4",
+    "username": "pippo4",
+    "password": "pippo4",
+    "tickets": [
+      {
+        "name": "Spacchiuuu",
+        "id": "f9418111-301d-4fff-bd38-18a63c594e29",
+        "type": "ooook",
+        "place": "suca",
+        "dateTime": "01/02/2000"
+      },
+      {
+        "name": "Spacchiuuu",
+        "id": "f9418111-301d-4fff-bd38-18a63c594e29",
+        "type": "ooook",
+        "place": "suca",
+        "dateTime": "01/02/2000"
+      }
+    ]
+  },
+  {
+    "name": "mario",
+    "username": "rossi",
+    "password": "sticazzi",
+    "tickets": [],
+    "token": "AL5uUcqbNbtpZdLGCrLK7W"
+  }
+]

@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var express_1 = __importDefault(require("express"));
 exports.router = express_1.default.Router();
+var TokenGenerator = require('uuid-token-generator');
+var token = new TokenGenerator();
 var events_list = require('../../events_list.json');
 var users_list = require('../../users_list.json');
 var fs = require('fs');
@@ -25,12 +27,25 @@ exports.router.post('', function (_a, res) {
         name: name,
         username: username,
         password: password,
-        tickets: tickets
+        tickets: tickets,
     };
     users_list = users_list.concat(user);
-    var new_users_list = JSON.stringify(users_list);
+    var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.json("created");
+});
+exports.router.post('/login', function (_a, res) {
+    var _b = _a.body, username = _b.username, password = _b.password;
+    var newtoken = token.generate();
+    var userIndex = users_list.findIndex(function (item) {
+        return item.username === username && item.password === password;
+    });
+    if (userIndex == -1)
+        return res.status(404).json({ message: "user not found" });
+    users_list[userIndex].token = newtoken;
+    var new_users_list = JSON.stringify(users_list, null, 2);
+    fs.writeFileSync('users_list.json', new_users_list);
+    res.json({ message: "successfully login", token: newtoken });
 });
 exports.router.post('/:username/tickets', function (_a, res) {
     var eventId = _a.body.eventId, username = _a.params.username;
@@ -40,9 +55,8 @@ exports.router.post('/:username/tickets', function (_a, res) {
     var userIndex = users_list.findIndex(function (item) { return item.username == username; });
     if (userIndex == -1)
         return res.status(404).json({ message: "user not found" });
-    console.log(userIndex);
     users_list[userIndex].tickets.push(event);
-    var new_users_list = JSON.stringify(users_list);
+    var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.json({ message: "ticket created" });
 });
@@ -59,7 +73,7 @@ exports.router.delete('/', function (_a, res) {
     if (!toDeleted)
         res.status(404).json({ message: "resource not found" });
     users_list = users_list.splice(toDeleted, 1);
-    var new_users_list = JSON.stringify(users_list);
+    var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.status(201).json({ message: "resource deleted" });
 });
