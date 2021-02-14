@@ -12,6 +12,7 @@ const options: cors.CorsOptions = {
       'X-Requested-With',
       'Content-Type',
       'Accept',
+      'token',
       'X-Access-Token',
     ],
     credentials: true,

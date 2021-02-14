@@ -6,14 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var express_1 = __importDefault(require("express"));
 var uuid_1 = require("uuid");
-var _a = require('../middle/middlewere'), myValidationResult = _a.myValidationResult, checkDate = _a.checkDate;
+var _a = require('../middle/middlewere'), myValidationResult = _a.myValidationResult, checkDate = _a.checkDate, checkTokenHeader = _a.checkTokenHeader;
 exports.router = express_1.default.Router();
 var events_list = require('../../events_list.json');
 var fs = require('fs');
 exports.router.get('', function (_, res) {
     res.json(events_list);
 });
-exports.router.get('/music', function (_, res) {
+exports.router.get('/music', checkTokenHeader, function (req, res) {
+    console.log(req.headers);
     var events = events_list.filter(function (item) { return item.type === "music"; });
     res.json(events);
 });

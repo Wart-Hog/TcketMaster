@@ -17,6 +17,7 @@ var options = {
         'X-Requested-With',
         'Content-Type',
         'Accept',
+        'token',
         'X-Access-Token',
     ],
     credentials: true,
