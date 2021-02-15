@@ -14,13 +14,13 @@ var events_list = require('../../events_list.json');
 var users_list = require('../../users_list.json');
 var fs = require('fs');
 exports.router.get('', function (_, res) {
-    res.json(users_list);
+    res.status(200).json(users_list);
 });
 exports.router.get('/:username', middlewere_1.checkTokenHeader, function (_a, res) {
     var username = _a.params.username;
     var user = users_list.find(function (item) { return item.username == username; });
     if (!user)
-        res.status(404).json({ message: "resource not found" });
+        return res.status(404).json({ message: "resource not found" });
     res.json(user);
 });
 exports.router.post('', function (_a, res) {
@@ -79,7 +79,7 @@ exports.router.delete('/', function (_a, res) {
     var username = _a.body.username;
     var toDeleted = users_list.find(function (item) { return item.username == username; });
     if (!toDeleted)
-        res.status(404).json({ message: "resource not found" });
+        return res.status(404).json({ message: "resource not found" });
     users_list = users_list.splice(toDeleted, 1);
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);

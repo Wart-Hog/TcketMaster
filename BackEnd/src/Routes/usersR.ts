@@ -12,7 +12,7 @@ var users_list = require ('../../users_list.json')
 var fs = require('fs')
 
 router.get('', (_, res) =>{
-    res.json(users_list)
+    res.status(200).json(users_list)
 })
 
 router.get('/:username',checkTokenHeader, ({params:{username}}, res) =>{
