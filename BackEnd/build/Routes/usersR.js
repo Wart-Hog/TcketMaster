@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var express_1 = __importDefault(require("express"));
+var middlewere_1 = require("../middle/middlewere");
+var uuid_1 = require("uuid");
 exports.router = express_1.default.Router();
 var TokenGenerator = require('uuid-token-generator');
 var token = new TokenGenerator();
@@ -14,7 +16,7 @@ var fs = require('fs');
 exports.router.get('', function (_, res) {
     res.json(users_list);
 });
-exports.router.get('/:username', function (_a, res) {
+exports.router.get('/:username', middlewere_1.checkTokenHeader, function (_a, res) {
     var username = _a.params.username;
     var user = users_list.find(function (item) { return item.username == username; });
     if (!user)
@@ -57,7 +59,11 @@ exports.router.post('/:username/tickets', function (_a, res) {
     var userIndex = users_list.findIndex(function (item) { return item.username == username; });
     if (userIndex == -1)
         return res.status(404).json({ message: "user not found" });
-    users_list[userIndex].tickets.push(event);
+    var newticket = {
+        id: uuid_1.v4(),
+        event: event
+    };
+    users_list[userIndex].tickets.push(newticket);
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.json({ message: "ticket created" });

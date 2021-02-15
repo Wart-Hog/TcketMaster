@@ -6,14 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var express_1 = __importDefault(require("express"));
 var uuid_1 = require("uuid");
-var _a = require('../middle/middlewere'), myValidationResult = _a.myValidationResult, checkDate = _a.checkDate, checkTokenHeader = _a.checkTokenHeader;
+var middlewere_1 = require("../middle/middlewere");
 exports.router = express_1.default.Router();
 var events_list = require('../../events_list.json');
 var fs = require('fs');
 exports.router.get('', function (_, res) {
     res.json(events_list);
 });
-exports.router.get('/music', checkTokenHeader, function (req, res) {
+exports.router.get('/music', function (req, res) {
     var events = events_list.filter(function (item) { return item.type === "music"; });
     res.json(events);
 });
@@ -42,7 +42,7 @@ exports.router.post('', function (_a, res) {
         dateTime: dateTime,
         price: price
     };
-    if (!checkDate(dateTime))
+    if (!middlewere_1.checkDate(dateTime))
         return res.status(400).json({ message: 'incorrect date' });
     if ((type == "music" || type == "sport" || type == "theatre")) {
         events_list = events_list.concat(event);

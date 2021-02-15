@@ -9,7 +9,7 @@
     <tbody>
     <tr  *ngFor ="let t of tickets">
         <th scope="row">{{t.id}}</th>
-        <td>{{t.dateTime}}</td>
+        <td>{{t.event.dateTime}}</td>
     </tr>
     </tbody>
 </table>

@@ -1,31 +1,32 @@
 [
   {
-    "name": "pippo4",
-    "username": "pippo4",
-    "password": "pippo4",
+    "name": "Pinco",
+    "username": "pincpall",
+    "password": "pincpall",
     "tickets": [
       {
-        "name": "Spacchiuuu",
-        "id": "f9418111-301d-4fff-bd38-18a63c594e29",
-        "type": "ooook",
-        "place": "suca",
-        "dateTime": "01/02/2000"
+        "id": "c9242bd3-5ada-4b79-850b-2866e599ed8b",
+        "event": {
+          "name": "Motorhead",
+          "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
+          "type": "music",
+          "place": "milan",
+          "dateTime": "03/07/90",
+          "price": 40
+        }
       },
       {
-        "name": "Spacchiuuu",
-        "id": "f9418111-301d-4fff-bd38-18a63c594e29",
-        "type": "ooook",
-        "place": "suca",
-        "dateTime": "01/02/2000"
+        "id": "8fd81831-a24d-4615-8d1d-c64af653f803",
+        "event": {
+          "name": "Notre dame de Paris",
+          "id": "90d02608-090d-4730-b265-d79f97c1ea06",
+          "type": "theatre",
+          "place": "milan",
+          "dateTime": "03/07/90",
+          "price": 60
+        }
       }
     ],
-    "token": "NkmmF5xG4oTUE3KuF93D7N"
-  },
-  {
-    "name": "mario",
-    "username": "rossi",
-    "password": "sticazzi",
-    "tickets": [],
-    "token": "LhciNofREKR6iNDN28Ve9p"
+    "token": "E4fREvTtyUcmEUH11rMh3w"
   }
 ]
