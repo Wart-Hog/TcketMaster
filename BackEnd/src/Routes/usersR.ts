@@ -46,7 +46,7 @@ router.post('/login',({body: {username, password}}, res) =>{
     res.json(newtoken)
 })
 
-router.post('/:username/tickets', ({body: {eventId}, params: {username}}, res) =>{
+router.post('/:username/tickets',checkTokenHeader, ({body: {eventId}, params: {username}}, res) =>{
     const event = events_list.find((item: { id: string }) => item.id == eventId)
     if(!event) return res.status(404).json({message: "event not found"})
     const userIndex = users_list.findIndex((item: { username: string }) => item.username == username)
@@ -61,13 +61,13 @@ router.post('/:username/tickets', ({body: {eventId}, params: {username}}, res) =
     res.json({message: "ticket created"})
 })
 
-router.get('/:username/tickets', ({params: {username}}, res) =>{
+router.get('/:username/tickets',checkTokenHeader,({params: {username}}, res) =>{
     const usernameIndex = users_list.findIndex((item: { username: string }) => item.username == username)
     if (usernameIndex == -1) return res.status(404).json({message:"user not found"})
     res.json(users_list[usernameIndex].tickets)
 })
 
-router.delete('/',({body: {username}},res)=>{
+router.delete('/',checkTokenHeader,({body: {username}},res)=>{
     const toDeleted = users_list.find((item: { username: string }) => item.username == username)
     if(!toDeleted) return res.status(404).json({message:"resource not found"})
     users_list = users_list.splice(toDeleted,1)
