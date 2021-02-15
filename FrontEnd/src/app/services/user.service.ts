@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { promise } from 'protractor';
 import { ITicket } from '../../../../BackEnd/src/Interfaces/ITicket';
@@ -11,4 +11,10 @@ export class UserService {
   username = sessionStorage.getItem('username')
   constructor(private httpClient: HttpClient) { }
   myTickets = ():Promise<ITicket[]> => this.httpClient.get(`${this.url}/${this.username}/tickets`).toPromise() as Promise<ITicket[]>
+
+  buyTicket = ():Promise<any> => {
+  let headers = new HttpHeaders()
+  headers = headers.set('token',sessionStorage.getItem('token') || "")
+  return this.httpClient.post(`${this.url}/${this.username}/tickets`, {eventId: sessionStorage.getItem('ticket') },{headers}).toPromise() as Promise<any>
+  }
 }
