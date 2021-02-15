@@ -10,15 +10,14 @@ import { IEvent } from '../../../../../BackEnd/src/Interfaces/IEvent';
 })
 export class MusicComponent implements OnInit {
   public events : IEvent[] = []
-  public id = "ciao"
+  public id = []
   constructor(private eventService: EventServiceService, private userService: UserService) { }
 
   async ngOnInit() {
     this.events = await this.eventService.getMusicEvents()
   }
-
-  buyTicket = () =>{
-    sessionStorage.setItem("ticket", this.id )
-    //this.userService.buyTicket()
+  buyTicket = (i:number) =>{
+    sessionStorage.setItem("ticket", this.events[i].id)
+    this.userService.buyTicket()
   }
 }
