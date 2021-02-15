@@ -17,8 +17,8 @@ export class UserService {
   } 
 
   buyTicket = ():Promise<any> => {
-  let headers = new HttpHeaders()
-  headers = headers.set('token',sessionStorage.getItem('token') || "")
-  return this.httpClient.post(`${this.url}/${this.username}/tickets`, {eventId: sessionStorage.getItem('ticket') },{headers}).toPromise() as Promise<any>
+    let headers = new HttpHeaders()
+    headers = headers.set('token',sessionStorage.getItem('token') || "")
+    return this.httpClient.post(`${this.url}/${this.username}/tickets`, {eventId: sessionStorage.getItem('ticket') },{headers}).toPromise() as Promise<any>
   }
 }
