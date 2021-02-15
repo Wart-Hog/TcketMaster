@@ -5,6 +5,7 @@
         <th scope="col">Place</th>
         <th scope="col">Date</th>
         <th scope="col">Price</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -12,7 +13,9 @@
         <th scope="row">{{e.name}}</th>
         <td>{{e.place}}</td>
         <td>{{e.dateTime}}</td>
-        <td>{{e.price}}</td>
+        <td >{{e.price}}</td>
+        <!-- <td><button name = "id" (click) = "buyTicket()" [(ngModel)] ="{{e.id}}" >Acquista</button></td> -->
+        <td><input type="submit" name = "id"   value="{{e.id}}" [(ngModel)] = "id" (click) = "buyTicket()" /></td>
     </tr>
     </tbody>
 </table>

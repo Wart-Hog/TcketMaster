@@ -20,7 +20,7 @@ exports.router.get('/:username', middlewere_1.checkTokenHeader, function (_a, re
     var username = _a.params.username;
     var user = users_list.find(function (item) { return item.username == username; });
     if (!user)
-        res.status(404).json({ message: "resource not found" });
+        return res.status(404).json({ message: "resource not found" });
     res.json(user);
 });
 exports.router.post('', function (_a, res) {
@@ -51,7 +51,7 @@ exports.router.post('/login', function (_a, res) {
     fs.writeFileSync('users_list.json', new_users_list);
     res.json(newtoken);
 });
-exports.router.post('/:username/tickets', function (_a, res) {
+exports.router.post('/:username/tickets', middlewere_1.checkTokenHeader, function (_a, res) {
     var eventId = _a.body.eventId, username = _a.params.username;
     var event = events_list.find(function (item) { return item.id == eventId; });
     if (!event)
@@ -79,7 +79,7 @@ exports.router.delete('/', function (_a, res) {
     var username = _a.body.username;
     var toDeleted = users_list.find(function (item) { return item.username == username; });
     if (!toDeleted)
-        res.status(404).json({ message: "resource not found" });
+        return res.status(404).json({ message: "resource not found" });
     users_list = users_list.splice(toDeleted, 1);
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);

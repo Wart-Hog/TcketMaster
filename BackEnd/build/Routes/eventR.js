@@ -48,7 +48,7 @@ exports.router.post('', function (_a, res) {
         events_list = events_list.concat(event);
         var new_events_list = JSON.stringify(events_list, null, 2);
         fs.writeFileSync('events_list.json', new_events_list);
-        res.json("succesfully recorded");
+        return res.json("succesfully recorded");
     }
     else {
         res.status(400).json({ message: "invalid body" });
@@ -58,7 +58,7 @@ exports.router.delete('', function (_a, res) {
     var id = _a.body.id;
     var toDelete = events_list.find(function (item) { return item.id == id; });
     if (!toDelete)
-        res.status(404).json({ message: "resource not found" });
+        return res.status(404).json({ message: "resource not found" });
     events_list = events_list.splice(toDelete, 1);
     var new_events_list = JSON.stringify(events_list, null, 2);
     fs.writeFileSync('events_list.json', new_events_list);
