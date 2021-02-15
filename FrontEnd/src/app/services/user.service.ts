@@ -10,11 +10,15 @@ export class UserService {
   url = "http://localhost:3005/users"
   username = sessionStorage.getItem('username')
   constructor(private httpClient: HttpClient) { }
-  myTickets = ():Promise<ITicket[]> => this.httpClient.get(`${this.url}/${this.username}/tickets`).toPromise() as Promise<ITicket[]>
+  myTickets = ():Promise<ITicket[]> =>{
+    let headers = new HttpHeaders()
+    headers = headers.set('token',sessionStorage.getItem('token') || "")
+    return this.httpClient.get(`${this.url}/${this.username}/tickets`,{headers}).toPromise() as Promise<ITicket[]>
+  } 
 
   buyTicket = ():Promise<any> => {
-  let headers = new HttpHeaders()
-  headers = headers.set('token',sessionStorage.getItem('token') || "")
-  return this.httpClient.post(`${this.url}/${this.username}/tickets`, {eventId: sessionStorage.getItem('ticket') },{headers}).toPromise() as Promise<any>
+    let headers = new HttpHeaders()
+    headers = headers.set('token',sessionStorage.getItem('token') || "")
+    return this.httpClient.post(`${this.url}/${this.username}/tickets`, {eventId: sessionStorage.getItem('ticket') },{headers}).toPromise() as Promise<any>
   }
 }
