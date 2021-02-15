@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node build/app.js",
-    "test": "mocha /Users/studente/Desktop/TcketMaster/BackEnd/build/test/test.js",
+    "test-users": "mocha /Users/studente/Desktop/TcketMaster/BackEnd/build/test/testUser.js",
+    "test-events": "mocha /Users/studente/Desktop/TcketMaster/BackEnd/build/test/testEvents.js",
     "dev": "nodemon src/main.ts"
   },
   "keywords": [],

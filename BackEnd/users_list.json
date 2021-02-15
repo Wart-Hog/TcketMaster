@@ -36,8 +36,26 @@
           "dateTime": "01/02/2000",
           "price": 70
         }
+      },
+      {
+        "id": "44f4fe27-3440-4fee-b2f8-7d24ffa28892",
+        "event": {
+          "name": "Ed Sheeran",
+          "id": "4f6dfac1-31a5-4097-93ab-3d5d8e9bae19",
+          "type": "music",
+          "place": "London",
+          "dateTime": "01/02/2000",
+          "price": 70
+        }
       }
     ],
     "token": "C9ioCXoenoTTvWKyvBDKKD"
+  },
+  {
+    "name": "pippo",
+    "username": "pluto",
+    "password": "pippo",
+    "tickets": [],
+    "token": "Ummf3bjZ68WuLu3Qnjp7UH"
   }
 ]
