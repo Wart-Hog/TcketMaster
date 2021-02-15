@@ -17,7 +17,7 @@ router.get('', (_, res) =>{
 
 router.get('/:username',checkTokenHeader, ({params:{username}}, res) =>{
     let user = users_list.find((item: { username: string; }) => item.username == username)
-    if(!user) res.status(404).json({message:"resource not found"})
+    if(!user) return res.status(404).json({message:"resource not found"})
     res.json(user)
 })
 
@@ -69,7 +69,7 @@ router.get('/:username/tickets', ({params: {username}}, res) =>{
 
 router.delete('/',({body: {username}},res)=>{
     const toDeleted = users_list.find((item: { username: string }) => item.username == username)
-    if(!toDeleted) res.status(404).json({message:"resource not found"})
+    if(!toDeleted) return res.status(404).json({message:"resource not found"})
     users_list = users_list.splice(toDeleted,1)
     const new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
