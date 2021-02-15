@@ -14,7 +14,6 @@ exports.router.get('', function (_, res) {
     res.json(events_list);
 });
 exports.router.get('/music', checkTokenHeader, function (req, res) {
-    console.log(req.headers);
     var events = events_list.filter(function (item) { return item.type === "music"; });
     res.json(events);
 });
