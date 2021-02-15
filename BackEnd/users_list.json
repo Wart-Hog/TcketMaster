@@ -49,17 +49,35 @@
         }
       },
       {
-        "id": "167e4ace-bc65-4881-974c-e21fb48e8b76",
+        "id": "79219ee3-cc10-4fdb-84ff-360e5068aa73",
         "event": {
-          "name": "Il lago dei cigni",
-          "id": "f7d75759-66b8-425f-bb48-04e1c3582cd8",
-          "type": "theatre",
-          "place": "milan",
-          "dateTime": "03/07/90",
-          "price": 40
+          "name": "Ed Sheeran",
+          "id": "4f6dfac1-31a5-4097-93ab-3d5d8e9bae19",
+          "type": "music",
+          "place": "London",
+          "dateTime": "01/02/2000",
+          "price": 70
+        }
+      },
+      {
+        "id": "44f4fe27-3440-4fee-b2f8-7d24ffa28892",
+        "event": {
+          "name": "Ed Sheeran",
+          "id": "4f6dfac1-31a5-4097-93ab-3d5d8e9bae19",
+          "type": "music",
+          "place": "London",
+          "dateTime": "01/02/2000",
+          "price": 70
         }
       }
     ],
-    "token": "2zHWyGAty5K7o8YLduh3W6"
+    "token": "C9ioCXoenoTTvWKyvBDKKD"
+  },
+  {
+    "name": "pippo",
+    "username": "pluto",
+    "password": "pippo",
+    "tickets": [],
+    "token": "Ummf3bjZ68WuLu3Qnjp7UH"
   }
 ]

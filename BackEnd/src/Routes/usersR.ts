@@ -12,7 +12,7 @@ var users_list = require ('../../users_list.json')
 var fs = require('fs')
 
 router.get('', (_, res) =>{
-    res.json(users_list)
+    res.status(200).json(users_list)
 })
 
 router.get('/:username',checkTokenHeader, ({params:{username}}, res) =>{
@@ -34,8 +34,6 @@ router.post('', ({body: {name,username,password,tickets=[]}},res)=>{
     res.json("created")
 })
 router.post('/login',({body: {username, password}}, res) =>{
-    console.log(username)
-    console.log(password)
     const newtoken = token.generate()
     const userIndex = users_list.findIndex((item: { username: string, password: string }) => 
                         item.username === username && item.password === password)
@@ -46,7 +44,7 @@ router.post('/login',({body: {username, password}}, res) =>{
     res.json(newtoken)
 })
 
-router.post('/:username/tickets', checkTokenHeader, ({body: {eventId}, params: {username}}, res) =>{
+router.post('/:username/tickets',checkTokenHeader, ({body: {eventId}, params: {username}}, res) =>{
     const event = events_list.find((item: { id: string }) => item.id == eventId)
     if(!event) return res.status(404).json({message: "event not found"})
     const userIndex = users_list.findIndex((item: { username: string }) => item.username == username)
@@ -61,13 +59,13 @@ router.post('/:username/tickets', checkTokenHeader, ({body: {eventId}, params: {
     res.json({message: "ticket created"})
 })
 
-router.get('/:username/tickets', ({params: {username}}, res) =>{
+router.get('/:username/tickets',checkTokenHeader,({params: {username}}, res) =>{
     const usernameIndex = users_list.findIndex((item: { username: string }) => item.username == username)
     if (usernameIndex == -1) return res.status(404).json({message:"user not found"})
     res.json(users_list[usernameIndex].tickets)
 })
 
-router.delete('/',({body: {username}},res)=>{
+router.delete('/',checkTokenHeader,({body: {username}},res)=>{
     const toDeleted = users_list.find((item: { username: string }) => item.username == username)
     if(!toDeleted) return res.status(404).json({message:"resource not found"})
     users_list = users_list.splice(toDeleted,1)
