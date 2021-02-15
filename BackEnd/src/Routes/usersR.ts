@@ -1,6 +1,9 @@
 import express from 'express' 
 import {IUser} from '../Interfaces/IUser'
 import { IEvent } from '../Interfaces/IEvent'
+import { checkTokenHeader } from '../middle/middlewere';
+import { ITicket } from '../Interfaces/ITicket';
+import { v4 as uuidv4 } from 'uuid';
 export const router = express.Router()
 const TokenGenerator = require('uuid-token-generator');
 const token = new TokenGenerator()
@@ -12,7 +15,7 @@ router.get('', (_, res) =>{
     res.json(users_list)
 })
 
-router.get('/:username', ({params:{username}}, res) =>{
+router.get('/:username',checkTokenHeader, ({params:{username}}, res) =>{
     let user = users_list.find((item: { username: string; }) => item.username == username)
     if(!user) res.status(404).json({message:"resource not found"})
     res.json(user)
@@ -48,7 +51,11 @@ router.post('/:username/tickets', ({body: {eventId}, params: {username}}, res) =
     if(!event) return res.status(404).json({message: "event not found"})
     const userIndex = users_list.findIndex((item: { username: string }) => item.username == username)
     if(userIndex ==-1) return res.status(404).json({message: "user not found"})
-    users_list[userIndex].tickets.push(event)
+    let newticket: ITicket ={
+        id: uuidv4(),
+        event
+    }
+    users_list[userIndex].tickets.push(newticket)
     const new_users_list = JSON.stringify(users_list,null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.json({message: "ticket created"})

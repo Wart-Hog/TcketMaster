@@ -1,0 +1,16 @@
+<h1>Ciao {{user.name}}!</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Event</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  *ngFor ="let t of tickets">
+        <th scope="row">{{t.id}}</th>
+        <td>{{t.dateTime}}</td>
+        
+    </tr>
+    </tbody>
+</table>

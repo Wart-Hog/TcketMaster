@@ -1,10 +1,9 @@
 import express from 'express' 
 import moment from 'moment';
-import { uuid } from 'uuidv4'
 import { IEvent } from '../Interfaces/IEvent'
 import { v4 as uuidv4 } from 'uuid';
 import {body} from 'express-validator';
-const {myValidationResult, checkDate, checkTokenHeader} = require ('../middle/middlewere')
+import {checkDate, checkTokenHeader} from '../middle/middlewere'
 export const router = express.Router()
 var events_list = require ('../../events_list.json')
 var fs = require('fs')
@@ -13,7 +12,7 @@ router.get('', (_, res) =>{
     res.json(events_list)
 })
 
-router.get('/music', checkTokenHeader,(req, res) =>{
+router.get('/music',(req, res) =>{
     let events = events_list.filter((item: any) => item.type === "music")
     res.json(events)
 })

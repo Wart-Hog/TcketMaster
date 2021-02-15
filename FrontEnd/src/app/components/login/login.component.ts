@@ -18,7 +18,9 @@ export class LoginComponent implements OnInit {
 
   async login (){
     this.token = await this.loginService.login(this.username, this.password)
-    localStorage.setItem("token", this.token)
+    sessionStorage.setItem("token", this.token)
+    sessionStorage.setItem("username", this.username)
+    if (this.token != "") window.location.replace('http://localhost:4200/user')
+    else window.location.replace('http://localhost:4200/login')
   }
-
 }

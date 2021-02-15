@@ -11,6 +11,7 @@ import { MusicComponent } from './components/music/music.component';
 import { SportComponent } from './components/sport/sport.component';
 import { TheatreComponent } from './components/theatre/theatre.component';
 import { LoginComponent } from './components/login/login.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoginComponent } from './components/login/login.component';
     SportComponent,
     TheatreComponent,
     LoginComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
