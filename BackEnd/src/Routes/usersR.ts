@@ -34,8 +34,6 @@ router.post('', ({body: {name,username,password,tickets=[]}},res)=>{
     res.json("created")
 })
 router.post('/login',({body: {username, password}}, res) =>{
-    console.log(username)
-    console.log(password)
     const newtoken = token.generate()
     const userIndex = users_list.findIndex((item: { username: string, password: string }) => 
                         item.username === username && item.password === password)

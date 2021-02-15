@@ -38,8 +38,6 @@ exports.router.post('', function (_a, res) {
 });
 exports.router.post('/login', function (_a, res) {
     var _b = _a.body, username = _b.username, password = _b.password;
-    console.log(username);
-    console.log(password);
     var newtoken = token.generate();
     var userIndex = users_list.findIndex(function (item) {
         return item.username === username && item.password === password;
