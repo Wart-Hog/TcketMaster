@@ -60,7 +60,7 @@ var checkTokenHeader = function (req, res, next) { return __awaiter(void 0, void
     return __generator(this, function (_a) {
         userToken = req.header('token');
         if (!userToken)
-            res.status(401).json('missing token');
+            return [2 /*return*/, res.status(401).json('missing token')];
         if (users_list.find(function (item) { return item.token === userToken; })) {
             next();
         }

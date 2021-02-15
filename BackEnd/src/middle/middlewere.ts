@@ -15,7 +15,7 @@ export const checkDate = (date: string) =>{
 }
 export const checkTokenHeader = async (req: any,res:any,next:any)=>{
   const userToken = req.header('token')
-  if(!userToken) res.status(401).json('missing token')
+  if(!userToken) return res.status(401).json('missing token')
   if (users_list.find((item: any) => item.token === userToken)){
     next()
   }else{
