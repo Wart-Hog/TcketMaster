@@ -7,11 +7,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr  *ngFor ="let t of tickets; let i = index">
-        <th scope="row">{{t.event.name}}</th>
-        <td>{{t.event.place}}</td>
+    <tr  *ngFor ="let t of tickets">
+        <th scope="row">{{t.id}}</th>
         <td>{{t.event.dateTime}}</td>
-        <button name="id" (click)='removeTicket(i)'>{{i}}</button>
     </tr>
     </tbody>
 </table>
