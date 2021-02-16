@@ -88,6 +88,9 @@ exports.router.delete('/', middlewere_1.checkTokenHeader, function (_a, res) {
         return res.status(404).json({ message: "resource not found" });
     users_list = users_list.splice(toDeleted, 1);
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 1a33fbd (addTicketRemove)
+=======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
 =======
 >>>>>>> parent of 1a33fbd (addTicketRemove)

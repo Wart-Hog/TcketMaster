@@ -76,6 +76,9 @@ router.delete('/',checkTokenHeader,({body: {username}},res)=>{
     if(!toDeleted) return res.status(404).json({message:"resource not found"})
     users_list = users_list.splice(toDeleted,1)
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 1a33fbd (addTicketRemove)
+=======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
 =======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
