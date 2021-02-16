@@ -58,6 +58,16 @@ router.post('/:username/tickets',checkTokenHeader, ({body: {eventId}, params: {u
     fs.writeFileSync('users_list.json', new_users_list);
     res.json({message: "ticket created"})
 })
+router.delete('/:username/tickets/:ticketId',checkTokenHeader, ({params: {username, ticketId}}, res) =>{
+    const userIndex = users_list.findIndex((item: { username: string }) => item.username == username)
+    if(userIndex == -1) return res.status(404).json({message: "user not found"})
+    const ticket = users_list[userIndex].tickets.findIndex((item:{ id: any;}) => item.id == ticketId)
+    if(ticket === -1) return res.status(404).json({message: "ticket not found"})
+    users_list[userIndex].tickets.splice(ticket,1)
+    const new_users_list = JSON.stringify(users_list, null, 2);
+    fs.writeFileSync('users_list.json', new_users_list);
+    res.status(201).json({message:"succesfully deleted"})
+})
 
 router.get('/:username/tickets',checkTokenHeader,({params: {username}}, res) =>{
     const usernameIndex = users_list.findIndex((item: { username: string }) => item.username == username)
@@ -65,23 +75,10 @@ router.get('/:username/tickets',checkTokenHeader,({params: {username}}, res) =>{
     res.json(users_list[usernameIndex].tickets)
 })
 
-<<<<<<< HEAD
-router.delete('/:username',checkTokenHeader,({params: {username}},res)=>{
-    const toDeleted = users_list.findIndex((item: { username: string }) => item.username == username)
-    if(toDeleted == -1) return res.status(404).json({message:"resource not found"})
-    users_list.splice(toDeleted,1)
-=======
 router.delete('/',checkTokenHeader,({body: {username}},res)=>{
-    const toDeleted = users_list.find((item: { username: string }) => item.username == username)
-    if(!toDeleted) return res.status(404).json({message:"resource not found"})
-    users_list = users_list.splice(toDeleted,1)
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 1a33fbd (addTicketRemove)
-=======
->>>>>>> parent of 1a33fbd (addTicketRemove)
-=======
->>>>>>> parent of 1a33fbd (addTicketRemove)
+    const toDelete = users_list.findIndex((item: { username: string }) => item.username == username)
+    if(toDelete === -1) return res.status(404).json({message:"resource not found"})
+    users_list = users_list.splice(toDelete,1)
     const new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.status(201).json({message: "resource deleted"})

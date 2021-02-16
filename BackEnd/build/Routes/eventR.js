@@ -32,7 +32,7 @@ exports.router.get('/:id', function (_a, res) {
         res.status(404).json({ message: "resource not found" });
     res.json(event);
 });
-exports.router.post('', middlewere_1.checkTokenHeader, function (_a, res) {
+exports.router.post('', function (_a, res) {
     var _b = _a.body, name = _b.name, type = _b.type, place = _b.place, dateTime = _b.dateTime, price = _b.price;
     var event = {
         name: name,
@@ -48,16 +48,16 @@ exports.router.post('', middlewere_1.checkTokenHeader, function (_a, res) {
         events_list = events_list.concat(event);
         var new_events_list = JSON.stringify(events_list, null, 2);
         fs.writeFileSync('events_list.json', new_events_list);
-        return res.status(201).json("succesfully recorded");
+        return res.json("succesfully recorded");
     }
     else {
         res.status(400).json({ message: "invalid body" });
     }
 });
-exports.router.delete('/:eventID', middlewere_1.checkTokenHeader, function (_a, res) {
-    var eventID = _a.params.eventID;
-    var toDelete = events_list.findIndex(function (item) { return item.id == eventID; });
-    if (toDelete == -1)
+exports.router.delete('', function (_a, res) {
+    var id = _a.body.id;
+    var toDelete = events_list.find(function (item) { return item.id == id; });
+    if (!toDelete)
         return res.status(404).json({ message: "resource not found" });
     events_list = events_list.splice(toDelete, 1);
     var new_events_list = JSON.stringify(events_list, null, 2);
