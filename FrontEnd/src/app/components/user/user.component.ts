@@ -18,9 +18,7 @@ export class UserComponent implements OnInit {
   async ngOnInit(){
     this.user = await this.loginService.getUser()
     this.tickets = await this.userService.myTickets()
-  }
-  removeTicket = (i:number) =>{
-    sessionStorage.setItem("ticketID", this.tickets[i].id)
-    this.userService.removeTicket()
+    console.log(this.tickets);
+    
   }
 }
