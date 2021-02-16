@@ -17,6 +17,7 @@ export class MusicComponent implements OnInit {
     this.events = await this.eventService.getMusicEvents()
   }
   buyTicket = (i:number) =>{
+    console.log(this.events[i].id);
     sessionStorage.setItem("ticket", this.events[i].id)
     this.userService.buyTicket()
   }
