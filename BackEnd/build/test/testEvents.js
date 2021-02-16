@@ -25,28 +25,25 @@ var app = require('../app');
 //         request(app).get('/events/idACasoCheNonEsiste').expect(404,done);
 //     });
 // });
-describe('Post Test', function () {
-    // it('/events [201]', (done)=>{//ok
-    //     request(app).post('/events').set("token","E2h7nrvWLpJJoFya8SpXpG").send({name:"nomeevento",type:"music",place:"placeevento",dateTime:"1/1/2000",price:"10"}).expect(201,done)
-    // });
-    // it('/events [400] errore nella data', (done)=>{//ok
-    //     request(app).post('/events').set("token","E2h7nrvWLpJJoFya8SpXpG").send({name:"nomeevento",type:"music",place:"placeevento",dateTime:"null",price:"10"}).expect(400,done)
-    // });
-    // it('/events [400] errore nel type', (done)=>{//ok 
-    //     request(app).post('/events').set("token","E2h7nrvWLpJJoFya8SpXpG").send({name:"nomeevento",type:"null",place:"placeevento",dateTime:"1/1/2000",price:"10"}).expect(400,done)
-    // });
-    // it('/events [401]', (done)=>{//ok
-    //     request(app).post('/events').send({name:"nomeevento",type:"null",place:"placeevento",dateTime:"1/1/2000",price:"10"}).set("token","null").expect(401,done)
-    // })
-});
+// describe('Post Test',()=>{
+//     it('/events [201]', (done)=>{//ok
+//         request(app).post('/events').set("token","E2h7nrvWLpJJoFya8SpXpG").send({name:"nomeevento",type:"music",place:"placeevento",dateTime:"1/1/2000",price:"10"}).expect(201,done)
+//     });
+//     it('/events [400] errore nella data', (done)=>{//ok
+//         request(app).post('/events').set("token","E2h7nrvWLpJJoFya8SpXpG").send({name:"nomeevento",type:"music",place:"placeevento",dateTime:"null",price:"10"}).expect(400,done)
+//     });
+//     it('/events [400] errore nel type', (done)=>{//ok 
+//         request(app).post('/events').set("token","E2h7nrvWLpJJoFya8SpXpG").send({name:"nomeevento",type:"null",place:"placeevento",dateTime:"1/1/2000",price:"10"}).expect(400,done)
+//     });
+//     it('/events [401]', (done)=>{//ok
+//         request(app).post('/events').send({name:"nomeevento",type:"null",place:"placeevento",dateTime:"1/1/2000",price:"10"}).set("token","null").expect(401,done)
+//     })
+// })
 describe(" Delete Test", function () {
     it('/events [200]', function (done) {
-        supertest_1.default(app).delete('/events').set("token", "E2h7nrvWLpJJoFya8SpXpG").send({ id: "7c8ea191-ad06-4874-ac1e-22048b56de54" }).expect(201, done);
+        supertest_1.default(app).delete('/events').set("token", "E2h7nrvWLpJJoFya8SpXpG").send({ id: "beda3f20-4321-a969-b89c9969149f" }).expect(201, done);
     });
     it('/events [401]', function (done) {
-        supertest_1.default(app).delete('/events').set("token", "null").send({ id: "7c8ea191-ad06-4874-ac1e-22048b56de54" }).expect(401, done);
-    });
-    it('/events [404]', function (done) {
-        supertest_1.default(app).delete('/events').set("token", "E2h7nrvWLpJJoFya8SpXpG").send({ id: "null" }).expect(404, done);
+        supertest_1.default(app).delete('/events').set("token", "null").send({ id: "beda3f20-4321-a969-b89c9969149f" }).expect(401, done);
     });
 });

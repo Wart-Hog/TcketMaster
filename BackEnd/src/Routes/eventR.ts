@@ -52,11 +52,12 @@ router.post('',checkTokenHeader,({body: {name,type, place, dateTime, price}}, re
         res.status(400).json({message:"invalid body"})
     }  
 })
-router.delete('',checkTokenHeader,({body:{id}}, res)=>{
-    let toDelete = events_list.find((item: { id: string; }) => item.id == id)
-    if(!toDelete) return res.status(404).json({message:"resource not found"})
-    events_list = events_list.splice(toDelete,1)
-    const new_events_list = JSON.stringify(events_list, null, 2);
-    fs.writeFileSync('events_list.json', new_events_list);
-    res.status(201).json({message: "resource deleted"})
-})
+
+// router.delete('',checkTokenHeader,({body:{id}}, res)=>{
+//     let toDelete = events_list.find((item: { id: string; }) => item.id == id)
+//     if(!toDelete) return res.status(404).json({message:"resource not found"})
+//     events_list = events_list.splice(toDelete,1)
+//     const new_events_list = JSON.stringify(events_list, null, 2);
+//     fs.writeFileSync('events_list.json', new_events_list);
+//     res.status(201).json({message: "resource deleted"})
+// })

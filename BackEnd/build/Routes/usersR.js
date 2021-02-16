@@ -73,12 +73,13 @@ exports.router.get('/:username/tickets', middlewere_1.checkTokenHeader, function
         return res.status(404).json({ message: "user not found" });
     res.json(users_list[usernameIndex].tickets);
 });
-exports.router.delete('/', middlewere_1.checkTokenHeader, function (_a, res) {
-    var username = _a.body.username;
-    var toDeleted = users_list.find(function (item) { return item.username == username; });
-    if (!toDeleted)
+exports.router.delete('/:username', middlewere_1.checkTokenHeader, function (_a, res) {
+    var username = _a.params.username;
+    var toDeleted = users_list.filter(function (item) { return item.username == username; });
+    if (!toDeleted[0])
         return res.status(404).json({ message: "resource not found" });
-    users_list = users_list.splice(toDeleted, 1);
+    var index = users_list.indexOf(toDeleted[0]);
+    users_list = users_list.splice(index, 1);
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.status(201).json({ message: "resource deleted" });
