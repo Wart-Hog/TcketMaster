@@ -22,6 +22,7 @@ export class UserService {
     return this.httpClient.post(`${this.url}/${this.username}/tickets`, {eventId: sessionStorage.getItem('ticket') },{headers}).toPromise() as Promise<any>
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
   removeTicket = ():Promise<any> => {
     let headers = new HttpHeaders()
     headers = headers.set('token',sessionStorage.getItem('token') || "")
@@ -29,6 +30,8 @@ export class UserService {
     console.log(ticketId)
     return this.httpClient.delete(`${this.url}/${this.username}/tickets/${ticketId}`,{headers}).toPromise() as Promise<any>
   }
+=======
+>>>>>>> parent of a77766d (FixDeletedTest&Api)
 =======
 >>>>>>> parent of a77766d (FixDeletedTest&Api)
 }
