@@ -14,7 +14,7 @@ var events_list = require('../../events_list.json');
 var users_list = require('../../users_list.json');
 var fs = require('fs');
 exports.router.get('', function (_, res) {
-    res.json(users_list);
+    res.status(200).json(users_list);
 });
 exports.router.get('/:username', middlewere_1.checkTokenHeader, function (_a, res) {
     var username = _a.params.username;
@@ -38,8 +38,6 @@ exports.router.post('', function (_a, res) {
 });
 exports.router.post('/login', function (_a, res) {
     var _b = _a.body, username = _b.username, password = _b.password;
-    console.log(username);
-    console.log(password);
     var newtoken = token.generate();
     var userIndex = users_list.findIndex(function (item) {
         return item.username === username && item.password === password;
@@ -68,19 +66,34 @@ exports.router.post('/:username/tickets', middlewere_1.checkTokenHeader, functio
     fs.writeFileSync('users_list.json', new_users_list);
     res.json({ message: "ticket created" });
 });
-exports.router.get('/:username/tickets', function (_a, res) {
+exports.router.get('/:username/tickets', middlewere_1.checkTokenHeader, function (_a, res) {
     var username = _a.params.username;
     var usernameIndex = users_list.findIndex(function (item) { return item.username == username; });
     if (usernameIndex == -1)
         return res.status(404).json({ message: "user not found" });
     res.json(users_list[usernameIndex].tickets);
 });
-exports.router.delete('/', function (_a, res) {
+<<<<<<< HEAD
+exports.router.delete('/:username', middlewere_1.checkTokenHeader, function (_a, res) {
+    var username = _a.params.username;
+    var toDeleted = users_list.findIndex(function (item) { return item.username == username; });
+    if (toDeleted == -1)
+        return res.status(404).json({ message: "resource not found" });
+    users_list.splice(toDeleted, 1);
+=======
+exports.router.delete('/', middlewere_1.checkTokenHeader, function (_a, res) {
     var username = _a.body.username;
     var toDeleted = users_list.find(function (item) { return item.username == username; });
     if (!toDeleted)
         return res.status(404).json({ message: "resource not found" });
     users_list = users_list.splice(toDeleted, 1);
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 1a33fbd (addTicketRemove)
+=======
+>>>>>>> parent of 1a33fbd (addTicketRemove)
+=======
+>>>>>>> parent of 1a33fbd (addTicketRemove)
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.status(201).json({ message: "resource deleted" });

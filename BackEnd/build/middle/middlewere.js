@@ -43,6 +43,7 @@ exports.checkTokenHeader = exports.checkDate = void 0;
 var validationResult = require('express-validator').validationResult;
 var users_list = require('../../users_list.json');
 var moment_1 = __importDefault(require("moment"));
+//comm di prova
 var myValidationResult = validationResult.withDefaults({
     formatter: function (error) {
         return {

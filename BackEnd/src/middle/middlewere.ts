@@ -1,7 +1,7 @@
 const {validationResult} = require('express-validator');
 var users_list = require ('../../users_list.json')
 import moment from 'moment';
-
+//comm di prova
 const myValidationResult = validationResult.withDefaults({
   formatter: (error: { location: any; }) => {
     return {
