@@ -5,14 +5,16 @@
         <th scope="col">Place</th>
         <th scope="col">Date</th>
         <th scope="col">Price</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
-    <tr  *ngFor ="let e of events">
+    <tr  *ngFor ="let e of events; let i = index">
         <th scope="row">{{e.name}}</th>
         <td>{{e.place}}</td>
         <td>{{e.dateTime}}</td>
-        <td>{{e.price}}</td>
+        <td >{{e.price}}</td>
+        <button name="id" (click)='buyTicket(i)'>{{i}}</button>
     </tr>
     </tbody>
 </table>

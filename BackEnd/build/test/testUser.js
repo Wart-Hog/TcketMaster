@@ -49,4 +49,7 @@ describe('Delete test', function () {
     it('/users [401]', function (done) {
         supertest_1.default(app).delete('/users/pippo2').set("token", "null").expect(401, done);
     });
+    it('/users [404]', function (done) {
+        supertest_1.default(app).delete('/users/mario').set("token", "E2h7nrvWLpJJoFya8SpXpG").expect(404, done);
+    });
 });
