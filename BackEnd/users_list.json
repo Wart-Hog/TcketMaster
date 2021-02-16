@@ -19,10 +19,7 @@
         "id": "04cd554a-f1ac-44b2-b1c4-618d867de0c8",
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
-=======
->>>>>>> parent of 1a33fbd (addTicketRemove)
 =======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
         "event": {
@@ -81,7 +78,6 @@
       {
         "id": "e9e8c7bb-3d48-48fc-ae00-35bf1eadac8f",
 <<<<<<< HEAD
-<<<<<<< HEAD
 >>>>>>> parent of 1a33fbd (addTicketRemove)
         "event": {
           "name": "Ed Sheeran",
@@ -119,8 +115,6 @@
         "id": "79219ee3-cc10-4fdb-84ff-360e5068aa73",
 =======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
-=======
->>>>>>> parent of 1a33fbd (addTicketRemove)
         "event": {
           "name": "Ed Sheeran",
           "id": "4f6dfac1-31a5-4097-93ab-3d5d8e9bae19",
@@ -131,7 +125,6 @@
         }
       },
       {
-<<<<<<< HEAD
 <<<<<<< HEAD
         "id": "44f4fe27-3440-4fee-b2f8-7d24ffa28892",
         "event": {
@@ -155,8 +148,6 @@
         }
       },
       {
-=======
->>>>>>> parent of 1a33fbd (addTicketRemove)
 =======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
 =======
@@ -198,7 +189,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
   },
   {
     "name": "Pippo",
@@ -220,8 +210,6 @@
     "password": "pippo",
     "tickets": [],
     "token": "E2h7nrvWLpoFya8SpXpG"
-=======
->>>>>>> parent of 1a33fbd (addTicketRemove)
 =======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
 =======
