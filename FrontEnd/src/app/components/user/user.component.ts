@@ -22,5 +22,6 @@ export class UserComponent implements OnInit {
   removeTicket = (i:number) =>{
     sessionStorage.setItem("ticketID", this.tickets[i].id)
     this.userService.removeTicket()
+    window.location.reload()
   }
 }

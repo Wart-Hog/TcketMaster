@@ -1,10 +1,24 @@
 <h1>Ciao {{user.name}}!</h1>
+<h2>Informazioni personali:</h2>
+<div class="row">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg" alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title">{{user.name}}</h5>
+        <p class="card-text">Username: {{user.username}}</p>
+        <p class="card-text">Password: {{user.password}}</p>
+        <p class="card-text">Biglietti acquistati: {{user.tickets.length}}</p>
+        </div>
+    </div>
+</div>
+<h2>Biglietti acquistati:</h2>
 <table class="table">
     <thead>
     <tr>
         <th scope="col">ID</th>
         <th scope="col">Event</th>
         <th scope="col">Place</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -12,7 +26,7 @@
         <th scope="row">{{t.event.name}}</th>
         <td>{{t.event.place}}</td>
         <td>{{t.event.dateTime}}</td>
-        <button name="id" (click)='removeTicket(i)'>{{i}}</button>
+        <button class="btn btn-success" (click)='removeTicket(i)'>Rimuovi</button>
     </tr>
     </tbody>
 </table>
