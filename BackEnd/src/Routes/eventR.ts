@@ -47,7 +47,7 @@ router.post('',checkTokenHeader,({body: {name,type, place, dateTime, price}}, re
         events_list = events_list.concat(event)
         const new_events_list = JSON.stringify(events_list, null, 2);
         fs.writeFileSync('events_list.json', new_events_list);
-        return res.status(201).json("succesfully recorded")
+        return res.status(201).json(event)
     }else{
         res.status(400).json({message:"invalid body"})
     }  

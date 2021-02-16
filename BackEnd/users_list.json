@@ -25,21 +25,18 @@
           "dateTime": "03/07/90",
           "price": 30
         }
+      },
+      {
+        "id": "6ee573f9-e4d1-4c46-af59-724cf29d4cb0",
+        "event": -1
+      },
+      {
+        "id": "471d1ddc-1170-4178-b57c-a791cc18111a",
+        "event": -1
       }
     ],
-    "token": "DocZejoEjKsFE82drBU7q3"
-        "id": "0dde5c7e-061a-4f15-ae23-2f6a234bfbb6",
-        "event": {
-          "name": "Ed Sheeran",
-          "id": "4f6dfac1-31a5-4097-93ab-3d5d8e9bae19",
-          "type": "music",
-          "place": "London",
-          "dateTime": "01/02/2000",
-          "price": 70
-        }
-      }
-    ],
-    "token": "TJV26ZueLNNd445eQRcWJP"
+    "token": "Nky2v1iEcnVZDMmC3xEwJn",
+    "admin": true
   },
   {
     "name": "a",
@@ -58,6 +55,7 @@
         }
       }
     ],
-    "token": "TJV26ZueLNNd445eQRcWJP"
+    "token": "TJV26ZueLNNd445eQRcWJP",
+    "admin": true
   }
 ]

@@ -20,6 +20,15 @@ router.get('/:username',checkTokenHeader, ({params:{username}}, res) =>{
     if(!user) return res.status(404).json({message:"resource not found"})
     res.json(user)
 })
+router.put('/:username', ({body: {admin}, params:{username}}, res) =>{
+    const userIndex = users_list.findIndex((item: { username: string; }) => item.username == username)
+    if(userIndex == -1) return res.status(404).json({message: "user not found"})
+    users_list[userIndex].admin = admin
+    const new_users_list = JSON.stringify(users_list, null, 2);
+    fs.writeFileSync('users_list.json', new_users_list);
+    res.status(201).json({message: "user changed"})
+
+})
 
 router.post('', ({body: {name,username,password,tickets=[]}},res)=>{
     let user : IUser = {
@@ -27,6 +36,7 @@ router.post('', ({body: {name,username,password,tickets=[]}},res)=>{
         username,
         password,
         tickets,
+        admin : false
     }
     users_list = users_list.concat(user)
     const new_users_list = JSON.stringify(users_list, null, 2);
@@ -45,7 +55,12 @@ router.post('/login',({body: {username, password}}, res) =>{
 })
 
 router.post('/:username/tickets',checkTokenHeader, ({body: {eventId}, params: {username}}, res) =>{
-    const event = events_list.find((item: { id: string }) => item.id == eventId)
+    console.log(eventId);;
+    
+    
+    const event = events_list.findIndex((item: { id: string }) => item.id == eventId)
+    console.log(event);
+    
     if(!event) return res.status(404).json({message: "event not found"})
     const userIndex = users_list.findIndex((item: { username: string }) => item.username == username)
     if(userIndex ==-1) return res.status(404).json({message: "user not found"})

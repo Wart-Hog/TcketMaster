@@ -23,6 +23,16 @@ exports.router.get('/:username', middlewere_1.checkTokenHeader, function (_a, re
         return res.status(404).json({ message: "resource not found" });
     res.json(user);
 });
+exports.router.put('/:username', function (_a, res) {
+    var admin = _a.body.admin, username = _a.params.username;
+    var userIndex = users_list.findIndex(function (item) { return item.username == username; });
+    if (userIndex == -1)
+        return res.status(404).json({ message: "user not found" });
+    users_list[userIndex].admin = admin;
+    var new_users_list = JSON.stringify(users_list, null, 2);
+    fs.writeFileSync('users_list.json', new_users_list);
+    res.status(201).json({ message: "user changed" });
+});
 exports.router.post('', function (_a, res) {
     var _b = _a.body, name = _b.name, username = _b.username, password = _b.password, _c = _b.tickets, tickets = _c === void 0 ? [] : _c;
     var user = {
@@ -30,6 +40,7 @@ exports.router.post('', function (_a, res) {
         username: username,
         password: password,
         tickets: tickets,
+        admin: false
     };
     users_list = users_list.concat(user);
     var new_users_list = JSON.stringify(users_list, null, 2);
@@ -51,7 +62,10 @@ exports.router.post('/login', function (_a, res) {
 });
 exports.router.post('/:username/tickets', middlewere_1.checkTokenHeader, function (_a, res) {
     var eventId = _a.body.eventId, username = _a.params.username;
-    var event = events_list.find(function (item) { return item.id == eventId; });
+    console.log(eventId);
+    ;
+    var event = events_list.findIndex(function (item) { return item.id == eventId; });
+    console.log(event);
     if (!event)
         return res.status(404).json({ message: "event not found" });
     var userIndex = users_list.findIndex(function (item) { return item.username == username; });
