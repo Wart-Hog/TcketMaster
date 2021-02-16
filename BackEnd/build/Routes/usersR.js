@@ -66,6 +66,19 @@ exports.router.post('/:username/tickets', middlewere_1.checkTokenHeader, functio
     fs.writeFileSync('users_list.json', new_users_list);
     res.json({ message: "ticket created" });
 });
+exports.router.delete('/:username/tickets/:ticketId', middlewere_1.checkTokenHeader, function (_a, res) {
+    var _b = _a.params, username = _b.username, ticketId = _b.ticketId;
+    var userIndex = users_list.findIndex(function (item) { return item.username == username; });
+    if (userIndex == -1)
+        return res.status(404).json({ message: "user not found" });
+    var ticket = users_list[userIndex].tickets.findIndex(function (item) { return item.id == ticketId; });
+    if (ticket === -1)
+        return res.status(404).json({ message: "ticket not found" });
+    users_list[userIndex].tickets.splice(ticket, 1);
+    var new_users_list = JSON.stringify(users_list, null, 2);
+    fs.writeFileSync('users_list.json', new_users_list);
+    res.status(201).json({ message: "succesfully deleted" });
+});
 exports.router.get('/:username/tickets', middlewere_1.checkTokenHeader, function (_a, res) {
     var username = _a.params.username;
     var usernameIndex = users_list.findIndex(function (item) { return item.username == username; });
