@@ -56,7 +56,7 @@ router.post('/:username/tickets',checkTokenHeader, ({body: {eventId}, params: {u
     users_list[userIndex].tickets.push(newticket)
     const new_users_list = JSON.stringify(users_list,null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
-    res.json({message: "ticket created"})
+    res.status(201).json({message: "ticket created"})
 })
 
 router.get('/:username/tickets',checkTokenHeader,({params: {username}}, res) =>{

@@ -118,24 +118,22 @@
     "token": "M1R9xYpLjWiZRzHYsiWAyQ"
   },
   {
-    "name": "Pippo",
-    "username": "pippo2",
+    "name": "pippo",
+    "username": "pippo",
     "password": "pippo",
-    "tickets": [],
-    "token": "E2h7nrvWLpJJoFya8SpXpG"
-  },
-  {
-    "name": "Pippo",
-    "username": "pippo3",
-    "password": "pippo",
-    "tickets": [],
-    "token": "E2h7nrvWLpJJoFyaXpG"
-  },
-  {
-    "name": "Pippo",
-    "username": "pippo4",
-    "password": "pippo",
-    "tickets": [],
-    "token": "E2h7nrvWLpoFya8SpXpG"
+    "tickets": [
+      {
+        "id": "3eb7eeec-373b-4a92-bcf2-393b7d6319d6",
+        "event": {
+          "name": "nomeevento",
+          "id": "fc86c927-020b-446a-a329-049bd3b20395",
+          "type": "music",
+          "place": "placeevento",
+          "dateTime": "1/1/2000",
+          "price": 10
+        }
+      }
+    ],
+    "token": "5y2dksbS4BT2Kw4iqfA6a4"
   }
 ]

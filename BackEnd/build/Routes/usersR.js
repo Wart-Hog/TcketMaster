@@ -64,7 +64,7 @@ exports.router.post('/:username/tickets', middlewere_1.checkTokenHeader, functio
     users_list[userIndex].tickets.push(newticket);
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
-    res.json({ message: "ticket created" });
+    res.status(201).json({ message: "ticket created" });
 });
 exports.router.get('/:username/tickets', middlewere_1.checkTokenHeader, function (_a, res) {
     var username = _a.params.username;

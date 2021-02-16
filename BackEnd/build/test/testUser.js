@@ -23,30 +23,30 @@ var app = require('../app');
 //     });
 // });
 // describe("Post test",()=>{
-//     it('users [201]',(done)=>{//ok
-//         request(app).post('/users').send({name:"pippo",username:"pippo",password:'pippo'}).expect(200,done);
+// it('users [201]',(done)=>{//ok
+//     request(app).post('/users').send({name:"pippo",username:"pippo",password:'pippo'}).expect(200,done);
+// });
+// it('users/login [200]',(done)=>{//ok
+//     request(app).post('/users/login').send({username:'pippo',password:'pippo'}).expect(200,done);
+// });
+// it('users/login [404]',(done)=>{//ok
+//     request(app).post('/users/login').send({username:'pincpalla',password:'pincpall'}).expect(404,done);
+// });
+it('/users/:username/tickets [201]', function (done) {
+    supertest_1.default(app).post('/users/pippo/tickets').set("token", "5y2dksbS4BT2Kw4iqfA6a4").send({ eventId: "fc86c927-020b-446a-a329-049bd3b20395" }).expect(201, done);
+});
+it('/users/:username/tickets [401]', function (done) {
+    supertest_1.default(app).post('/users/pippo/tickets').set("token", "null").send({ eventId: "fc86c927-020b-446a-a329-049bd3b20395" }).expect(401, done);
+});
+it('/users/:username/tickets [404]', function (done) {
+    supertest_1.default(app).post('/users/pippo/tickets').set("token", "5y2dksbS4BT2Kw4iqfA6a4").send({ eventId: "null" }).expect(404, done);
+});
+// });
+// describe('Delete test',()=>{
+//     it('/users [201]',(done)=>{//ok
+//         request(app).delete('/users/pluto').set("token","CBhArUkJP4nPu45oLCGfYT").expect(201,done)
 //     });
-//     it('users/login [200]',(done)=>{//ok
-//         request(app).post('/users/login').send({username:'pippo',password:'pippo'}).expect(200,done);
-//     });
-//     it('users/login [404]',(done)=>{//ok
-//         request(app).post('/users/login').send({username:'pincpalla',password:'pincpall'}).expect(404,done);
-//     });
-//     it('/users/:username/tickets [200]', (done) => {//ok
-//         request(app).post('/users/pincpall/tickets').set("token", "E2h7nrvWLpJJoFya8SpXpG").send({eventId:"4f6dfac1-31a5-4097-93ab-3d5d8e9bae19"}).expect(200,done);
-//     });
-//     it('/users/:username/tickets [401]', (done) => {//ok
-//         request(app).post('/users/pincpall/tickets').set("token", "null").send({eventId:"4f6dfac1-31a5-4097-93ab-3d5d8e9bae19"}).expect(401,done);
-//     });
-//     it('/users/:username/tickets [404]', (done) => {//ok
-//         request(app).post('/users/pincpall/tickets').set("token", "E2h7nrvWLpJJoFya8SpXpG").send({eventId:"null"}).expect(404,done);
+//     it('/users [401]',(done)=>{//ok
+//         request(app).delete('/users/pippo2').set("token","null").expect(401,done)
 //     });
 // });
-describe('Delete test', function () {
-    it('/users [201]', function (done) {
-        supertest_1.default(app).delete('/users/pluto').set("token", "CBhArUkJP4nPu45oLCGfYT").expect(201, done);
-    });
-    it('/users [401]', function (done) {
-        supertest_1.default(app).delete('/users/pippo2').set("token", "null").expect(401, done);
-    });
-});

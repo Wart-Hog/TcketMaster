@@ -22,5 +22,13 @@
     "place": "milan",
     "dateTime": "03/07/90",
     "price": 40
+  },
+  {
+    "name": "nomeevento",
+    "id": "fc86c927-020b-446a-a329-049bd3b20395",
+    "type": "music",
+    "place": "placeevento",
+    "dateTime": "1/1/2000",
+    "price": 10
   }
 ]
