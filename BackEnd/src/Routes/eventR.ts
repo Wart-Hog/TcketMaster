@@ -33,7 +33,7 @@ router.get('/:id', ({params:{id}}, res) =>{
     res.json(event)
 })
 
-router.post('',({body: {name,type, place, dateTime, price}}, res) =>{
+router.post('',checkTokenHeader,({body: {name,type, place, dateTime, price}}, res) =>{
     let event: IEvent = {
         name,
         id: uuidv4(),
@@ -47,12 +47,13 @@ router.post('',({body: {name,type, place, dateTime, price}}, res) =>{
         events_list = events_list.concat(event)
         const new_events_list = JSON.stringify(events_list, null, 2);
         fs.writeFileSync('events_list.json', new_events_list);
-        return res.json("succesfully recorded")
+        return res.status(201).json("succesfully recorded")
     }else{
         res.status(400).json({message:"invalid body"})
     }  
 })
-router.delete('/:eventID',({params:{eventID}}, res)=>{
+
+router.delete('/:eventID',checkTokenHeader,({params:{eventID}}, res)=>{
     let toDelete = events_list.findIndex((item: { id: string; }) => item.id == eventID)
     if(toDelete == -1) return res.status(404).json({message:"resource not found"})
     events_list.splice(toDelete,1)

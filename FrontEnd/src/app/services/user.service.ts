@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { promise } from 'protractor';
 import { ITicket } from '../../../../BackEnd/src/Interfaces/ITicket';
