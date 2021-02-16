@@ -4,13 +4,11 @@
     <tr>
         <th scope="col">ID</th>
         <th scope="col">Event</th>
-        <th scope="col">Place</th>
     </tr>
     </thead>
     <tbody>
     <tr  *ngFor ="let t of tickets">
-        <th scope="row">{{t.event.name}}</th>
-        <td>{{t.event.place}}</td>
+        <th scope="row">{{t.id}}</th>
         <td>{{t.event.dateTime}}</td>
     </tr>
     </tbody>

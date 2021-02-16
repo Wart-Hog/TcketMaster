@@ -39,9 +39,9 @@ describe('Post Test',()=>{
 
 describe(" Delete Test", ()=>{
     it('/events [200]',(done)=>{//ok
-        request(app).delete('/events').set("token","E2h7nrvWLpJJoFya8SpXpG").send({id:"beda3f20-4321-a969-b89c9969149f"}).expect(201,done)
+        request(app).delete('/events/4321-4cd9-a969-b89c9969149f').set("token","E2h7nrvWLpJJoFya8SpXpG").expect(201,done)
     });
     it('/events [401]',(done)=>{//ok
-        request(app).delete('/events').set("token","null").send({id:"beda3f20-4321-a969-b89c9969149f"}).expect(401,done)
+        request(app).delete('/events/4321-4cd9-a969-b89c9969149f').set("token","null").expect(401,done)
     });
 });

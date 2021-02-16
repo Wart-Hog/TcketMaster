@@ -14,6 +14,6 @@ export class LoginService {
     let headers = new HttpHeaders()
     headers = headers.set('token',sessionStorage.getItem('token') || "")
     let username = sessionStorage.getItem('username') || ""
-    return this.httpClient.get(this.url + "/"+username, {headers}).toPromise() as Promise<IUser>
+    return this.httpClient.get(this.url + "/"+username).toPromise() as Promise<IUser>
   }
 }

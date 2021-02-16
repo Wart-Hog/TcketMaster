@@ -65,12 +65,11 @@ router.get('/:username/tickets',checkTokenHeader,({params: {username}}, res) =>{
     res.json(users_list[usernameIndex].tickets)
 })
 
-// router.delete('/:username',checkTokenHeader,({params: {username}},res)=>{
-//     const toDeleted = users_list.filter((item: { username: string }) => item.username == username)
-//     if(!toDeleted[0]) return res.status(404).json({message:"resource not found"})
-//     const index = users_list.indexOf(toDeleted[0])
-//     users_list = users_list.splice(index,1)
-//     const new_users_list = JSON.stringify(users_list, null, 2);
-//     fs.writeFileSync('users_list.json', new_users_list);
-//     res.status(201).json({message: "resource deleted"})
-// })
+router.delete('/:username',checkTokenHeader,({params: {username}},res)=>{
+    const toDeleted = users_list.findIndex((item: { username: string }) => item.username == username)
+    if(toDeleted == -1) return res.status(404).json({message:"resource not found"})
+    users_list.splice(toDeleted,1)
+    const new_users_list = JSON.stringify(users_list, null, 2);
+    fs.writeFileSync('users_list.json', new_users_list);
+    res.status(201).json({message: "resource deleted"})
+})
