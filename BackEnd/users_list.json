@@ -3,7 +3,19 @@
     "name": "Pinco",
     "username": "pincpall",
     "password": "pincpall",
-    "tickets": [],
+    "tickets": [
+      {
+        "id": "0dde5c7e-061a-4f15-ae23-2f6a234bfbb6",
+        "event": {
+          "name": "Ed Sheeran",
+          "id": "4f6dfac1-31a5-4097-93ab-3d5d8e9bae19",
+          "type": "music",
+          "place": "London",
+          "dateTime": "01/02/2000",
+          "price": 70
+        }
+      }
+    ],
     "token": "TJV26ZueLNNd445eQRcWJP"
   },
   {

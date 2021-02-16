@@ -34,7 +34,7 @@ exports.router.post('', function (_a, res) {
     users_list = users_list.concat(user);
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
-    res.json("created");
+    res.status(201).json({ message: "created" });
 });
 exports.router.post('/login', function (_a, res) {
     var _b = _a.body, username = _b.username, password = _b.password;
@@ -64,7 +64,7 @@ exports.router.post('/:username/tickets', middlewere_1.checkTokenHeader, functio
     users_list[userIndex].tickets.push(newticket);
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
-    res.json({ message: "ticket created" });
+    res.status(201).json({ message: "ticket created" });
 });
 exports.router.delete('/:username/tickets/:ticketId', middlewere_1.checkTokenHeader, function (_a, res) {
     var _b = _a.params, username = _b.username, ticketId = _b.ticketId;
@@ -86,12 +86,12 @@ exports.router.get('/:username/tickets', middlewere_1.checkTokenHeader, function
         return res.status(404).json({ message: "user not found" });
     res.json(users_list[usernameIndex].tickets);
 });
-exports.router.delete('/', middlewere_1.checkTokenHeader, function (_a, res) {
-    var username = _a.body.username;
-    var toDelete = users_list.findIndex(function (item) { return item.username == username; });
-    if (toDelete === -1)
+exports.router.delete('/:username', middlewere_1.checkTokenHeader, function (_a, res) {
+    var username = _a.params.username;
+    var toDeleted = users_list.findIndex(function (item) { return item.username == username; });
+    if (toDeleted == -1)
         return res.status(404).json({ message: "resource not found" });
-    users_list = users_list.splice(toDelete, 1);
+    users_list.splice(toDeleted, 1);
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
     res.status(201).json({ message: "resource deleted" });
