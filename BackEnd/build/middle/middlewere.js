@@ -39,11 +39,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkTokenHeader = exports.checkDate = void 0;
+exports.writeOnJson = exports.findUserIndex = exports.checkTokenHeader = exports.checkDate = void 0;
 var validationResult = require('express-validator').validationResult;
 var users_list = require('../../users_list.json');
 var moment_1 = __importDefault(require("moment"));
-//comm di prova
+var bluebird_1 = __importDefault(require("bluebird"));
+var fs = bluebird_1.default.promisifyAll(require('fs'));
 var myValidationResult = validationResult.withDefaults({
     formatter: function (error) {
         return {
@@ -72,4 +73,39 @@ var checkTokenHeader = function (req, res, next) { return __awaiter(void 0, void
     });
 }); };
 exports.checkTokenHeader = checkTokenHeader;
+var findUserIndex = function (_a, res, next) {
+    var username = _a.params.username;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var usernameIndex;
+        return __generator(this, function (_b) {
+            usernameIndex = users_list.findIndex(function (item) { return item.username == username; });
+            if (usernameIndex == -1)
+                return [2 /*return*/, res.status(404).json({ message: "user not found" })];
+            else {
+                res.locals.usernameIndex = usernameIndex;
+                next();
+            }
+            return [2 /*return*/];
+        });
+    });
+};
+exports.findUserIndex = findUserIndex;
+var writeOnJson = function (path, value, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, fs.writeFileSync(path, JSON.stringify(value, null, 2))];
+            case 1:
+                _a.sent();
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ message: err_1 })];
+            case 3: return [2 /*return*/, res.status(201).json({ message: "writed" })];
+        }
+    });
+}); };
+exports.writeOnJson = writeOnJson;
 exports.myValidationResult;

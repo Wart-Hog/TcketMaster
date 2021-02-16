@@ -43,10 +43,8 @@ exports.router = void 0;
 var express_1 = __importDefault(require("express"));
 var uuid_1 = require("uuid");
 var middlewere_1 = require("../middle/middlewere");
-var bluebird_1 = __importDefault(require("bluebird"));
 exports.router = express_1.default.Router();
 var events_list = require('../../events_list.json');
-var fs = bluebird_1.default.promisifyAll(require('fs'));
 exports.router.get('', function (_, res) {
     res.json(events_list);
 });
@@ -72,32 +70,26 @@ exports.router.get('/:id', function (_a, res) {
 exports.router.post('', middlewere_1.checkTokenHeader, function (_a, res) {
     var _b = _a.body, name = _b.name, type = _b.type, place = _b.place, dateTime = _b.dateTime, price = _b.price;
     return __awaiter(void 0, void 0, void 0, function () {
-        var event, new_events_list;
+        var event;
         return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    event = {
-                        name: name,
-                        id: uuid_1.v4(),
-                        type: type,
-                        place: place,
-                        dateTime: dateTime,
-                        price: price
-                    };
-                    if (!middlewere_1.checkDate(dateTime))
-                        return [2 /*return*/, res.status(400).json({ message: 'incorrect date' })];
-                    if (!(type == "music" || type == "sport" || type == "theatre")) return [3 /*break*/, 2];
-                    events_list = events_list.concat(event);
-                    new_events_list = JSON.stringify(events_list, null, 2);
-                    return [4 /*yield*/, fs.writeFileSync('events_list.json', new_events_list)];
-                case 1:
-                    _c.sent();
-                    return [2 /*return*/, res.status(201).json("succesfully recorded")];
-                case 2:
-                    res.status(400).json({ message: "invalid body" });
-                    _c.label = 3;
-                case 3: return [2 /*return*/];
+            event = {
+                name: name,
+                id: uuid_1.v4(),
+                type: type,
+                place: place,
+                dateTime: dateTime,
+                price: price
+            };
+            if (!middlewere_1.checkDate(dateTime))
+                return [2 /*return*/, res.status(400).json({ message: 'incorrect date' })];
+            if ((type == "music" || type == "sport" || type == "theatre")) {
+                events_list = events_list.concat(event);
+                middlewere_1.writeOnJson('events_list.json', events_list, res);
             }
+            else {
+                res.status(400).json({ message: "invalid body" });
+            }
+            return [2 /*return*/];
         });
     });
 });
@@ -107,7 +99,5 @@ exports.router.delete('/:eventID', middlewere_1.checkTokenHeader, function (_a, 
     if (toDelete == -1)
         return res.status(404).json({ message: "resource not found" });
     events_list.splice(toDelete, 1);
-    var new_events_list = JSON.stringify(events_list, null, 2);
-    fs.writeFileSync('events_list.json', new_events_list);
-    res.status(201).json({ message: "resource deleted" });
+    middlewere_1.writeOnJson('events_list.json', events_list, res);
 });
