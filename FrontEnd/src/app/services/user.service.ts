@@ -24,6 +24,9 @@ export class UserService {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   removeTicket = ():Promise<any> => {
     let headers = new HttpHeaders()
     headers = headers.set('token',sessionStorage.getItem('token') || "")
@@ -31,6 +34,12 @@ export class UserService {
     console.log(ticketId)
     return this.httpClient.delete(`${this.url}/${this.username}/tickets/${ticketId}`,{headers}).toPromise() as Promise<any>
   }
+=======
+>>>>>>> parent of a77766d (FixDeletedTest&Api)
+=======
+>>>>>>> parent of a77766d (FixDeletedTest&Api)
+=======
+>>>>>>> parent of a77766d (FixDeletedTest&Api)
 =======
 >>>>>>> parent of a77766d (FixDeletedTest&Api)
 =======
