@@ -46,53 +46,5 @@
     "place": "Wembley Stadium",
     "dateTime": "02/07/2022",
     "price": "80"
-  },
-  {
-    "name": "Prova",
-    "id": "011a4de4-cef3-4a42-9da1-61ae3952ec39",
-    "type": "music",
-    "place": "prova",
-    "dateTime": "02/07/2022",
-    "price": "2"
-  },
-  {
-    "name": "ciao",
-    "id": "18c5c265-74cc-48d8-b697-9d90afe3cf5e",
-    "type": "music",
-    "place": "ciao",
-    "dateTime": "02/07/2022",
-    "price": "2"
-  },
-  {
-    "name": "iiii",
-    "id": "5e712791-09e2-45fb-921f-39a5b1c9a138",
-    "type": "music",
-    "place": "iiii",
-    "dateTime": "02/07/2022",
-    "price": "2"
-  },
-  {
-    "name": "bbbb",
-    "id": "31dff342-e497-45ba-9dc3-1f33ae10b2cb",
-    "type": "music",
-    "place": "bbbb",
-    "dateTime": "02/07/2022",
-    "price": "2"
-  },
-  {
-    "name": "cccc",
-    "id": "0668805b-71dc-49c2-9dfc-6e7bb0c5d0b5",
-    "type": "music",
-    "place": "ccc",
-    "dateTime": "02/07/2022",
-    "price": "3"
-  },
-  {
-    "name": "ddd",
-    "id": "c81553ce-05c0-40d3-9259-0e1ccd1c8962",
-    "type": "music",
-    "place": "ddd",
-    "dateTime": "02/07/2022",
-    "price": "3"
   }
 ]

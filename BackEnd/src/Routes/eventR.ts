@@ -4,9 +4,10 @@ import { IEvent } from '../Interfaces/IEvent'
 import { v4 as uuidv4 } from 'uuid';
 import {body} from 'express-validator';
 import {checkDate, checkTokenHeader} from '../middle/middlewere'
+import bluebird  from "bluebird";
 export const router = express.Router()
 var events_list = require ('../../events_list.json')
-var fs = require('fs')
+let fs = bluebird.promisifyAll(require('fs'));
 
 router.get('', (_, res) =>{
     res.json(events_list)
@@ -33,7 +34,7 @@ router.get('/:id', ({params:{id}}, res) =>{
     res.json(event)
 })
 
-router.post('',checkTokenHeader,({body: {name,type, place, dateTime, price}}, res) =>{
+router.post('',checkTokenHeader, async ({body: {name,type, place, dateTime, price}}, res) =>{
     let event: IEvent = {
         name,
         id: uuidv4(),
@@ -46,8 +47,8 @@ router.post('',checkTokenHeader,({body: {name,type, place, dateTime, price}}, re
     if ((type == "music" || type == "sport" || type == "theatre")){
         events_list = events_list.concat(event)
         const new_events_list = JSON.stringify(events_list, null, 2);
-        fs.writeFileSync('events_list.json', new_events_list);
-        return res.status(201).json(event)
+        await fs.writeFileSync('events_list.json', new_events_list)
+        return res.status(201).json("succesfully recorded")
     }else{
         res.status(400).json({message:"invalid body"})
     }  

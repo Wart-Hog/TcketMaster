@@ -9,7 +9,8 @@ const TokenGenerator = require('uuid-token-generator');
 const token = new TokenGenerator()
 var events_list = require ('../../events_list.json')
 var users_list = require ('../../users_list.json')
-var fs = require('fs')
+import bluebird  from "bluebird";
+let fs = bluebird.promisifyAll(require('fs'));
 
 router.get('', (_, res) =>{
     res.status(200).json(users_list)
@@ -55,12 +56,8 @@ router.post('/login',({body: {username, password}}, res) =>{
 })
 
 router.post('/:username/tickets',checkTokenHeader, ({body: {eventId}, params: {username}}, res) =>{
-    console.log(eventId);;
-    
-    
-    const event = events_list.findIndex((item: { id: string }) => item.id == eventId)
-    console.log(event);
-    
+    const readList = JSON.parse(fs.readFileSync('events_list.json'))
+    const event = readList.find((item: { id: string }) => item.id == eventId)
     if(!event) return res.status(404).json({message: "event not found"})
     const userIndex = users_list.findIndex((item: { username: string }) => item.username == username)
     if(userIndex ==-1) return res.status(404).json({message: "user not found"})

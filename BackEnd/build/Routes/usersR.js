@@ -12,7 +12,8 @@ var TokenGenerator = require('uuid-token-generator');
 var token = new TokenGenerator();
 var events_list = require('../../events_list.json');
 var users_list = require('../../users_list.json');
-var fs = require('fs');
+var bluebird_1 = __importDefault(require("bluebird"));
+var fs = bluebird_1.default.promisifyAll(require('fs'));
 exports.router.get('', function (_, res) {
     res.status(200).json(users_list);
 });
@@ -62,10 +63,8 @@ exports.router.post('/login', function (_a, res) {
 });
 exports.router.post('/:username/tickets', middlewere_1.checkTokenHeader, function (_a, res) {
     var eventId = _a.body.eventId, username = _a.params.username;
-    console.log(eventId);
-    ;
-    var event = events_list.findIndex(function (item) { return item.id == eventId; });
-    console.log(event);
+    var readList = JSON.parse(fs.readFileSync('events_list.json'));
+    var event = readList.find(function (item) { return item.id == eventId; });
     if (!event)
         return res.status(404).json({ message: "event not found" });
     var userIndex = users_list.findIndex(function (item) { return item.username == username; });
