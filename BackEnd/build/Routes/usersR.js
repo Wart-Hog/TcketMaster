@@ -87,6 +87,9 @@ exports.router.delete('/', middlewere_1.checkTokenHeader, function (_a, res) {
     if (!toDeleted)
         return res.status(404).json({ message: "resource not found" });
     users_list = users_list.splice(toDeleted, 1);
+<<<<<<< HEAD
+>>>>>>> parent of 1a33fbd (addTicketRemove)
+=======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
     var new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);

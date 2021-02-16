@@ -75,6 +75,9 @@ router.delete('/',checkTokenHeader,({body: {username}},res)=>{
     const toDeleted = users_list.find((item: { username: string }) => item.username == username)
     if(!toDeleted) return res.status(404).json({message:"resource not found"})
     users_list = users_list.splice(toDeleted,1)
+<<<<<<< HEAD
+>>>>>>> parent of 1a33fbd (addTicketRemove)
+=======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
     const new_users_list = JSON.stringify(users_list, null, 2);
     fs.writeFileSync('users_list.json', new_users_list);
