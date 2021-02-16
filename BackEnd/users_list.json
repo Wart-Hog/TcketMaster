@@ -3,42 +3,7 @@
     "name": "Pinco",
     "username": "pincpall",
     "password": "pincpall",
-    "tickets": [
-      {
-        "id": "4ae32bc3-db25-4c75-868e-76cb55a77211",
-        "event": {
-          "name": "Motorhead",
-          "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
-          "type": "music",
-          "place": "milan",
-          "dateTime": "03/07/90",
-          "price": 40
-        }
-      },
-      {
-        "id": "1af91bd0-d008-46c0-9930-22db1a6cd854",
-        "event": {
-          "name": "milan - juve",
-          "id": "54b49edf-3bd5-4af9-8317-7d74a1a8a174",
-          "type": "sport",
-          "place": "milan",
-          "dateTime": "03/07/90",
-          "price": 30
-        }
-      }
-    ],
-    "token": "DocZejoEjKsFE82drBU7q3"
-        "id": "0dde5c7e-061a-4f15-ae23-2f6a234bfbb6",
-        "event": {
-          "name": "Ed Sheeran",
-          "id": "4f6dfac1-31a5-4097-93ab-3d5d8e9bae19",
-          "type": "music",
-          "place": "London",
-          "dateTime": "01/02/2000",
-          "price": 70
-        }
-      }
-    ],
+    "tickets": [],
     "token": "TJV26ZueLNNd445eQRcWJP"
   },
   {
@@ -58,6 +23,25 @@
         }
       }
     ],
-    "token": "TJV26ZueLNNd445eQRcWJP"
+    "token": "M1R9xYpLjWiZRzHYsiWAyQ"
+  },
+  {
+    "name": "pippo",
+    "username": "pippo",
+    "password": "pippo",
+    "tickets": [
+      {
+        "id": "3eb7eeec-373b-4a92-bcf2-393b7d6319d6",
+        "event": {
+          "name": "nomeevento",
+          "id": "fc86c927-020b-446a-a329-049bd3b20395",
+          "type": "music",
+          "place": "placeevento",
+          "dateTime": "1/1/2000",
+          "price": 10
+        }
+      }
+    ],
+    "token": "5y2dksbS4BT2Kw4iqfA6a4"
   }
 ]
