@@ -52,7 +52,6 @@ router.post('',checkTokenHeader,({body: {name,type, place, dateTime, price}}, re
         res.status(400).json({message:"invalid body"})
     }  
 })
-
 router.delete('/:eventID',checkTokenHeader,({params:{eventID}}, res)=>{
     let toDelete = events_list.findIndex((item: { id: string; }) => item.id == eventID)
     if(toDelete == -1) return res.status(404).json({message:"resource not found"})

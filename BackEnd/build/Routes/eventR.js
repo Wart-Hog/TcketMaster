@@ -59,7 +59,7 @@ exports.router.delete('/:eventID', middlewere_1.checkTokenHeader, function (_a, 
     var toDelete = events_list.findIndex(function (item) { return item.id == eventID; });
     if (toDelete == -1)
         return res.status(404).json({ message: "resource not found" });
-    events_list.splice(toDelete, 1);
+    events_list = events_list.splice(toDelete, 1);
     var new_events_list = JSON.stringify(events_list, null, 2);
     fs.writeFileSync('events_list.json', new_events_list);
     res.status(201).json({ message: "resource deleted" });
