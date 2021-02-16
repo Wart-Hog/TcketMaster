@@ -22,7 +22,7 @@ describe("Get Test", function () {
         supertest_1.default(app).get('/users/pincpall').set("token", "null").expect(401, done);
     });
 });
-describe("POST test", function () {
+describe("Post test", function () {
     it('users [201]', function (done) {
         supertest_1.default(app).post('/users').send({ name: "pippo", username: "pluto", password: 'pippo' }).expect(200, done);
     });
@@ -42,7 +42,7 @@ describe("POST test", function () {
         supertest_1.default(app).post('/users/pincpall/tickets').set("token", "C9ioCXoenoTTvWKyvBDKKD").send({ eventId: "null" }).expect(404, done);
     });
 });
-describe('DELETE test', function () {
+describe('Delete test', function () {
     it('/users [201]', function (done) {
         supertest_1.default(app).delete('/users').set("token", "Xo7MsuSZN91ET7wPoLZ8eJ").send({ username: "pluto" }).expect(201, done);
     });

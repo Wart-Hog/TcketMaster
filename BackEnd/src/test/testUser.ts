@@ -19,7 +19,7 @@ describe("Get Test", () => {
     });
 });
 
-describe("POST test",()=>{
+describe("Post test",()=>{
     it('users [201]',(done)=>{//ok
         request(app).post('/users').send({name:"pippo",username:"pluto",password:'pippo'}).expect(200,done);
     });
@@ -40,7 +40,7 @@ describe("POST test",()=>{
     });
 });
 
-describe('DELETE test',()=>{
+describe('Delete test',()=>{
     it('/users [201]',(done)=>{//ok
         request(app).delete('/users').set("token","Xo7MsuSZN91ET7wPoLZ8eJ").send({username:"pluto"}).expect(201,done)
     });
