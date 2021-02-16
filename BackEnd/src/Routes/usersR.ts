@@ -77,6 +77,9 @@ router.delete('/',checkTokenHeader,({body: {username}},res)=>{
     users_list = users_list.splice(toDeleted,1)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 1a33fbd (addTicketRemove)
+=======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
 =======
 >>>>>>> parent of 1a33fbd (addTicketRemove)
