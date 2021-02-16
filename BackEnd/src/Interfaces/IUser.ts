@@ -5,5 +5,6 @@ export interface IUser{
     username: string,
     password: string,
     tickets : [],
-    token?: string
+    token?: string,
+    admin: boolean
 }

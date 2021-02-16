@@ -4,6 +4,7 @@ import { IUser } from '../../../../../BackEnd/src/Interfaces/IUser';
 import { ITicket } from '../../../../../BackEnd/src/Interfaces/ITicket';
 import { UserService } from 'src/app/services/user.service';
 import { IEvent } from '../../../../../BackEnd/src/Interfaces/IEvent';
+import { EventServiceService } from 'src/app/services/event-service.service';
 
 @Component({
   selector: 'app-user',
@@ -13,7 +14,14 @@ import { IEvent } from '../../../../../BackEnd/src/Interfaces/IEvent';
 export class UserComponent implements OnInit {
   user!:IUser 
   tickets:ITicket[] = []
-  constructor(private loginService: LoginService,private userService: UserService) { }
+  username = ""
+  admin = false
+  name = ""
+  type = ""
+  place = ""
+  dateTime =""
+  price = 0
+  constructor(private loginService: LoginService,private userService: UserService, private eventService:EventServiceService) { }
 
   async ngOnInit(){
     this.user = await this.loginService.getUser()
@@ -24,4 +32,8 @@ export class UserComponent implements OnInit {
     this.userService.removeTicket()
     window.location.reload()
   }
+  makeAdmin = () => this.userService.modifyAdmin(this.admin, this.username)
+  createEvent = () => this.eventService.newEvent(this.name, this.type, this.place, this.dateTime, this.price)
+  
+
 }

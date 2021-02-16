@@ -14,4 +14,9 @@ export class EventServiceService {
   getMusicEvents = (): Promise<IEvent[]> => this.httpClient.get(this.url + "/music").toPromise() as Promise<IEvent[]>
   getSportEvents = (): Promise<IEvent[]> => this.httpClient.get(this.url + "/sport").toPromise() as Promise<IEvent[]>
   getTheatreEvents = (): Promise<IEvent[]> => this.httpClient.get(this.url + "/theatre").toPromise() as Promise<IEvent[]>
+  newEvent = (name: string, type: string, place:string , dateTime: string, price: number): Promise<IEvent> =>{
+    let headers = new HttpHeaders()
+    headers = headers.set('token',sessionStorage.getItem('token') || "")
+    return this.httpClient.post(this.url, {name, type, place, dateTime, price}, {headers}).toPromise() as Promise<IEvent>
+  }
 }
