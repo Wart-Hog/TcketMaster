@@ -21,6 +21,7 @@ export class UserComponent implements OnInit {
   place = ""
   dateTime =""
   price = 0
+  eventId = ""
   constructor(private loginService: LoginService,private userService: UserService, private eventService:EventServiceService) { }
 
   async ngOnInit(){
@@ -33,7 +34,14 @@ export class UserComponent implements OnInit {
     window.location.reload()
   }
   makeAdmin = () => this.userService.modifyAdmin(this.admin, this.username)
-  createEvent = () => this.eventService.newEvent(this.name, this.type, this.place, this.dateTime, this.price)
+  createEvent = () => {
+    this.eventService.newEvent(this.name, this.type, this.place, this.dateTime, this.price)
+    window.location.replace('http://localhost:4200/home')
+  }
+  deleteEvent = () => {
+    this.eventService.deleteEvent(this.eventId)
+    window.location.reload()
+  }
   
 
 }

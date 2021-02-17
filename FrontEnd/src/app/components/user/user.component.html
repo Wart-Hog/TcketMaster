@@ -6,6 +6,7 @@
         <div class="card-body">
         <h5 class="card-title">{{user.name}}</h5>
         <p class="card-text">Username: {{user.username}}</p>
+        <p class="card-text">Admin: {{user.admin}}</p>
         <p class="card-text">Password: {{user.password}}</p>
         <p class="card-text">Biglietti acquistati: {{user.tickets.length}}</p>
         </div>
@@ -41,10 +42,19 @@
     <h2>Crea nuovo evento</h2>
     <form>
         Nome: <input name ="name" type="text" [(ngModel)] = "name">
-        Tipo: <input name ="type" type="text" [(ngModel)] = "type">
+        Tipo: <select name="type" [(ngModel)] = "type">
+                <option value="music">Musica</option>
+                <option value="theatre">Teatro</option>
+                <option value="sport">Sport</option>
+              </select>
         Luogo: <input name ="place" type="text" [(ngModel)] = "place">
         Data: <input name ="dateTime" type="text" [(ngModel)] = "dateTime">
         Prezzo: <input name ="price" type="text" [(ngModel)] = "price">
         <input type="submit" (click) = "createEvent()">
+    </form>
+    <h2>Elimina evento</h2>
+    <form>
+        ID: <input name ="name" type="text" [(ngModel)] = "eventId">
+        <input type="submit" (click) = "deleteEvent()">
     </form>
 </div>
