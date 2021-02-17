@@ -29,4 +29,5 @@ export class UserService {
     return this.httpClient.delete(`${this.url}/${this.username}/tickets/${ticketId}`,{headers}).toPromise() as Promise<any>
   }
   modifyAdmin = (isAdmin: boolean, username: string) : Promise<any> => this.httpClient.put(`${this.url}/${username}`, { admin: isAdmin }).toPromise()as Promise<any>
+  signup = (name: string, username: string, password: string): Promise<any> => this.httpClient.post(this.url, {name, username, password}).toPromise() as Promise<any>
 }
