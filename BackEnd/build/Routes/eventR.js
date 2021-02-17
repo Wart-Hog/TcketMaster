@@ -44,8 +44,11 @@ var express_1 = __importDefault(require("express"));
 var uuid_1 = require("uuid");
 var middlewere_1 = require("../middle/middlewere");
 exports.router = express_1.default.Router();
+var bluebird_1 = __importDefault(require("bluebird"));
 var events_list = require('../../events_list.json');
+var fs = bluebird_1.default.promisifyAll(require('fs'));
 exports.router.get('', function (_, res) {
+    var readList = middlewere_1.readFromJson('users_list.json', res);
     res.json(events_list);
 });
 exports.router.get('/music', function (req, res) {
@@ -95,9 +98,36 @@ exports.router.post('', middlewere_1.checkTokenHeader, function (_a, res) {
 });
 exports.router.delete('/:eventID', middlewere_1.checkTokenHeader, function (_a, res) {
     var eventID = _a.params.eventID;
-    var toDelete = events_list.findIndex(function (item) { return item.id == eventID; });
-    if (toDelete == -1)
-        return res.status(404).json({ message: "resource not found" });
-    events_list.splice(toDelete, 1);
-    middlewere_1.writeOnJson('events_list.json', events_list, res);
+    return __awaiter(void 0, void 0, void 0, function () {
+        var readList, toDelete, err_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, middlewere_1.readFromJson('users_list.json', res)];
+                case 1:
+                    readList = _b.sent();
+                    toDelete = events_list.findIndex(function (item) { return item.id == eventID; });
+                    if (toDelete == -1)
+                        return [2 /*return*/, res.status(404).json({ message: "resource not found" })];
+                    readList.forEach(function (user) {
+                        user.tickets.forEach(function (element) {
+                            element.event.dateTime = element.event.id == eventID ? "canceled" : element.event.dateTime;
+                        });
+                    });
+                    events_list.splice(toDelete, 1);
+                    _b.label = 2;
+                case 2:
+                    _b.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, fs.writeFileSync('users_list.json', JSON.stringify(readList, null, 2))];
+                case 3:
+                    _b.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    err_1 = _b.sent();
+                    return [2 /*return*/, res.status(400).json({ message: err_1 })];
+                case 5:
+                    middlewere_1.writeOnJson('events_list.json', events_list, res);
+                    return [2 /*return*/];
+            }
+        });
+    });
 });

@@ -1,6 +1,6 @@
 import express from 'express' 
 import {IUser} from '../Interfaces/IUser'
-import { checkTokenHeader, findUserIndex, writeOnJson } from '../middle/middlewere';
+import { checkTokenHeader, findUserIndex, writeOnJson , readFromJson} from '../middle/middlewere';
 import { ITicket } from '../Interfaces/ITicket';
 import { v4 as uuidv4 } from 'uuid';
 import bluebird  from "bluebird";
@@ -61,9 +61,10 @@ router.delete('/:username/tickets/:ticketId',checkTokenHeader,findUserIndex, ({p
     users_list[usernameIndex].tickets.splice(ticket,1)
     writeOnJson('users_list.json',users_list,res)
 })
-router.get('/:username/tickets',checkTokenHeader,findUserIndex,(_, res) =>{
+router.get('/:username/tickets',checkTokenHeader,findUserIndex, async(_, res) =>{
+    const readList: any = await readFromJson('users_list.json', res)
     const {usernameIndex} = res.locals
-    res.json(users_list[usernameIndex].tickets)
+    res.json(readList[usernameIndex].tickets)
 })
 router.delete('/:username',checkTokenHeader,findUserIndex,(_,res)=>{
     const {usernameIndex} = res.locals

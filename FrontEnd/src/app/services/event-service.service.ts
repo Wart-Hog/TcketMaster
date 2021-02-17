@@ -19,4 +19,9 @@ export class EventServiceService {
     headers = headers.set('token',sessionStorage.getItem('token') || "")
     return this.httpClient.post(this.url, {name, type, place, dateTime, price}, {headers}).toPromise() as Promise<IEvent>
   }
+  deleteEvent = (eventId: string): Promise<any> =>{
+    let headers = new HttpHeaders()
+    headers = headers.set('token',sessionStorage.getItem('token') || "")
+    return this.httpClient.delete(`${this.url}/${eventId}`, {headers}).toPromise() as Promise<any>
+  }
 }

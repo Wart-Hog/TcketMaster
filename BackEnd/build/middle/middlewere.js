@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.writeOnJson = exports.findUserIndex = exports.checkTokenHeader = exports.checkDate = void 0;
+exports.readFromJson = exports.writeOnJson = exports.findUserIndex = exports.checkTokenHeader = exports.checkDate = void 0;
 var validationResult = require('express-validator').validationResult;
 var users_list = require('../../users_list.json');
 var moment_1 = __importDefault(require("moment"));
@@ -108,4 +108,22 @@ var writeOnJson = function (path, value, res) { return __awaiter(void 0, void 0,
     });
 }); };
 exports.writeOnJson = writeOnJson;
+var readFromJson = function (path, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var readList, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, JSON.parse(fs.readFileSync(path))];
+            case 1:
+                readList = _a.sent();
+                return [2 /*return*/, readList];
+            case 2:
+                err_2 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ message: err_2 })];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.readFromJson = readFromJson;
 exports.myValidationResult;
