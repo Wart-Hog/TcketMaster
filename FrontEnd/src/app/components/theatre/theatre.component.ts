@@ -19,5 +19,6 @@ export class TheatreComponent implements OnInit {
   buyTicket = (i:number) =>{
     sessionStorage.setItem("ticket", this.events[i].id)
     this.userService.buyTicket()
+    window.location.replace('http://localhost:4200/user')
   }
 }

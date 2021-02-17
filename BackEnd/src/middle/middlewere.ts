@@ -40,4 +40,13 @@ export const writeOnJson = async(path:string, value:any, res:any) =>{
   }
   return res.status(201).json({message: "writed"})
 }
+
+export const readFromJson = async(path:string, res:any) =>{
+  try { 
+    const readList: any = await JSON.parse(fs.readFileSync(path))
+    return readList
+  }catch(err) { 
+    return res.status(400).json({message: err})
+  }
+}
 exports.myValidationResult
