@@ -1,7 +1,7 @@
-<div class="container login-container">
-    <div class="row">
+<div class="login-container">
+    <div class="row justify-content-center">
         <div class="col-md-6 login-form-1">
-            <h3>Login for Form 1</h3>
+            <h3>Login</h3>
             <form>
                 <div class="form-group">
                     <input  type="text" name ="username"  class="form-control" placeholder="Your username *"  [(ngModel)] = "username">
@@ -9,6 +9,7 @@
                 <div class="form-group">
                     <input type="password" name = "password" class="form-control" placeholder="Your Password *"  [(ngModel)] = "password">
                 </div>
+                <br>
                 <div class="form-group">
                     <input type="submit" class="btnSubmit" value="Login" (click) = "login()" />
                 </div>

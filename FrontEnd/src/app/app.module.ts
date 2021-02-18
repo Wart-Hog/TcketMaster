@@ -13,6 +13,7 @@ import { TheatreComponent } from './components/theatre/theatre.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SignupComponent } from './components/signup/signup.component';
     LoginComponent,
     UserComponent,
     SignupComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
