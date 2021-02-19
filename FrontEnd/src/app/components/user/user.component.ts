@@ -33,15 +33,22 @@ export class UserComponent implements OnInit {
     this.userService.removeTicket()
     window.location.reload()
   }
-  makeAdmin = () => this.userService.modifyAdmin(this.admin, this.username)
+  makeAdmin = () => {
+    this.userService.modifyAdmin(this.admin, this.username)
+    window.location.reload
+  }
   createEvent = () => {
+    this.changeDataFormat()
     this.eventService.newEvent(this.name, this.type, this.place, this.dateTime, this.price)
-    window.location.replace('http://localhost:4200/home')
+    window.location.replace('http://localhost:4200')
   }
   deleteEvent = () => {
     this.eventService.deleteEvent(this.eventId)
     window.location.reload()
   }
-  
+  changeDataFormat =() =>{
+    let newDate = this.dateTime.split("-")
+    this.dateTime =  newDate[2] + "-" + newDate[1] + "-" + newDate[0]
+  }
 
 }

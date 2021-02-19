@@ -56,7 +56,7 @@ exports.router.get('/:username', middlewere_1.checkTokenHeader, middlewere_1.fin
     var usernameIndex = res.locals.usernameIndex;
     res.json(users_list[usernameIndex]);
 });
-exports.router.put('/:username', function (_a, res) {
+exports.router.put('/:username', middlewere_1.findUserIndex, function (_a, res) {
     var admin = _a.body.admin;
     var usernameIndex = res.locals.usernameIndex;
     users_list[usernameIndex].admin = admin;
@@ -67,17 +67,22 @@ exports.router.post('', middlewere_1.newUserValidator, middlewere_1.myValidation
     return __awaiter(void 0, void 0, void 0, function () {
         var user;
         return __generator(this, function (_d) {
-            admin == undefined ? false : admin;
-            user = {
-                name: name,
-                username: username,
-                password: password,
-                tickets: tickets,
-                admin: admin
-            };
-            users_list = users_list.concat(user);
-            fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2));
-            return [2 /*return*/, res.status(201).json({ message: "writed" })];
+            switch (_d.label) {
+                case 0:
+                    admin = admin == undefined ? false : admin;
+                    user = {
+                        name: name,
+                        username: username,
+                        password: password,
+                        tickets: tickets,
+                        admin: admin
+                    };
+                    users_list = users_list.concat(user);
+                    return [4 /*yield*/, fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2))];
+                case 1:
+                    _d.sent();
+                    return [2 /*return*/, res.status(201).json({ message: "writed" })];
+            }
         });
     });
 });

@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
 
   signup = () => {
     this.userService.signup(this.name, this.username, this.password)
-    window.location.replace("http://localhost:4200/login")
+    //window.location.replace("http://localhost:4200/login")
   }
 
 }

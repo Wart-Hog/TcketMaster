@@ -69,9 +69,14 @@ var myValidationResult = function (req, res, next) {
     next();
 };
 exports.myValidationResult = myValidationResult;
-var checkDate = function (date) {
-    var aDate = moment_1.default(date, 'DD/MM/YYYY');
-    return aDate.isValid();
+var checkDate = function (_a, res, next) {
+    var dateTime = _a.body.dateTime;
+    var aDate = moment_1.default(dateTime, 'DD/MM/YYYY');
+    if (aDate.isValid()) {
+        next();
+    }
+    else
+        return res.status(400).json({ message: "invalid date format" });
 };
 exports.checkDate = checkDate;
 var checkTokenHeader = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {

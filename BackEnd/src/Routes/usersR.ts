@@ -16,13 +16,13 @@ router.get('/:username',checkTokenHeader, findUserIndex, (_, res) =>{
     const {usernameIndex} = res.locals
     res.json(users_list[usernameIndex])
 })
-router.put('/:username', ({body: {admin}}, res) =>{
+router.put('/:username', findUserIndex,({body: {admin}}, res) =>{
     const {usernameIndex} = res.locals
     users_list[usernameIndex].admin = admin
     writeOnJson('users_list.json',users_list,res)
 })
 router.post('',newUserValidator,myValidationResult,validateUsername,async ({body: {name,username,password,tickets=[],admin}}: any,res: any)=>{
-    admin == undefined ? false : admin
+    admin = admin == undefined ? false : admin
     let user : IUser = {
         name,
         username,
@@ -31,7 +31,7 @@ router.post('',newUserValidator,myValidationResult,validateUsername,async ({body
         admin 
     }
     users_list = users_list.concat(user)
-    fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2));
+    await fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2));
     return res.status(201).json({message:"writed"})
   })
 router.post('/login',async ({body: {username, password}}, res) =>{

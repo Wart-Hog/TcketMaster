@@ -29,7 +29,7 @@ router.get('/:id', ({params:{id}}, res) =>{
     if(!event) res.status(404).json({message:"resource not found"})
     res.json(event)
 })
-router.post('',checkTokenHeader,eventValidator, myValidationResult, async ({body: {name,type, place, dateTime, price}}:any, res:any) =>{
+router.post('',checkTokenHeader,eventValidator, myValidationResult,checkDate, async ({body: {name,type, place, dateTime, price}}:any, res:any) =>{
     let event: IEvent = {
         name,
         id: uuidv4(),
@@ -38,14 +38,9 @@ router.post('',checkTokenHeader,eventValidator, myValidationResult, async ({body
         dateTime,
         price
     }
-    if (!checkDate(dateTime)) return res.status(400).json({message: 'incorrect date'});
-    if ((type == "music" || type == "sport" || type == "theatre")){
-        events_list = events_list.concat(event)
-        await fs.writeFileSync('events_list.json', JSON.stringify(events_list, null, 2));
-        return res.status(201).json(event)
-    }else{
-        res.status(400).json({message:"invalid body"})
-    }  
+    events_list = events_list.concat(event)
+    await fs.writeFileSync('events_list.json', JSON.stringify(events_list, null, 2));
+    return res.status(201).json(event)
 })
 router.delete('/:eventID',checkTokenHeader,async ({params:{eventID}}, res)=>{
     const readList: any = await readFromJson('users_list.json', res)
