@@ -1,7 +1,7 @@
 import express from 'express' 
 import { IEvent } from '../Interfaces/IEvent'
 import { v4 as uuidv4 } from 'uuid';
-import {checkDate, checkTokenHeader, writeOnJson, readFromJson} from '../middle/middlewere'
+import {checkDate, checkTokenHeader, writeOnJson, readFromJson, eventValidator, myValidationResult} from '../middle/middlewere'
 import { IUser } from '../Interfaces/IUser';
 export const router = express.Router()
 import bluebird  from "bluebird";
@@ -29,7 +29,7 @@ router.get('/:id', ({params:{id}}, res) =>{
     if(!event) res.status(404).json({message:"resource not found"})
     res.json(event)
 })
-router.post('',checkTokenHeader, async ({body: {name,type, place, dateTime, price}}, res) =>{
+router.post('',checkTokenHeader,eventValidator, myValidationResult, async ({body: {name,type, place, dateTime, price}}:any, res:any) =>{
     let event: IEvent = {
         name,
         id: uuidv4(),
@@ -41,7 +41,8 @@ router.post('',checkTokenHeader, async ({body: {name,type, place, dateTime, pric
     if (!checkDate(dateTime)) return res.status(400).json({message: 'incorrect date'});
     if ((type == "music" || type == "sport" || type == "theatre")){
         events_list = events_list.concat(event)
-        writeOnJson('events_list.json',events_list,res)
+        await fs.writeFileSync('events_list.json', JSON.stringify(events_list, null, 2));
+        return res.status(201).json(event)
     }else{
         res.status(400).json({message:"invalid body"})
     }  
@@ -62,5 +63,4 @@ router.delete('/:eventID',checkTokenHeader,async ({params:{eventID}}, res)=>{
         return res.status(400).json({message: err})
       }
     writeOnJson('events_list.json',events_list,res)
-    
 })

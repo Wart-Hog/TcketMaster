@@ -70,29 +70,34 @@ exports.router.get('/:id', function (_a, res) {
         res.status(404).json({ message: "resource not found" });
     res.json(event);
 });
-exports.router.post('', middlewere_1.checkTokenHeader, function (_a, res) {
+exports.router.post('', middlewere_1.checkTokenHeader, middlewere_1.eventValidator, middlewere_1.myValidationResult, function (_a, res) {
     var _b = _a.body, name = _b.name, type = _b.type, place = _b.place, dateTime = _b.dateTime, price = _b.price;
     return __awaiter(void 0, void 0, void 0, function () {
         var event;
         return __generator(this, function (_c) {
-            event = {
-                name: name,
-                id: uuid_1.v4(),
-                type: type,
-                place: place,
-                dateTime: dateTime,
-                price: price
-            };
-            if (!middlewere_1.checkDate(dateTime))
-                return [2 /*return*/, res.status(400).json({ message: 'incorrect date' })];
-            if ((type == "music" || type == "sport" || type == "theatre")) {
-                events_list = events_list.concat(event);
-                middlewere_1.writeOnJson('events_list.json', events_list, res);
+            switch (_c.label) {
+                case 0:
+                    event = {
+                        name: name,
+                        id: uuid_1.v4(),
+                        type: type,
+                        place: place,
+                        dateTime: dateTime,
+                        price: price
+                    };
+                    if (!middlewere_1.checkDate(dateTime))
+                        return [2 /*return*/, res.status(400).json({ message: 'incorrect date' })];
+                    if (!(type == "music" || type == "sport" || type == "theatre")) return [3 /*break*/, 2];
+                    events_list = events_list.concat(event);
+                    return [4 /*yield*/, fs.writeFileSync('events_list.json', JSON.stringify(events_list, null, 2))];
+                case 1:
+                    _c.sent();
+                    return [2 /*return*/, res.status(201).json(event)];
+                case 2:
+                    res.status(400).json({ message: "invalid body" });
+                    _c.label = 3;
+                case 3: return [2 /*return*/];
             }
-            else {
-                res.status(400).json({ message: "invalid body" });
-            }
-            return [2 /*return*/];
         });
     });
 });

@@ -62,53 +62,101 @@ exports.router.put('/:username', function (_a, res) {
     users_list[usernameIndex].admin = admin;
     middlewere_1.writeOnJson('users_list.json', users_list, res);
 });
-exports.router.post('', function (_a, res) {
-    var _b = _a.body, name = _b.name, username = _b.username, password = _b.password, _c = _b.tickets, tickets = _c === void 0 ? [] : _c;
-    var user = {
-        name: name,
-        username: username,
-        password: password,
-        tickets: tickets,
-        admin: false
-    };
-    users_list = users_list.concat(user);
-    middlewere_1.writeOnJson('users_list.json', users_list, res);
+exports.router.post('', middlewere_1.newUserValidator, middlewere_1.myValidationResult, middlewere_1.validateUsername, function (_a, res) {
+    var _b = _a.body, name = _b.name, username = _b.username, password = _b.password, _c = _b.tickets, tickets = _c === void 0 ? [] : _c, admin = _b.admin;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_d) {
+            admin == undefined ? false : admin;
+            user = {
+                name: name,
+                username: username,
+                password: password,
+                tickets: tickets,
+                admin: admin
+            };
+            users_list = users_list.concat(user);
+            fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2));
+            return [2 /*return*/, res.status(201).json({ message: "writed" })];
+        });
+    });
 });
 exports.router.post('/login', function (_a, res) {
     var _b = _a.body, username = _b.username, password = _b.password;
-    var newtoken = token.generate();
-    var userIndex = users_list.findIndex(function (item) {
-        return item.username === username && item.password === password;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var newtoken, readList, userIndex, new_users_list;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    newtoken = token.generate();
+                    return [4 /*yield*/, JSON.parse(fs.readFileSync('users_list.json'))];
+                case 1:
+                    readList = _c.sent();
+                    userIndex = readList.findIndex(function (item) {
+                        return item.username === username && item.password === password;
+                    });
+                    if (userIndex == -1)
+                        return [2 /*return*/, res.status(404).json({ message: "user not found" })];
+                    readList[userIndex].token = newtoken;
+                    new_users_list = JSON.stringify(readList, null, 2);
+                    return [4 /*yield*/, fs.writeFileSync('users_list.json', new_users_list)];
+                case 2:
+                    _c.sent();
+                    res.status(201).json(newtoken);
+                    return [2 /*return*/];
+            }
+        });
     });
-    if (userIndex == -1)
-        return res.status(404).json({ message: "user not found" });
-    users_list[userIndex].token = newtoken;
-    var new_users_list = JSON.stringify(users_list, null, 2);
-    fs.writeFileSync('users_list.json', new_users_list);
-    res.json(newtoken);
 });
 exports.router.post('/:username/tickets', middlewere_1.checkTokenHeader, middlewere_1.findUserIndex, function (_a, res) {
     var eventId = _a.body.eventId;
-    var readList = JSON.parse(fs.readFileSync('events_list.json'));
-    var event = readList.find(function (item) { return item.id == eventId; });
-    if (!event)
-        return res.status(404).json({ message: "event not found" });
-    var usernameIndex = res.locals.usernameIndex;
-    var newticket = {
-        id: uuid_1.v4(),
-        event: event
-    };
-    users_list[usernameIndex].tickets.push(newticket);
-    middlewere_1.writeOnJson('users_list.json', users_list, res);
+    return __awaiter(void 0, void 0, void 0, function () {
+        var readEventList, readUserList, event, usernameIndex, newticket;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, JSON.parse(fs.readFileSync('events_list.json'))];
+                case 1:
+                    readEventList = _b.sent();
+                    return [4 /*yield*/, JSON.parse(fs.readFileSync('users_list.json'))];
+                case 2:
+                    readUserList = _b.sent();
+                    event = readEventList.find(function (item) { return item.id == eventId; });
+                    if (!event)
+                        return [2 /*return*/, res.status(404).json({ message: "event not found" })];
+                    usernameIndex = res.locals.usernameIndex;
+                    newticket = {
+                        id: uuid_1.v4(usernameIndex),
+                        event: event
+                    };
+                    readUserList[usernameIndex].tickets.push(newticket);
+                    return [4 /*yield*/, middlewere_1.writeOnJson('users_list.json', readUserList, res)];
+                case 3:
+                    _b.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
 });
 exports.router.delete('/:username/tickets/:ticketId', middlewere_1.checkTokenHeader, middlewere_1.findUserIndex, function (_a, res) {
     var ticketId = _a.params.ticketId;
-    var usernameIndex = res.locals.usernameIndex;
-    var ticket = users_list[usernameIndex].tickets.findIndex(function (item) { return item.id == ticketId; });
-    if (ticket === -1)
-        return res.status(404).json({ message: "ticket not found" });
-    users_list[usernameIndex].tickets.splice(ticket, 1);
-    middlewere_1.writeOnJson('users_list.json', users_list, res);
+    return __awaiter(void 0, void 0, void 0, function () {
+        var usernameIndex, readList, ticket;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    usernameIndex = res.locals.usernameIndex;
+                    return [4 /*yield*/, middlewere_1.readFromJson('users_list.json', res)];
+                case 1:
+                    readList = _b.sent();
+                    ticket = readList[usernameIndex].tickets.findIndex(function (item) { return item.id == ticketId; });
+                    if (ticket === -1)
+                        return [2 /*return*/, res.status(404).json({ message: "ticket not found" })];
+                    readList[usernameIndex].tickets.splice(ticket, 1);
+                    middlewere_1.writeOnJson('users_list.json', readList, res);
+                    return [2 /*return*/];
+            }
+        });
+    });
 });
 exports.router.get('/:username/tickets', middlewere_1.checkTokenHeader, middlewere_1.findUserIndex, function (_, res) { return __awaiter(void 0, void 0, void 0, function () {
     var readList, usernameIndex;

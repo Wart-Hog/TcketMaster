@@ -38,38 +38,7 @@
         }
       }
     ],
-    "token": "Fb6zhiUuLooirwGh4yAJH4",
-    "admin": true
-  },
-  {
-    "name": "a",
-    "username": "aa",
-    "password": "aaa",
-    "tickets": [
-      {
-        "id": "b22c0ef9-b311-4cf7-89b7-a580664d2d52",
-        "event": {
-          "name": "Led Zeppelin",
-          "id": "9572137a-f977-4271-9e5b-b1fb549b775d",
-          "type": "music",
-          "place": "Wembley Stadium",
-          "dateTime": "02/07/2022",
-          "price": "80"
-        }
-      },
-      {
-        "id": "a2c5706c-43d8-4648-b220-83509402ae47",
-        "event": {
-          "name": "Motorhead",
-          "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
-          "type": "music",
-          "place": "milan",
-          "dateTime": "03/07/90",
-          "price": 40
-        }
-      }
-    ],
-    "token": "Jof7GSekLZRz4WGSoK8RL3",
+    "token": "XFCeEgpnAzd499BvqSg8B3",
     "admin": true
   }
 ]

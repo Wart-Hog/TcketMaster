@@ -2,6 +2,7 @@ import express  from 'express'
 import {router as users} from  './Routes/usersR'
 import {router as events} from  './Routes/eventR'
 import cors from 'cors'
+
 const app = express()
 const bodyParser = require ('body-parser')
 app.use(bodyParser.json())
