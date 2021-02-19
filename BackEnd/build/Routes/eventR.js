@@ -47,9 +47,22 @@ exports.router = express_1.default.Router();
 var bluebird_1 = __importDefault(require("bluebird"));
 var events_list = require('../../events_list.json');
 var fs = bluebird_1.default.promisifyAll(require('fs'));
-exports.router.get('', function (_, res) {
-    var readList = middlewere_1.readFromJson('users_list.json', res);
-    res.json(events_list);
+exports.router.get("/", function (_a, res) {
+    var _b = _a.query, _c = _b.offset, offset = _c === void 0 ? 0 : _c, _d = _b.limit, limit = _d === void 0 ? 3 : _d;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var temp;
+        return __generator(this, function (_e) {
+            if (!offset && !limit)
+                return [2 /*return*/, res.status(200).json(events_list)];
+            temp = [];
+            events_list.forEach(function (element) { return temp.push(element); });
+            if (offset < 0)
+                offset = 0;
+            if (offset > temp.length)
+                offset = (temp.length - 1);
+            return [2 /*return*/, res.status(200).json(temp.slice(Number(offset), Number(offset) + Number(limit)))];
+        });
+    });
 });
 exports.router.get('/music', function (req, res) {
     var events = events_list.filter(function (item) { return item.type === "music"; });

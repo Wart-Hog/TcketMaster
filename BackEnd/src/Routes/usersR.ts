@@ -39,7 +39,7 @@ router.post('/login',async ({body: {username, password}}, res) =>{
     const readList = await JSON.parse(fs.readFileSync('users_list.json'))
     const userIndex = readList.findIndex((item: { username: string, password: string }) => 
                         item.username === username && item.password === password)
-    if(userIndex == -1) return res.status(404).json({message: "user not found"})
+    if(userIndex == -1) return res.status(404).json("user not found")
     readList[userIndex].token = newtoken
     const new_users_list = JSON.stringify(readList,null, 2);
     await fs.writeFileSync('users_list.json', new_users_list);

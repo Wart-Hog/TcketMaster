@@ -8,10 +8,14 @@ import bluebird  from "bluebird";
 var events_list = require ('../../events_list.json')
 let fs = bluebird.promisifyAll(require('fs'));
 
-router.get('', (_, res) =>{
-    const readList: any =  readFromJson('users_list.json', res)
-    res.json(events_list)
-})
+router.get("/", async ({query:{offset= 0, limit = 3}}, res) => {
+    if(!offset && !limit)return res.status(200).json(events_list);
+    let temp:Array<any>=[] 
+    events_list.forEach((element: any) =>temp.push(element));
+    if (offset < 0) offset = 0
+    if (offset > temp.length) offset = (temp.length-1)
+    return res.status(200).json(temp.slice(Number(offset), Number(offset) + Number(limit)));
+});
 router.get('/music',(req, res) =>{
     let events = events_list.filter((item: any) => item.type === "music")
     res.json(events)

@@ -21,6 +21,6 @@ export class LoginComponent implements OnInit {
     sessionStorage.setItem("token", this.token)
     sessionStorage.setItem("username", this.username)
     if (this.token != "") window.location.replace('http://localhost:4200/user')
-    else window.location.replace('http://localhost:4200/login')
+    
   }
 }
