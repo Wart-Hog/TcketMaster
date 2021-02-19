@@ -12,6 +12,8 @@ import { SportComponent } from './components/sport/sport.component';
 import { TheatreComponent } from './components/theatre/theatre.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { UserComponent } from './components/user/user.component';
     TheatreComponent,
     LoginComponent,
     UserComponent,
+    SignupComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

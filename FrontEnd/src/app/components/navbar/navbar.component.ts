@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   }
   logout(): void{
     sessionStorage.clear()
-    window.location.replace("http://localhost:4200/home")
+    window.location.replace("http://localhost:4200")
   }
   checkLogged = () =>{
     this.isLogged = sessionStorage.getItem("token") ? false : true
