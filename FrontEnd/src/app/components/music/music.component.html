@@ -1,5 +1,5 @@
-<table class="table">
-    <thead>
+<table class="table table-striped">
+    <thead class = "thead-dark">
     <tr>
         <th scope="col">Name</th>
         <th scope="col">Place</th>
@@ -8,13 +8,14 @@
         <th scope="col"></th>
     </tr>
     </thead>
-    <tbody>
-    <tr  *ngFor ="let e of events; let i = index">
+    <tbody >
+    <tr  *ngFor ="let e of events; let i = index" >
         <th scope="row">{{e.name}}</th>
         <td>{{e.place}}</td>
         <td>{{e.dateTime}}</td>
         <td >{{e.price}}</td>
-        <button name="id" (click)='buyTicket(i)'>Acquista</button>
+        <button name="id" class = "btn btn-primary" style="background-color:cornflowerblue;" (click)='buyTicket(i)'>Acquista</button>
+        <br><br>
     </tr>
     </tbody>
 </table>

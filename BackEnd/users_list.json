@@ -38,7 +38,7 @@
         }
       }
     ],
-    "token": "Fb6zhiUuLooirwGh4yAJH4",
+    "token": "SCPUmdGGsPum3cHPYU5yJJ",
     "admin": true
   },
   {
@@ -71,5 +71,32 @@
     ],
     "token": "Jof7GSekLZRz4WGSoK8RL3",
     "admin": true
+  },
+  {
+    "name": "Andrea Lo Monaco",
+    "username": "andlom",
+    "password": "andlom",
+    "tickets": [
+      {
+        "id": "dd884222-1b51-4879-94b1-c984180c856d",
+        "event": {
+          "name": "Torino - Genoa",
+          "id": "4820eae5-b42a-43db-804c-d8e1fd83f095",
+          "type": "sport",
+          "place": "Torino",
+          "dateTime": "2021-02-12",
+          "price": "40"
+        }
+      }
+    ],
+    "admin": false,
+    "token": "1aMGfSkYDGmgZkekVgTYUS"
+  },
+  {
+    "name": "andrea lo monaco",
+    "username": "andlom",
+    "password": "andlom",
+    "tickets": [],
+    "admin": false
   }
 ]

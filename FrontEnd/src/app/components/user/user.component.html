@@ -48,7 +48,8 @@
                 <option value="sport">Sport</option>
               </select>
         Luogo: <input name ="place" type="text" [(ngModel)] = "place">
-        Data: <input name ="dateTime" type="text" [(ngModel)] = "dateTime">
+        Data:  <input name="dateTime" type="date" [(ngModel)] = "dateTime">
+        
         Prezzo: <input name ="price" type="text" [(ngModel)] = "price">
         <input type="submit" (click) = "createEvent()">
     </form>

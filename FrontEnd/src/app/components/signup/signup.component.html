@@ -1,8 +1,11 @@
 <div class="login-container">
     <div class="row justify-content-center">
         <div class="col-md-6 login-form-1">
-            <h3>Login</h3>
+            <h3>Registrati</h3>
             <form>
+                <div class="form-group">
+                    <input  type="text" name ="name"  class="form-control" placeholder="Your name *"  [(ngModel)] = "name">
+                </div>
                 <div class="form-group">
                     <input  type="text" name ="username"  class="form-control" placeholder="Your username *"  [(ngModel)] = "username">
                 </div>
@@ -11,7 +14,7 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <input type="submit" class="btnSubmit" value="Login" (click) = "login()" />
+                    <input type="submit" class="btnSubmit" value="Registrati" (click) = "signup()"/>
                 </div>
                 <div class="form-group">
                     <a href="#" class="ForgetPwd">Forget Password?</a>
@@ -20,4 +23,3 @@
         </div>
     </div>
 </div>
-
