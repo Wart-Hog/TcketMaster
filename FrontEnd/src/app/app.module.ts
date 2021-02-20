@@ -15,6 +15,7 @@ import { UserComponent } from './components/user/user.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CurrencyPipe } from './pipes/currency.pipe';
+import { HidePasswordPipe } from './pipes/hide-password.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CurrencyPipe } from './pipes/currency.pipe';
     SignupComponent,
     HeaderComponent,
     CurrencyPipe,
+    HidePasswordPipe,
   ],
   imports: [
     BrowserModule,

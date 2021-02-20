@@ -17,10 +17,11 @@ export class UserComponent implements OnInit {
   username = ""
   admin = false
   name = ""
+  password = ""
   type = ""
   place = ""
   dateTime =""
-  price = 0
+  price: any
   eventId = ""
   constructor(private loginService: LoginService,private userService: UserService, private eventService:EventServiceService) { }
 
@@ -49,6 +50,9 @@ export class UserComponent implements OnInit {
   changeDataFormat =() =>{
     let newDate = this.dateTime.split("-")
     this.dateTime =  newDate[2] + "-" + newDate[1] + "-" + newDate[0]
+  }
+  modifyUser = () =>{
+    
   }
 
 }
