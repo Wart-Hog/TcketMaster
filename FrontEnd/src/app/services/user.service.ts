@@ -30,4 +30,9 @@ export class UserService {
   }
   modifyAdmin = (isAdmin: boolean, username: string) : Promise<any> => this.httpClient.put(`${this.url}/${username}`, { admin: isAdmin }).toPromise()as Promise<any>
   signup = (name: string, username: string, password: string): Promise<any> => this.httpClient.post(this.url, {name, username, password}).toPromise() as Promise<any>
+  modifyUser = (name: string, username: string, password: string): Promise<any> => {
+    let headers = new HttpHeaders()
+    headers = headers.set('token',sessionStorage.getItem('token') || "")
+    return this.httpClient.put(`${this.url}/${this.username}/details`,{name, username, password}, {headers}).toPromise() as Promise<any>
+  }
 }

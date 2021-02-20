@@ -21,7 +21,7 @@ export class EventComponent implements OnInit {
     //this.checkOffset()
     this.events = await this.eventService.all(this.offset, this.limit)
     this.isVisiblePrev = this.offset > 0 ? true : false
-    this.isVisibleNext = this.events.length >= this.limit ? true : false
+    this.isVisibleNext = this.events.length == this.limit ? true : false
     console.log("lenght" , this.events.length)
     
     

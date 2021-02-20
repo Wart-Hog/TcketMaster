@@ -46,5 +46,13 @@
     "place": "Wembley Stadium",
     "dateTime": "02/07/2022",
     "price": "80"
+  },
+  {
+    "name": "Juventus - Milan",
+    "id": "1c42326c-65e9-4ee4-a948-91345c5e1dbc",
+    "type": "sport",
+    "place": "Torino",
+    "dateTime": "28-02-2021",
+    "price": "50"
   }
 ]

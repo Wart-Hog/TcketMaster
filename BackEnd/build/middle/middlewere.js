@@ -196,6 +196,8 @@ var validateUpdateUsername = function (_a, res, next) {
                     else if (readList.find(function (item) { return item.username === username; })) {
                         return [2 /*return*/, res.status(400).json({ message: "username already in use" })];
                     }
+                    else
+                        next();
                     return [2 /*return*/];
             }
         });

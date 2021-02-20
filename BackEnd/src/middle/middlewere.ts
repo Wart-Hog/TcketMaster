@@ -86,4 +86,5 @@ export const validateUpdateUsername = async ({body:{username = ""}}: any,res:any
   }else if(readList.find((item: { username: any; }) => item.username === username)) {
     return res.status(400).json({message: "username already in use"})
   }
+  else next()
 }

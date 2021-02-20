@@ -27,6 +27,7 @@
         </div>
         <p class="card-text">Admin: {{user.admin}}</p>
         <p class="card-text">Biglietti acquistati: {{user.tickets.length}}</p>
+        <p class="text-danger">{{errorMessage}}</p>
         <button class="btn btn-success btn-sm" (click)='modifyUser()'>Modifica</button>
         </div>
     </div>
@@ -59,7 +60,7 @@
                 <div class="form_main">
                         <h4 class="heading"><strong>Crea Nuovo </strong> Evento <span></span></h4>
                     <div class="form">
-                        <form action="contact_send_mail.php" method="post" id="contactFrm" name="contactFrm">
+                        <form  name="contactFrm">
                             <input type="text" required="" placeholder="Nome evento" value="" name="name" class="txt"  [(ngModel)] = "name">
                             <input type="text" required="" placeholder="Luogo" value="" name="place" class="txt" [(ngModel)] = "place">
                             <input type="text" required="" placeholder="Prezzo" value="" name="email" class="txt" [(ngModel)] = "price">
@@ -69,6 +70,7 @@
                                 <option value="sport">Sport</option>
                             </select>
                             <input name="dateTime" type="date" data-date-format="dd/mm/yyyy" [(ngModel)] = "dateTime">
+                            <p class="text-danger">{{errorEventMessage}}</p>
                             <input type="submit" value="crea" name="submit" class="txt2"  (click) = "createEvent()">
                         </form>
                     </div>
@@ -80,10 +82,11 @@
                 <div class="form_main">
                         <h4 class="heading"><strong>Promuovi/Rimuovi </strong> Admin <span></span></h4>
                     <div class="form">
-                        <form action="contact_send_mail.php" method="post" id="contactFrm" name="contactFrm">
+                        <form id="contactFrm" name="contactFrm">
                             <input type="text" required="" placeholder="Username" value="" name="username" class="txt"  [(ngModel)] = "username">
                             Admin: <input name = "admin" type="checkbox" [(ngModel)] = "admin">
                             <br>
+                            <p class="text-danger">{{errorModifyAdmin}}</p>
                             <input type="submit" value="fatto" name="submit" class="txt2"  (click) = "makeAdmin()">
                         </form>
                     </div>
@@ -93,56 +96,6 @@
         </div>
     </div>
 </div>
-
-
-
-<!-- <div class="card, col-3" style="width: 18rem;">
-    <img class="card-img-top" src="https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg" alt="Card image cap">
-    <div class="card-body">
-    <input class ="info" type="text" name = "name" placeholder="{{user.name}}" [(ngModel)] = "name">
-    <input class ="info" type="text" name = "username" placeholder="{{user.username}}" [(ngModel)] = "username">
-    <p class="card-text">Admin: {{user.admin}}</p>
-    <input class ="info" type="text" name = "password" placeholder="{{user.password}}" [(ngModel)] = "password">
-    <p class="card-text">Biglietti acquistati: {{user.tickets.length}}</p>
-    <button class="btn btn-success btn-sm" (click)='modifyUser()'>Modifica</button>
-    </div>
-</div>
- -->
-
-
-
-
-
-  
-<!-- <div *ngIf = "user.admin">
-    <form>
-        Username:<input name = "username" type="text" [(ngModel)] = "username">
-        Admin: <input name = "admin" type="checkbox" [(ngModel)] = "admin">
-        <br>
-        <input type="submit" (click) = "makeAdmin()">
-    </form>
-    <br>
-    <h2>Crea nuovo evento</h2>
-    <form>
-        Nome: <input name ="name" type="text" [(ngModel)] = "name">
-        Tipo: <select name="type" [(ngModel)] = "type">
-                <option value="music">Musica</option>
-                <option value="theatre">Teatro</option>
-                <option value="sport">Sport</option>
-              </select>
-        Luogo: <input name ="place" type="text" [(ngModel)] = "place">
-        Data:  <input name="dateTime" type="date" data-date-format="dd/mm/yyyy" [(ngModel)] = "dateTime">
-        
-        Prezzo: <input name ="price" type="text" [(ngModel)] = "price">
-        <input type="submit" (click) = "createEvent()">
-    </form>
-    <h2>Elimina evento</h2>
-    <form>
-        ID: <input name ="name" type="text" [(ngModel)] = "eventId">
-        <input type="submit" (click) = "deleteEvent()">
-    </form>
-</div> -->
-
 
 
 

@@ -12,9 +12,10 @@ let fs = bluebird.promisifyAll(require('fs'));
 router.get('', (_, res) =>{
     res.status(200).json(users_list)
 })
-router.get('/:username',checkTokenHeader, findUserIndex, (_, res) =>{
+router.get('/:username',checkTokenHeader, findUserIndex, async (_, res) =>{
+    const readList: any = await readFromJson('users_list.json', res)
     const {usernameIndex} = res.locals
-    res.json(users_list[usernameIndex])
+    res.json(readList[usernameIndex])
 })
 router.put('/:username', findUserIndex,async ({body: {admin}}, res) =>{
     const {usernameIndex} = res.locals

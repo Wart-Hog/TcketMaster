@@ -52,10 +52,19 @@ var fs = bluebird_1.default.promisifyAll(require('fs'));
 exports.router.get('', function (_, res) {
     res.status(200).json(users_list);
 });
-exports.router.get('/:username', middlewere_1.checkTokenHeader, middlewere_1.findUserIndex, function (_, res) {
-    var usernameIndex = res.locals.usernameIndex;
-    res.json(users_list[usernameIndex]);
-});
+exports.router.get('/:username', middlewere_1.checkTokenHeader, middlewere_1.findUserIndex, function (_, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var readList, usernameIndex;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, middlewere_1.readFromJson('users_list.json', res)];
+            case 1:
+                readList = _a.sent();
+                usernameIndex = res.locals.usernameIndex;
+                res.json(readList[usernameIndex]);
+                return [2 /*return*/];
+        }
+    });
+}); });
 exports.router.put('/:username', middlewere_1.findUserIndex, function (_a, res) {
     var admin = _a.body.admin;
     return __awaiter(void 0, void 0, void 0, function () {

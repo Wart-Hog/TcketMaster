@@ -10,7 +10,7 @@ export class SignupComponent implements OnInit {
   public name = ""
   public username = ""
   public password = ""
-  public message = ""
+  public errorMessage = ""
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
       await this.userService.signup(this.name, this.username, this.password)
       window.location.replace("http://localhost:4200/login")
     }catch(error: any){
-      this.message="password must be 6 char long, username must be unique"
+      this.errorMessage="password must be 6 char long, username must be unique"
       return
     }
   }

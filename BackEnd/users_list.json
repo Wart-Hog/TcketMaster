@@ -25,20 +25,9 @@
           "dateTime": "03/07/90",
           "price": 60
         }
-      },
-      {
-        "id": "7ec92a28-e1ec-43c4-9187-b11b572c59ee",
-        "event": {
-          "name": "Slayer",
-          "id": "d48665b2-a340-49cd-b2e5-704e5c214ea2",
-          "type": "music",
-          "place": "Napoli",
-          "dateTime": "02/12/2020",
-          "price": "070"
-        }
       }
     ],
-    "token": "4vGWEdBXW1xJujEXATdxjG",
+    "token": "KrK3KRVxTiNXorgcso7jTr",
     "admin": true
   },
   {
@@ -74,8 +63,8 @@
   },
   {
     "name": "Andrea Lo Monaco",
-    "username": "andlom",
-    "password": "andlom",
+    "username": "andrealomon",
+    "password": "andrealomon",
     "tickets": [
       {
         "id": "dd884222-1b51-4879-94b1-c984180c856d",
@@ -90,7 +79,7 @@
       }
     ],
     "admin": false,
-    "token": "1aMGfSkYDGmgZkekVgTYUS"
+    "token": "7eKnaqETKg8qyvD5uVF55i"
   },
   {
     "name": "testName",
