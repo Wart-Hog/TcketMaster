@@ -56,7 +56,7 @@ exports.router.get('/:username', middlewere_1.checkTokenHeader, middlewere_1.fin
     var usernameIndex = res.locals.usernameIndex;
     res.json(users_list[usernameIndex]);
 });
-exports.router.put('/:username', function (_a, res) {
+exports.router.put('/:username', middlewere_1.findUserIndex, function (_a, res) {
     var admin = _a.body.admin;
     var usernameIndex = res.locals.usernameIndex;
     users_list[usernameIndex].admin = admin;
@@ -67,17 +67,49 @@ exports.router.post('', middlewere_1.newUserValidator, middlewere_1.myValidation
     return __awaiter(void 0, void 0, void 0, function () {
         var user;
         return __generator(this, function (_d) {
-            admin == undefined ? false : admin;
-            user = {
-                name: name,
-                username: username,
-                password: password,
-                tickets: tickets,
-                admin: admin
-            };
-            users_list = users_list.concat(user);
-            fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2));
-            return [2 /*return*/, res.status(201).json({ message: "writed" })];
+            switch (_d.label) {
+                case 0:
+                    user = {
+                        name: name,
+                        username: username,
+                        password: password,
+                        tickets: tickets,
+                        admin: admin
+                    };
+                    users_list = users_list.concat(user);
+                    return [4 /*yield*/, fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2))];
+                case 1:
+                    _d.sent();
+                    return [2 /*return*/, res.status(201).json({ message: "writed" })];
+            }
+        });
+    });
+});
+exports.router.put('/:username/details', middlewere_1.findUserIndex, middlewere_1.newUserValidator, middlewere_1.myValidationResult, middlewere_1.validateUsername, function (_a, res) {
+    var _b = _a.body, name = _b.name, username = _b.username, password = _b.password;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var usernameIndex, readList;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    usernameIndex = res.locals.usernameIndex;
+                    return [4 /*yield*/, middlewere_1.readFromJson('users_list.json', res)];
+                case 1:
+                    readList = _c.sent();
+                    console.log("lista", readList[usernameIndex]);
+                    readList[usernameIndex] = {
+                        name: name,
+                        username: username,
+                        password: password,
+                        tickets: readList[usernameIndex].ticket,
+                        admin: readList[usernameIndex].admin,
+                        token: readList[usernameIndex].token
+                    };
+                    return [4 /*yield*/, fs.writeFileSync('users_list.json', JSON.stringify(readList, null, 2))];
+                case 2:
+                    _c.sent();
+                    return [2 /*return*/, res.status(201).json({ message: "writed" })];
+            }
         });
     });
 });
@@ -96,7 +128,7 @@ exports.router.post('/login', function (_a, res) {
                         return item.username === username && item.password === password;
                     });
                     if (userIndex == -1)
-                        return [2 /*return*/, res.status(404).json({ message: "user not found" })];
+                        return [2 /*return*/, res.status(404).json("user not found")];
                     readList[userIndex].token = newtoken;
                     new_users_list = JSON.stringify(readList, null, 2);
                     return [4 /*yield*/, fs.writeFileSync('users_list.json', new_users_list)];

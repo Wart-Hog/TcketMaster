@@ -11,14 +11,19 @@ import { IEvent } from '../../../../../BackEnd/src/Interfaces/IEvent';
 export class MusicComponent implements OnInit {
   public events : IEvent[] = []
   public id = []
+  public isLogged = false
   constructor(private eventService: EventServiceService, private userService: UserService) { }
 
   async ngOnInit() {
     this.events = await this.eventService.getMusicEvents()
+    this.checkLogged()
   }
   buyTicket = (i:number) =>{
     sessionStorage.setItem("ticket", this.events[i].id)
     this.userService.buyTicket()
     window.location.replace('http://localhost:4200/user')
+  }
+  checkLogged = () =>{
+    this.isLogged = sessionStorage.getItem("token") ? true : false
   }
 }

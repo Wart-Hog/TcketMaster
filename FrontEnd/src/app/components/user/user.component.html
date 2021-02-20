@@ -14,9 +14,9 @@
     <table class="table, col-8">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Event</th>
-            <th scope="col">Place</th>
+            <th scope="col">Evento</th>
+            <th scope="col">Luogo</th>
+            <th scope="col">Data</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -48,7 +48,7 @@
                 <option value="sport">Sport</option>
               </select>
         Luogo: <input name ="place" type="text" [(ngModel)] = "place">
-        Data:  <input name="dateTime" type="date" [(ngModel)] = "dateTime">
+        Data:  <input name="dateTime" type="date" data-date-format="dd/mm/yyyy" [(ngModel)] = "dateTime">
         
         Prezzo: <input name ="price" type="text" [(ngModel)] = "price">
         <input type="submit" (click) = "createEvent()">

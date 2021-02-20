@@ -28,9 +28,12 @@ export const myValidationResult = (req: any,res:any,next:any) =>{
   }
   next()
 }
-export const checkDate = (date: string) =>{
-  var aDate = moment(date, 'DD/MM/YYYY');
-  return aDate.isValid();
+export const checkDate = ({body: {dateTime}}: any,res:any,next:any) =>{
+  var aDate = moment(dateTime, 'DD/MM/YYYY');
+  if (aDate.isValid()) {
+    next()
+  }
+  else return res.status(400).json({message: "invalid date format"});
 }
 export const checkTokenHeader = async (req: any,res:any,next:any)=>{
   const readList: any = await JSON.parse(fs.readFileSync('users_list.json'))

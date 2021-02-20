@@ -21,10 +21,14 @@ describe("Post auth required",async () => {
     it('login user not found[404]',(done)=>{//ok
         request(app).post('/users/login').send({username:'_',password:'_'}).expect(404,done);
     }); 
+    // it('user to admin', (done) => {//ok
+    //     request(app).put('/users/testUsername').send({admin:true}).expect(201,done);
+    // });
     it('login user and set token [200]',async ()=>{//ok
         const {body} = await request(app).post('/users/login').send({username:'testUsername',password:'testPassword'}).expect(201)
         testToken = body
     });
+    
     it('buy ticket not found', (done) => {//ok
         request(app).post('/users/testUsername/tickets').set("token", `${testToken}`).send({eventId:"__"}).expect(404,done); 
     });
@@ -48,13 +52,16 @@ describe('get auth required',()=>{
     });
 });
 
-describe("Delete",()=>{
-    it('delete success [201]',(done)=>{//ok
-        request(app).delete('/users/testUsername').set("token",`${testToken}`).expect(201,done)
-    });  
-    it('/delete user not found [404]',(done)=>{//ok
-        request(app).delete('/users/dasd').set("token","XFCeEgpnAzd499BvqSg8B3").expect(404,done)
-    });
+describe("change details and delete",()=>{
+    // it('change details', (done) => {//ok
+    //     request(app).put('/testUsername/details').send({name: "newtestName", username:'newtestUsername',password:'newtestPassword'}).expect(201,done);
+    // });
+    // it('/delete user not found [404]',(done)=>{//ok
+    //     request(app).delete('/users/testUsername').set("token",`${testToken}`).expect(404,done)
+    // });
+    // it('delete success [201]',(done)=>{//ok
+    //     request(app).delete('/users/newtestUsername').set("token",`${testToken}`).expect(201,done)
+    // });  
     it('/delete invalid token [401]',(done)=>{//ok
         request(app).delete('/users/pincpall').set("token","_").expect(401,done)
     });
