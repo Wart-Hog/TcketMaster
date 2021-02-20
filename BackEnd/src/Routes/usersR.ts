@@ -22,7 +22,6 @@ router.put('/:username', findUserIndex,({body: {admin}}, res) =>{
     writeOnJson('users_list.json',users_list,res)
 })
 router.post('',newUserValidator,myValidationResult,validateUsername,async ({body: {name,username,password,tickets=[],admin}}: any,res: any)=>{
-    admin = admin == undefined ? false : admin
     let user : IUser = {
         name,
         username,
@@ -33,7 +32,24 @@ router.post('',newUserValidator,myValidationResult,validateUsername,async ({body
     users_list = users_list.concat(user)
     await fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2));
     return res.status(201).json({message:"writed"})
-  })
+})
+router.put('/:username/details',findUserIndex,newUserValidator,myValidationResult,validateUsername,async ({body: {name,username,password}}: any,res: any)=>{
+    const {usernameIndex} = res.locals
+    const readList: any = await readFromJson('users_list.json', res)
+    console.log("lista",readList[usernameIndex]);
+
+    readList[usernameIndex] = {
+        name,
+        username,
+        password,
+        tickets: readList[usernameIndex].ticket,
+        admin: readList[usernameIndex].admin,
+        token: readList[usernameIndex].token
+    }
+     
+    await fs.writeFileSync('users_list.json', JSON.stringify(readList, null, 2));
+    return res.status(201).json({message:"writed"})
+})
 router.post('/login',async ({body: {username, password}}, res) =>{
     const newtoken = token.generate() 
     const readList = await JSON.parse(fs.readFileSync('users_list.json'))
@@ -47,8 +63,8 @@ router.post('/login',async ({body: {username, password}}, res) =>{
 })
 
 router.post('/:username/tickets',checkTokenHeader, findUserIndex, async ({body: {eventId}}, res) =>{
-    const readEventList =await JSON.parse(fs.readFileSync('events_list.json'))
-    const readUserList =await JSON.parse(fs.readFileSync('users_list.json'))
+    const readEventList = await JSON.parse(fs.readFileSync('events_list.json'))
+    const readUserList = await JSON.parse(fs.readFileSync('users_list.json'))
     const event = readEventList.find((item: { id: string }) => item.id == eventId)
     if(!event) return res.status(404).json({message: "event not found"})
     const {usernameIndex} = res.locals

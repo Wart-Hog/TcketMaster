@@ -60,9 +60,9 @@ describe("Post auth required", function () { return __awaiter(void 0, void 0, vo
         it('login user not found[404]', function (done) {
             supertest_1.default(app).post('/users/login').send({ username: '_', password: '_' }).expect(404, done);
         });
-        it('user to admin', function (done) {
-            supertest_1.default(app).put('/users/testUsername').send({ admin: true }).expect(201, done);
-        });
+        // it('user to admin', (done) => {//ok
+        //     request(app).put('/users/testUsername').send({admin:true}).expect(201,done);
+        // });
         it('login user and set token [200]', function () { return __awaiter(void 0, void 0, void 0, function () {
             var body;
             return __generator(this, function (_a) {
@@ -98,13 +98,16 @@ describe('get auth required', function () {
         supertest_1.default(app).get('/users').expect(200);
     });
 });
-describe("Delete", function () {
-    it('/delete user not found [404]', function (done) {
-        supertest_1.default(app).delete('/users/dasd').set("token", "" + testToken).expect(404, done);
-    });
-    it('delete success [201]', function (done) {
-        supertest_1.default(app).delete('/users/testUsername').set("token", "" + testToken).expect(201, done);
-    });
+describe("change details and delete", function () {
+    // it('change details', (done) => {//ok
+    //     request(app).put('/testUsername/details').send({name: "newtestName", username:'newtestUsername',password:'newtestPassword'}).expect(201,done);
+    // });
+    // it('/delete user not found [404]',(done)=>{//ok
+    //     request(app).delete('/users/testUsername').set("token",`${testToken}`).expect(404,done)
+    // });
+    // it('delete success [201]',(done)=>{//ok
+    //     request(app).delete('/users/newtestUsername').set("token",`${testToken}`).expect(201,done)
+    // });  
     it('/delete invalid token [401]', function (done) {
         supertest_1.default(app).delete('/users/pincpall').set("token", "_").expect(401, done);
     });

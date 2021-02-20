@@ -38,7 +38,7 @@
         }
       }
     ],
-    "token": "GV9hPKH12PzRnsmK66V1a9",
+    "token": "DjQcrM4DTLYbUUsF5jCN8T",
     "admin": true
   },
   {
@@ -91,19 +91,5 @@
     ],
     "admin": false,
     "token": "1aMGfSkYDGmgZkekVgTYUS"
-  },
-  {
-    "name": "andrea lo monaco",
-    "username": "andlom",
-    "password": "andlom",
-    "tickets": [],
-    "admin": false
-  },
-  {
-    "name": "prova",
-    "username": "provaprova",
-    "password": "provaprova",
-    "tickets": [],
-    "admin": false
   }
 ]
