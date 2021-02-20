@@ -1,6 +1,6 @@
 import express from 'express' 
 import {IUser} from '../Interfaces/IUser'
-import { checkTokenHeader, findUserIndex, writeOnJson , readFromJson, newUserValidator, myValidationResult, validateUsername} from '../middle/middlewere';
+import { checkTokenHeader, findUserIndex, writeOnJson , readFromJson, newUserValidator, myValidationResult, validateUsername, validateUpdateUsername} from '../middle/middlewere';
 import { ITicket } from '../Interfaces/ITicket';
 import { v4 as uuidv4 } from 'uuid';
 import bluebird  from "bluebird";
@@ -16,10 +16,11 @@ router.get('/:username',checkTokenHeader, findUserIndex, (_, res) =>{
     const {usernameIndex} = res.locals
     res.json(users_list[usernameIndex])
 })
-router.put('/:username', findUserIndex,({body: {admin}}, res) =>{
+router.put('/:username', findUserIndex,async ({body: {admin}}, res) =>{
     const {usernameIndex} = res.locals
-    users_list[usernameIndex].admin = admin
-    writeOnJson('users_list.json',users_list,res)
+    const readList: any = await readFromJson('users_list.json', res)
+    readList[usernameIndex].admin = admin
+    writeOnJson('users_list.json',readList,res)
 })
 router.post('',newUserValidator,myValidationResult,validateUsername,async ({body: {name,username,password,tickets=[],admin}}: any,res: any)=>{
     let user : IUser = {
@@ -33,20 +34,13 @@ router.post('',newUserValidator,myValidationResult,validateUsername,async ({body
     await fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2));
     return res.status(201).json({message:"writed"})
 })
-router.put('/:username/details',findUserIndex,newUserValidator,myValidationResult,validateUsername,async ({body: {name,username,password}}: any,res: any)=>{
+router.put('/:username/details',checkTokenHeader,findUserIndex,validateUpdateUsername, async ({body: {name="",username="",password=""}}: any,res: any)=>{
     const {usernameIndex} = res.locals
     const readList: any = await readFromJson('users_list.json', res)
-    console.log("lista",readList[usernameIndex]);
-
-    readList[usernameIndex] = {
-        name,
-        username,
-        password,
-        tickets: readList[usernameIndex].ticket,
-        admin: readList[usernameIndex].admin,
-        token: readList[usernameIndex].token
-    }
-     
+    if(username == readList[usernameIndex].name )
+    readList[usernameIndex].name = name == "" ? readList[usernameIndex].name : name
+    readList[usernameIndex].username = username == "" ? readList[usernameIndex].username : username
+    readList[usernameIndex].password = password == "" ? readList[usernameIndex].password : password
     await fs.writeFileSync('users_list.json', JSON.stringify(readList, null, 2));
     return res.status(201).json({message:"writed"})
 })
