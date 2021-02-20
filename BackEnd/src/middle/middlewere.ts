@@ -77,3 +77,13 @@ export const validateUsername = async ({body:{username}}: any,res:any,next:any) 
       next()
     }
 }
+export const validateUpdateUsername = async ({body:{username = ""}}: any,res:any,next:any) =>{
+  const {usernameIndex} = res.locals
+  const readList: any =await JSON.parse(fs.readFileSync('users_list.json'))
+  username = username == "" ? readList[usernameIndex].username : username
+  if(username === readList[usernameIndex].username){
+    next()
+  }else if(readList.find((item: { username: any; }) => item.username === username)) {
+    return res.status(400).json({message: "username already in use"})
+  }
+}

@@ -58,9 +58,21 @@ exports.router.get('/:username', middlewere_1.checkTokenHeader, middlewere_1.fin
 });
 exports.router.put('/:username', middlewere_1.findUserIndex, function (_a, res) {
     var admin = _a.body.admin;
-    var usernameIndex = res.locals.usernameIndex;
-    users_list[usernameIndex].admin = admin;
-    middlewere_1.writeOnJson('users_list.json', users_list, res);
+    return __awaiter(void 0, void 0, void 0, function () {
+        var usernameIndex, readList;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    usernameIndex = res.locals.usernameIndex;
+                    return [4 /*yield*/, middlewere_1.readFromJson('users_list.json', res)];
+                case 1:
+                    readList = _b.sent();
+                    readList[usernameIndex].admin = admin;
+                    middlewere_1.writeOnJson('users_list.json', readList, res);
+                    return [2 /*return*/];
+            }
+        });
+    });
 });
 exports.router.post('', middlewere_1.newUserValidator, middlewere_1.myValidationResult, middlewere_1.validateUsername, function (_a, res) {
     var _b = _a.body, name = _b.name, username = _b.username, password = _b.password, _c = _b.tickets, tickets = _c === void 0 ? [] : _c, admin = _b.admin;
@@ -85,29 +97,24 @@ exports.router.post('', middlewere_1.newUserValidator, middlewere_1.myValidation
         });
     });
 });
-exports.router.put('/:username/details', middlewere_1.findUserIndex, middlewere_1.newUserValidator, middlewere_1.myValidationResult, middlewere_1.validateUsername, function (_a, res) {
-    var _b = _a.body, name = _b.name, username = _b.username, password = _b.password;
+exports.router.put('/:username/details', middlewere_1.checkTokenHeader, middlewere_1.findUserIndex, middlewere_1.validateUpdateUsername, function (_a, res) {
+    var _b = _a.body, _c = _b.name, name = _c === void 0 ? "" : _c, _d = _b.username, username = _d === void 0 ? "" : _d, _e = _b.password, password = _e === void 0 ? "" : _e;
     return __awaiter(void 0, void 0, void 0, function () {
         var usernameIndex, readList;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        return __generator(this, function (_f) {
+            switch (_f.label) {
                 case 0:
                     usernameIndex = res.locals.usernameIndex;
                     return [4 /*yield*/, middlewere_1.readFromJson('users_list.json', res)];
                 case 1:
-                    readList = _c.sent();
-                    console.log("lista", readList[usernameIndex]);
-                    readList[usernameIndex] = {
-                        name: name,
-                        username: username,
-                        password: password,
-                        tickets: readList[usernameIndex].ticket,
-                        admin: readList[usernameIndex].admin,
-                        token: readList[usernameIndex].token
-                    };
+                    readList = _f.sent();
+                    if (username == readList[usernameIndex].name)
+                        readList[usernameIndex].name = name == "" ? readList[usernameIndex].name : name;
+                    readList[usernameIndex].username = username == "" ? readList[usernameIndex].username : username;
+                    readList[usernameIndex].password = password == "" ? readList[usernameIndex].password : password;
                     return [4 /*yield*/, fs.writeFileSync('users_list.json', JSON.stringify(readList, null, 2))];
                 case 2:
-                    _c.sent();
+                    _f.sent();
                     return [2 /*return*/, res.status(201).json({ message: "writed" })];
             }
         });

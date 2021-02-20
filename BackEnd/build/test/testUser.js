@@ -60,9 +60,6 @@ describe("Post auth required", function () { return __awaiter(void 0, void 0, vo
         it('login user not found[404]', function (done) {
             supertest_1.default(app).post('/users/login').send({ username: '_', password: '_' }).expect(404, done);
         });
-        // it('user to admin', (done) => {//ok
-        //     request(app).put('/users/testUsername').send({admin:true}).expect(201,done);
-        // });
         it('login user and set token [200]', function () { return __awaiter(void 0, void 0, void 0, function () {
             var body;
             return __generator(this, function (_a) {
@@ -75,6 +72,9 @@ describe("Post auth required", function () { return __awaiter(void 0, void 0, vo
                 }
             });
         }); });
+        it('user to admin', function (done) {
+            supertest_1.default(app).put('/users/testUsername').send({ admin: true }).expect(201, done);
+        });
         it('buy ticket not found', function (done) {
             supertest_1.default(app).post('/users/testUsername/tickets').set("token", "" + testToken).send({ eventId: "__" }).expect(404, done);
         });
@@ -99,16 +99,19 @@ describe('get auth required', function () {
     });
 });
 describe("change details and delete", function () {
-    // it('change details', (done) => {//ok
-    //     request(app).put('/testUsername/details').send({name: "newtestName", username:'newtestUsername',password:'newtestPassword'}).expect(201,done);
-    // });
-    // it('/delete user not found [404]',(done)=>{//ok
-    //     request(app).delete('/users/testUsername').set("token",`${testToken}`).expect(404,done)
-    // });
-    // it('delete success [201]',(done)=>{//ok
-    //     request(app).delete('/users/newtestUsername').set("token",`${testToken}`).expect(201,done)
-    // });  
+    it('change details, username already in use', function (done) {
+        supertest_1.default(app).put('/users/testUsername/details').set("token", "" + testToken).send({ name: "newtestName", username: 'pincpall', password: 'newtestPassword' }).expect(400, done);
+    });
+    it('change details', function (done) {
+        supertest_1.default(app).put('/users/testUsername/details').set("token", "" + testToken).send({ name: "newtestName", username: 'NtestUsername', password: 'newtestPassword' }).expect(201, done);
+    });
     it('/delete invalid token [401]', function (done) {
-        supertest_1.default(app).delete('/users/pincpall').set("token", "_").expect(401, done);
+        supertest_1.default(app).delete('/users/NtestUsername').set("token", "_").expect(401, done);
+    });
+    it('/delete user not found [404]', function (done) {
+        supertest_1.default(app).delete('/users/_').set("token", "" + testToken).expect(404, done);
+    });
+    it('delete success [201]', function (done) {
+        supertest_1.default(app).delete('/users/NtestUsername').set("token", "" + testToken).expect(201, done);
     });
 });

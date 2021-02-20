@@ -91,5 +91,25 @@
     ],
     "admin": false,
     "token": "1aMGfSkYDGmgZkekVgTYUS"
+  },
+  {
+    "name": "testName",
+    "username": "testUsername",
+    "password": "testPassword",
+    "tickets": [
+      {
+        "id": "1a3613da-6aae-4cef-9da0-54770ad9f801",
+        "event": {
+          "name": "Motorhead",
+          "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
+          "type": "music",
+          "place": "milan",
+          "dateTime": "03/07/90",
+          "price": 40
+        }
+      }
+    ],
+    "token": "QQqdWrYvUy5tA2gAN4tRsh",
+    "admin": true
   }
 ]

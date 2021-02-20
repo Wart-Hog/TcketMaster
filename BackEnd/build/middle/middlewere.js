@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateUsername = exports.readFromJson = exports.writeOnJson = exports.findUserIndex = exports.checkTokenHeader = exports.checkDate = exports.myValidationResult = exports.eventValidator = exports.newUserValidator = void 0;
+exports.validateUpdateUsername = exports.validateUsername = exports.readFromJson = exports.writeOnJson = exports.findUserIndex = exports.checkTokenHeader = exports.checkDate = exports.myValidationResult = exports.eventValidator = exports.newUserValidator = void 0;
 var express_validator_1 = require("express-validator");
 var users_list = require('../../users_list.json');
 var moment_1 = __importDefault(require("moment"));
@@ -178,3 +178,27 @@ var validateUsername = function (_a, res, next) {
     });
 };
 exports.validateUsername = validateUsername;
+var validateUpdateUsername = function (_a, res, next) {
+    var _b = _a.body.username, username = _b === void 0 ? "" : _b;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var usernameIndex, readList;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    usernameIndex = res.locals.usernameIndex;
+                    return [4 /*yield*/, JSON.parse(fs.readFileSync('users_list.json'))];
+                case 1:
+                    readList = _c.sent();
+                    username = username == "" ? readList[usernameIndex].username : username;
+                    if (username === readList[usernameIndex].username) {
+                        next();
+                    }
+                    else if (readList.find(function (item) { return item.username === username; })) {
+                        return [2 /*return*/, res.status(400).json({ message: "username already in use" })];
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+};
+exports.validateUpdateUsername = validateUpdateUsername;
