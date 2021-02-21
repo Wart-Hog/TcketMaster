@@ -39,53 +39,85 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readFromJson = exports.writeOnJson = exports.findUserIndex = exports.checkTokenHeader = exports.checkDate = void 0;
-var validationResult = require('express-validator').validationResult;
-var users_list = require('../../users_list.json');
+exports.validateUpdateUsername = exports.validateUsername = exports.readFromJson = exports.writeOnJson = exports.findUserIndex = exports.checkTokenHeader = exports.checkDate = exports.myValidationResult = exports.eventValidator = exports.newUserValidator = void 0;
+var express_validator_1 = require("express-validator");
 var moment_1 = __importDefault(require("moment"));
 var bluebird_1 = __importDefault(require("bluebird"));
 var fs = bluebird_1.default.promisifyAll(require('fs'));
-var myValidationResult = validationResult.withDefaults({
-    formatter: function (error) {
-        return {
-            myLocation: error.location,
-        };
-    },
-});
-var checkDate = function (date) {
-    var aDate = moment_1.default(date, 'DD/MM/YYYY');
-    return aDate.isValid();
+var typeAcceppted = ["music", "sport", "theatre"];
+exports.newUserValidator = [
+    express_validator_1.check('name').trim().not().isEmpty().withMessage('name is required'),
+    express_validator_1.check('username').trim().not().isEmpty().withMessage('username is required'),
+    express_validator_1.check('password').trim().not().isEmpty().withMessage('password is required'),
+    express_validator_1.check('password').trim().isLength({ min: 6 }).withMessage('password is must be 6 long')
+];
+exports.eventValidator = [
+    express_validator_1.check('name').trim().not().isEmpty().withMessage('name is required'),
+    express_validator_1.check('place').trim().not().isEmpty().withMessage('place is required'),
+    express_validator_1.check('type').isIn(typeAcceppted).withMessage('select at least one category'),
+    express_validator_1.check('dateTime').trim().not().isEmpty().withMessage('valid date is required'),
+    express_validator_1.check('price').trim().not().isEmpty().withMessage('price is required'),
+    express_validator_1.check('price').trim().isInt().withMessage('must be a number'),
+];
+var myValidationResult = function (req, res, next) {
+    var result = express_validator_1.validationResult(req);
+    var hasErr = !result.isEmpty();
+    if (hasErr) {
+        var err = result.array()[0].msg;
+        return res.status(400).json({ success: false, message: err });
+    }
+    next();
+};
+exports.myValidationResult = myValidationResult;
+var checkDate = function (_a, res, next) {
+    var dateTime = _a.body.dateTime;
+    var aDate = moment_1.default(dateTime, 'DD/MM/YYYY');
+    if (aDate.isValid()) {
+        next();
+    }
+    else
+        return res.status(400).json({ message: "invalid date format" });
 };
 exports.checkDate = checkDate;
 var checkTokenHeader = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userToken;
+    var readList, userToken;
     return __generator(this, function (_a) {
-        userToken = req.header('token');
-        if (!userToken)
-            return [2 /*return*/, res.status(401).json('missing token')];
-        if (users_list.find(function (item) { return item.token === userToken; })) {
-            next();
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, JSON.parse(fs.readFileSync('users_list.json'))];
+            case 1:
+                readList = _a.sent();
+                userToken = req.header('token');
+                if (!userToken)
+                    return [2 /*return*/, res.status(401).json('missing token')];
+                if (readList.find(function (item) { return item.token === userToken; })) {
+                    next();
+                }
+                else {
+                    return [2 /*return*/, res.status(401).json('invalid token')];
+                }
+                return [2 /*return*/];
         }
-        else {
-            res.status(401).json('invalid token');
-        }
-        return [2 /*return*/];
     });
 }); };
 exports.checkTokenHeader = checkTokenHeader;
 var findUserIndex = function (_a, res, next) {
     var username = _a.params.username;
     return __awaiter(void 0, void 0, void 0, function () {
-        var usernameIndex;
+        var readList, usernameIndex;
         return __generator(this, function (_b) {
-            usernameIndex = users_list.findIndex(function (item) { return item.username == username; });
-            if (usernameIndex == -1)
-                return [2 /*return*/, res.status(404).json({ message: "user not found" })];
-            else {
-                res.locals.usernameIndex = usernameIndex;
-                next();
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, JSON.parse(fs.readFileSync('users_list.json'))];
+                case 1:
+                    readList = _b.sent();
+                    usernameIndex = readList.findIndex(function (item) { return item.username == username; });
+                    if (usernameIndex == -1)
+                        return [2 /*return*/, res.status(404).json({ message: "user not found" })];
+                    else {
+                        res.locals.usernameIndex = usernameIndex;
+                        next();
+                    }
+                    return [2 /*return*/];
             }
-            return [2 /*return*/];
         });
     });
 };
@@ -126,4 +158,49 @@ var readFromJson = function (path, res) { return __awaiter(void 0, void 0, void 
     });
 }); };
 exports.readFromJson = readFromJson;
-exports.myValidationResult;
+var validateUsername = function (_a, res, next) {
+    var username = _a.body.username;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var readList;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, JSON.parse(fs.readFileSync('users_list.json'))];
+                case 1:
+                    readList = _b.sent();
+                    if (readList.find(function (item) { return item.username == username; }))
+                        return [2 /*return*/, res.status(400).json({ message: "username already in use" })];
+                    else {
+                        next();
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+};
+exports.validateUsername = validateUsername;
+var validateUpdateUsername = function (_a, res, next) {
+    var _b = _a.body.username, username = _b === void 0 ? "" : _b;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var usernameIndex, readList;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    usernameIndex = res.locals.usernameIndex;
+                    return [4 /*yield*/, JSON.parse(fs.readFileSync('users_list.json'))];
+                case 1:
+                    readList = _c.sent();
+                    username = username == "" ? readList[usernameIndex].username : username;
+                    if (username === readList[usernameIndex].username) {
+                        next();
+                    }
+                    else if (readList.find(function (item) { return item.username === username; })) {
+                        return [2 /*return*/, res.status(400).json({ message: "username already in use" })];
+                    }
+                    else
+                        next();
+                    return [2 /*return*/];
+            }
+        });
+    });
+};
+exports.validateUpdateUsername = validateUpdateUsername;

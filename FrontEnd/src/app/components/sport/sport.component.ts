@@ -11,15 +11,32 @@ import { IEvent } from '../../../../../BackEnd/src/Interfaces/IEvent';
 export class SportComponent implements OnInit {
   public events : IEvent[] = []
   public id = []
+  isLogged = false
+  toShow = ""
   constructor(private eventService: EventServiceService, private userService: UserService) { }
 
   async ngOnInit() {
-    this.events = await this.eventService.getSportEvents()
+    try{
+      this.events = await this.eventService.getSportEvents()
+      this.checkLogged()
+    }catch(error){
+      return error
+    }
   }
-  buyTicket = (i:number) =>{
+  buyTicket = async (i:number) =>{
     sessionStorage.setItem("ticket", this.events[i].id)
-    this.userService.buyTicket()
-    window.location.replace('http://localhost:4200/user')
+    try{
+      await this.userService.buyTicket()
+      window.location.replace('http://localhost:4200/user')
+    }catch(err){
+      return err
+    }
   }
-
+  checkLogged = () =>{
+    this.isLogged = sessionStorage.getItem("token") ? true : false
+  }
+  show = (i:number) =>{
+    this.toShow = this.events[i].id
+    alert(this.toShow);
+  }
 }

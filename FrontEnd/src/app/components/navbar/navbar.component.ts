@@ -18,6 +18,6 @@ export class NavbarComponent implements OnInit {
     window.location.replace("http://localhost:4200")
   }
   checkLogged = () =>{
-    this.isLogged = sessionStorage.getItem("token") ? false : true
+    this.isLogged = sessionStorage.getItem("token") ? true : false
   }
 }

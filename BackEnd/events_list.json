@@ -48,43 +48,19 @@
     "price": "80"
   },
   {
-    "name": "Ora",
-    "id": "39b7a8f2-7f24-4214-a3d3-b4565f15bb9a",
-    "type": "music",
-    "place": "jjh",
-    "dateTime": "02/12/2020",
-    "price": "31"
-  },
-  {
-    "name": "salve",
-    "id": "b2c589cf-b617-4a32-82fe-d71e4d19dba1",
-    "type": "music",
-    "place": "salve",
-    "dateTime": "02/03/2020",
-    "price": "45"
-  },
-  {
-    "name": "gggu",
-    "id": "180f5e2c-f9d9-4fb3-9492-48e6f7604408",
-    "type": "music",
-    "place": "gu",
-    "dateTime": "02/07/2022",
-    "price": "44"
-  },
-  {
-    "name": "Slayer",
-    "id": "d48665b2-a340-49cd-b2e5-704e5c214ea2",
-    "type": "music",
-    "place": "Napoli",
-    "dateTime": "02/12/2020",
-    "price": "070"
-  },
-  {
-    "name": "Torino - Genoa",
-    "id": "4820eae5-b42a-43db-804c-d8e1fd83f095",
+    "name": "Juventus - Milan",
+    "id": "1c42326c-65e9-4ee4-a948-91345c5e1dbc",
     "type": "sport",
     "place": "Torino",
-    "dateTime": "2021-02-12",
+    "dateTime": "28-02-2021",
+    "price": "50"
+  },
+  {
+    "name": "evento",
+    "id": "426f8584-980e-4b55-8a4f-1bd2a1897ef1",
+    "type": "sport",
+    "place": "luogo",
+    "dateTime": "18-02-2021",
     "price": "40"
   }
 ]

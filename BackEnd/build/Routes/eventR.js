@@ -47,85 +47,142 @@ exports.router = express_1.default.Router();
 var bluebird_1 = __importDefault(require("bluebird"));
 var events_list = require('../../events_list.json');
 var fs = bluebird_1.default.promisifyAll(require('fs'));
-exports.router.get('', function (_, res) {
-    var readList = middlewere_1.readFromJson('users_list.json', res);
-    res.json(events_list);
+exports.router.get("/", function (_a, res) {
+    var _b = _a.query, _c = _b.offset, offset = _c === void 0 ? 0 : _c, _d = _b.limit, limit = _d === void 0 ? 3 : _d;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var readList, temp;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
+                case 0: return [4 /*yield*/, middlewere_1.readFromJson('events_list.json', res)];
+                case 1:
+                    readList = _e.sent();
+                    if (!offset && !limit)
+                        return [2 /*return*/, res.status(200).json(readList)];
+                    temp = [];
+                    readList.forEach(function (element) { return temp.push(element); });
+                    if (offset < 0)
+                        offset = 0;
+                    if (offset > temp.length)
+                        offset = (temp.length - 1);
+                    return [2 /*return*/, res.status(200).json(temp.slice(Number(offset), Number(offset) + Number(limit)))];
+            }
+        });
+    });
 });
-exports.router.get('/music', function (req, res) {
-    var events = events_list.filter(function (item) { return item.type === "music"; });
-    res.json(events);
-});
-exports.router.get('/theatre', function (_, res) {
-    var events = events_list.filter(function (item) { return item.type === "theatre"; });
-    res.json(events);
-});
-exports.router.get('/sport', function (_, res) {
-    var events = events_list.filter(function (item) { return item.type === "sport"; });
-    res.json(events);
-});
+exports.router.get('/music', function (_, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var readList, events;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, middlewere_1.readFromJson('events_list.json', res)];
+            case 1:
+                readList = _a.sent();
+                events = readList.filter(function (item) { return item.type === "music"; });
+                res.json(events);
+                return [2 /*return*/];
+        }
+    });
+}); });
+exports.router.get('/theatre', function (_, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var readList, events;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, middlewere_1.readFromJson('events_list.json', res)];
+            case 1:
+                readList = _a.sent();
+                events = readList.filter(function (item) { return item.type === "theatre"; });
+                res.json(events);
+                return [2 /*return*/];
+        }
+    });
+}); });
+exports.router.get('/sport', function (_, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var readList, events;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, middlewere_1.readFromJson('events_list.json', res)];
+            case 1:
+                readList = _a.sent();
+                events = readList.filter(function (item) { return item.type === "sport"; });
+                res.json(events);
+                return [2 /*return*/];
+        }
+    });
+}); });
 exports.router.get('/:id', function (_a, res) {
     var id = _a.params.id;
-    var event = events_list.find(function (item) { return item.id == id; });
-    if (!event)
-        res.status(404).json({ message: "resource not found" });
-    res.json(event);
+    return __awaiter(void 0, void 0, void 0, function () {
+        var readList, event;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, middlewere_1.readFromJson('events_list.json', res)];
+                case 1:
+                    readList = _b.sent();
+                    event = readList.find(function (item) { return item.id == id; });
+                    if (!event)
+                        res.status(404).json({ message: "resource not found" });
+                    res.json(event);
+                    return [2 /*return*/];
+            }
+        });
+    });
 });
-exports.router.post('', middlewere_1.checkTokenHeader, function (_a, res) {
+exports.router.post('', middlewere_1.checkTokenHeader, middlewere_1.eventValidator, middlewere_1.myValidationResult, middlewere_1.checkDate, function (_a, res) {
     var _b = _a.body, name = _b.name, type = _b.type, place = _b.place, dateTime = _b.dateTime, price = _b.price;
     return __awaiter(void 0, void 0, void 0, function () {
         var event;
         return __generator(this, function (_c) {
-            event = {
-                name: name,
-                id: uuid_1.v4(),
-                type: type,
-                place: place,
-                dateTime: dateTime,
-                price: price
-            };
-            if (!middlewere_1.checkDate(dateTime))
-                return [2 /*return*/, res.status(400).json({ message: 'incorrect date' })];
-            if ((type == "music" || type == "sport" || type == "theatre")) {
-                events_list = events_list.concat(event);
-                middlewere_1.writeOnJson('events_list.json', events_list, res);
+            switch (_c.label) {
+                case 0:
+                    event = {
+                        name: name,
+                        id: uuid_1.v4(),
+                        type: type,
+                        place: place,
+                        dateTime: dateTime,
+                        price: price
+                    };
+                    events_list = events_list.concat(event);
+                    return [4 /*yield*/, fs.writeFileSync('events_list.json', JSON.stringify(events_list, null, 2))];
+                case 1:
+                    _c.sent();
+                    return [2 /*return*/, res.status(201).json(event)];
             }
-            else {
-                res.status(400).json({ message: "invalid body" });
-            }
-            return [2 /*return*/];
         });
     });
 });
 exports.router.delete('/:eventID', middlewere_1.checkTokenHeader, function (_a, res) {
     var eventID = _a.params.eventID;
     return __awaiter(void 0, void 0, void 0, function () {
-        var readList, toDelete, err_1;
+        var readUserList, readEventList, toDelete, err_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, middlewere_1.readFromJson('users_list.json', res)];
                 case 1:
-                    readList = _b.sent();
-                    toDelete = events_list.findIndex(function (item) { return item.id == eventID; });
+                    readUserList = _b.sent();
+                    return [4 /*yield*/, middlewere_1.readFromJson('events_list.json', res)];
+                case 2:
+                    readEventList = _b.sent();
+                    toDelete = readEventList.findIndex(function (item) { return item.id == eventID; });
                     if (toDelete == -1)
                         return [2 /*return*/, res.status(404).json({ message: "resource not found" })];
-                    readList.forEach(function (user) {
+                    readUserList.forEach(function (user) {
                         user.tickets.forEach(function (element) {
                             element.event.dateTime = element.event.id == eventID ? "canceled" : element.event.dateTime;
                         });
                     });
-                    events_list.splice(toDelete, 1);
-                    _b.label = 2;
-                case 2:
-                    _b.trys.push([2, 4, , 5]);
-                    return [4 /*yield*/, fs.writeFileSync('users_list.json', JSON.stringify(readList, null, 2))];
+                    readEventList.splice(toDelete, 1);
+                    _b.label = 3;
                 case 3:
-                    _b.sent();
-                    return [3 /*break*/, 5];
+                    _b.trys.push([3, 5, , 6]);
+                    return [4 /*yield*/, fs.writeFileSync('users_list.json', JSON.stringify(readUserList, null, 2))];
                 case 4:
+                    _b.sent();
+                    return [3 /*break*/, 6];
+                case 5:
                     err_1 = _b.sent();
                     return [2 /*return*/, res.status(400).json({ message: err_1 })];
-                case 5:
-                    middlewere_1.writeOnJson('events_list.json', events_list, res);
+                case 6:
+                    middlewere_1.writeOnJson('events_list.json', readEventList, res);
                     return [2 /*return*/];
             }
         });

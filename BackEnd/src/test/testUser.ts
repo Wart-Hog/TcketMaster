@@ -1,52 +1,67 @@
 import request from 'supertest'
 const app = require('../app');
+let testToken = ""
 
-// describe("Get Test", () => {
-//     it('/users [200]', (done) => { 
-//         request(app).get('/users').expect(200,done);
-//     });
-//     it('/users/:username [200]', (done) => {//ok
-//         request(app).get('/users/pincpall').set("token", "TJV26ZueLNNd445eQRcWJP").expect(200,done);
-//     });
-//     it('/users/:username [401]', (done) => {//ok
-//         request(app).get('/users/pincpall').set("token", "null").expect(401,done);
-//     });
-//     it('/users/:username/tickets [200]', (done) => {//ok
-//         request(app).get('/users/pincpall').set("token", "TJV26ZueLNNd445eQRcWJP").expect(200,done);
-//     });
-//     it('/users/:username/tickets [401]', (done) => {//ok
-//         request(app).get('/users/pincpall').set("token", "null").expect(401,done);
-//     });
-// });
-
-describe("Post test",()=>{
-    it('users [201]',(done)=>{//ok
-        request(app).post('/users').send({name:"pippo",username:"pippo",password:'pippo'}).expect(201,done);
+describe("Post auth required",async () => {
+    it('new user [201]',(done)=>{//ok
+        request(app).post('/users').send({name: "testName", username:'testUsername',password:'testPassword'}).expect(201,done);
     });
-    it('users/login [200]',(done)=>{//ok
-        request(app).post('/users/login').send({username:'pippo',password:'pippo'}).expect(200,done);
+    it('new user fail',(done)=>{//ok
+        request(app).post('/users').send({password:'testPassword'}).expect(400,done);
     });
-    it('users/login [404]',(done)=>{//ok
-        request(app).post('/users/login').send({username:'pincpalla',password:'pincpall'}).expect(404,done);
+    it('new username already exist [403]',(done)=>{//ok
+        request(app).post('/users').send({name: "testName", username:'testUsername',password:'testPassword'}).expect(400,done);
     });
-    it('/users/:username/tickets [201]', (done) => {//ok
-        request(app).post('/users/pincpall/tickets').set("token", "TJV26ZueLNNd445eQRcWJP").send({eventId:"4f6dfac1-31a5-4097-93ab-3d5d8e9bae19"}).expect(201,done);
+    it('login user not found[404]',(done)=>{//ok
+        request(app).post('/users/login').send({username:'_',password:'_'}).expect(404,done);
+    }); 
+    it('login user and set token [200]',async ()=>{//ok
+        const {body} = await request(app).post('/users/login').send({username:'testUsername',password:'testPassword'}).expect(201)
+        testToken = body
     });
-    it('/users/:username/tickets [401]', (done) => {//ok
-        request(app).post('/users/pincpall/tickets').set("token", "null").send({eventId:"fc86c927-020b-446a-a329-049bd3b20395"}).expect(401,done);
+    it('user to admin', (done) => {//ok
+        request(app).put('/users/testUsername').send({admin:true}).expect(201,done);
     });
-    it('/users/:username/tickets [404]', (done) => {//ok
-        request(app).post('/users/pincpall/tickets').set("token", "TJV26ZueLNNd445eQRcWJP").send({eventId:"null"}).expect(404,done);
+    it('buy ticket not found', (done) => {//ok
+        request(app).post('/users/testUsername/tickets').set("token", `${testToken}`).send({eventId:"__"}).expect(404,done); 
+    });
+    it('buy new ticket', (done) => {//ok
+        request(app).post('/users/testUsername/tickets').set("token", `${testToken}`).send({eventId:"beda3f20-4321-4cd9-a969-b89c9969149f"}).expect(201,done);
+    });
+    it('get user details[200]', (done) => {//ok
+        request(app).get('/users/testUsername').set("token", `${testToken}`).expect(200,done);
+    });
+    it('buy ticket invalid token', (done) => {//ok
+        request(app).post('/users/pincpall/tickets').set("token", "_").send({eventId:"fc86c927-020b-446a-a329-049bd3b20395"}).expect(401,done);
+    });
+});
+describe('get auth required',()=>{
+    it('invalid token user [401]', (done) => {//ok
+        request(app).get('/users/testUsername').set("token", "_").expect(401,done);
+    });
+    
+    it('get all users [200]', () => { 
+        request(app).get('/users').expect(200)
     });
 });
 
-// describe('Delete test',()=>{
-//     it('/users [201]',(done)=>{//ok
-//         request(app).delete('/users/pluto').set("token","CBhArUkJP4nPu45oLCGfYT").expect(201,done)
-//     });
-//     it('/users [401]',(done)=>{//ok
-//         request(app).delete('/users/pippo2').set("token","null").expect(401,done)
-//     });
-// });
-
-
+describe("change details and delete",()=>{
+    it('change details, username already in use', (done) => {//ok
+        request(app).put('/users/testUsername/details').set("token",`${testToken}`).send({name: "newtestName", username:'pincpall',password:'newtestPassword'}).expect(400,done);
+    });
+    it('change details', (done) => {//ok
+        request(app).put('/users/testUsername/details').set("token",`${testToken}`).send({name: "newtestName", username:'NtestUsername',password:'newtestPassword'}).expect(201,done);
+    });
+    it('/delete invalid token [401]',(done)=>{//ok
+        request(app).delete('/users/NtestUsername').set("token","_").expect(401,done)
+    });
+    it('/delete user not found [404]',(done)=>{//ok
+        request(app).delete('/users/_').set("token",`${testToken}`).expect(404,done)
+    });
+    it('delete success [201]',(done)=>{//ok
+        request(app).delete('/users/NtestUsername').set("token",`${testToken}`).expect(201,done)
+    });  
+    
+    
+    
+})

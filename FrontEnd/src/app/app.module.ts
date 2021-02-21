@@ -14,6 +14,8 @@ import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HeaderComponent } from './components/header/header.component';
+import { CurrencyPipe } from './pipes/currency.pipe';
+import { HidePasswordPipe } from './pipes/hide-password.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { HeaderComponent } from './components/header/header.component';
     UserComponent,
     SignupComponent,
     HeaderComponent,
+    CurrencyPipe,
+    HidePasswordPipe,
   ],
   imports: [
     BrowserModule,

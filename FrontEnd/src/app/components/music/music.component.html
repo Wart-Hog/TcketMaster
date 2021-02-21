@@ -6,16 +6,22 @@
         <th scope="col">Date</th>
         <th scope="col">Price</th>
         <th scope="col"></th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody >
     <tr  *ngFor ="let e of events; let i = index" >
-        <th scope="row">{{e.name}}</th>
-        <td>{{e.place}}</td>
+        <th scope="row">{{e.name | titlecase}}</th>
+        <td>{{e.place | titlecase}}</td>
         <td>{{e.dateTime}}</td>
-        <td >{{e.price}}</td>
-        <button name="id" class = "btn btn-primary" style="background-color:cornflowerblue;" (click)='buyTicket(i)'>Acquista</button>
+        <td >{{e.price | currency}}</td>
+        <td><button class="btn btn-success" (click) = "show(i)">ID</button></td>
+        <td *ngIf = "isLogged"><button name="id" class = "btn btn-primary" style="background-color:cornflowerblue;" (click)='buyTicket(i)'>Acquista</button></td>
+        <td *ngIf = "!isLogged"><button class = "btn btn-primary" routerLink = "/login">Log to buy</button></td>
         <br><br>
     </tr>
     </tbody>
 </table>
+
+
+

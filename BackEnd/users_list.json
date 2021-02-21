@@ -11,7 +11,7 @@
           "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
           "type": "music",
           "place": "milan",
-          "dateTime": "03/07/90",
+          "dateTime": "canceled",
           "price": 40
         }
       },
@@ -25,26 +25,15 @@
           "dateTime": "03/07/90",
           "price": 60
         }
-      },
-      {
-        "id": "7ec92a28-e1ec-43c4-9187-b11b572c59ee",
-        "event": {
-          "name": "Slayer",
-          "id": "d48665b2-a340-49cd-b2e5-704e5c214ea2",
-          "type": "music",
-          "place": "Napoli",
-          "dateTime": "02/12/2020",
-          "price": "070"
-        }
       }
     ],
-    "token": "SCPUmdGGsPum3cHPYU5yJJ",
+    "token": "76FSaFNqXT6FX6BRKR4geb",
     "admin": true
   },
   {
-    "name": "a",
-    "username": "aa",
-    "password": "aaa",
+    "name": "name",
+    "username": "username",
+    "password": "password",
     "tickets": [
       {
         "id": "b22c0ef9-b311-4cf7-89b7-a580664d2d52",
@@ -58,7 +47,7 @@
         }
       },
       {
-        "id": "a2c5706c-43d8-4648-b220-83509402ae47",
+        "id": "f78dfcd7-8b5a-48e9-bcb4-5339a29aa9d8",
         "event": {
           "name": "Motorhead",
           "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
@@ -69,13 +58,13 @@
         }
       }
     ],
-    "token": "Jof7GSekLZRz4WGSoK8RL3",
+    "token": "74kEgqjb9cex7xGpCwTFib",
     "admin": true
   },
   {
     "name": "Andrea Lo Monaco",
-    "username": "andlom",
-    "password": "andlom",
+    "username": "andrealomon",
+    "password": "andrealomon",
     "tickets": [
       {
         "id": "dd884222-1b51-4879-94b1-c984180c856d",
@@ -90,13 +79,6 @@
       }
     ],
     "admin": false,
-    "token": "1aMGfSkYDGmgZkekVgTYUS"
-  },
-  {
-    "name": "andrea lo monaco",
-    "username": "andlom",
-    "password": "andlom",
-    "tickets": [],
-    "admin": false
+    "token": "7e5Y5VpMh9kMFTFk1PbhM7"
   }
 ]
