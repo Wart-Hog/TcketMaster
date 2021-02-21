@@ -8,6 +8,7 @@ export class LoginService {
   url = "http://localhost:3005/users"
   
   constructor(private httpClient: HttpClient) { }
+  
   login = (username: string, password: string) : Promise<string>=>
   this.httpClient.post<string>(this.url + "/login",{username: username, password: password}).toPromise()as Promise<string>
   

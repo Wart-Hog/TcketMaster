@@ -3,7 +3,6 @@ import { LoginService } from 'src/app/services/login.service';
 import { IUser } from '../../../../../BackEnd/src/Interfaces/IUser';
 import { ITicket } from '../../../../../BackEnd/src/Interfaces/ITicket';
 import { UserService } from 'src/app/services/user.service';
-import { IEvent } from '../../../../../BackEnd/src/Interfaces/IEvent';
 import { EventServiceService } from 'src/app/services/event-service.service';
 
 @Component({
@@ -15,8 +14,10 @@ export class UserComponent implements OnInit {
   user!:IUser 
   tickets:ITicket[] = []
   username = ""
+  usernameToPromove = ""
   admin = false
   name = ""
+  eventName = ""
   password = ""
   type = ""
   place = ""
@@ -26,41 +27,54 @@ export class UserComponent implements OnInit {
   errorMessage = ""
   errorEventMessage = ""
   errorModifyAdmin = ""
+  errorDeleteEvent = ""
   constructor(private loginService: LoginService,private userService: UserService, private eventService:EventServiceService) { }
 
   async ngOnInit(){
-    this.user = await this.loginService.getUser()
-    this.tickets = await this.userService.myTickets()
-    this.username = this.user.username
+    try{
+      this.user = await this.loginService.getUser()
+      this.tickets = await this.userService.myTickets()
+      this.username = this.user.username
+    }catch(err){
+      return err
+    }
   }
-  removeTicket = (i:number) =>{
-    sessionStorage.setItem("ticketID", this.tickets[i].id)
-    this.userService.removeTicket()
-    window.location.reload()
+  removeTicket = async (i:number) =>{
+    try{
+      sessionStorage.setItem("ticketID", this.tickets[i].id)
+      await this.userService.removeTicket()
+      window.location.reload()
+    }catch(err){
+      return err
+    }
   }
   async makeAdmin (){
     try {
-      await this.userService.modifyAdmin(this.admin, this.username)
+      await this.userService.modifyAdmin(this.admin, this.usernameToPromove)
       window.location.reload()
     } catch (error) {
       this.errorModifyAdmin="utente non trovato"
       return
     }
-    
   }
   async createEvent() {
     try{
       this.changeDataFormat()
-      await this.eventService.newEvent(this.name, this.type, this.place, this.dateTime, this.price)
+      await this.eventService.newEvent(this.eventName, this.type, this.place, this.dateTime, this.price)
       window.location.replace('http://localhost:4200')
     }catch(error: any){
       this.errorEventMessage="dati errati"
       return
     }
   }
-  deleteEvent = () => {
-    this.eventService.deleteEvent(this.eventId)
-    window.location.reload()
+  deleteEvent = async () => {
+    try{
+      await this.eventService.deleteEvent(this.eventId)
+      window.location.reload()
+    }catch(err){
+      this.errorDeleteEvent="event not found"
+      return
+    }
   }
   changeDataFormat =() =>{
     let newDate = this.dateTime.split("-")
@@ -76,5 +90,4 @@ export class UserComponent implements OnInit {
       return
     }
   }
-
 }

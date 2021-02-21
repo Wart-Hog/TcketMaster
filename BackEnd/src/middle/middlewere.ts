@@ -1,5 +1,4 @@
 import {check, validationResult} from 'express-validator';
-var users_list = require ('../../users_list.json')
 import moment, { relativeTimeRounding } from 'moment';
 import bluebird  from "bluebird";
 let fs = bluebird.promisifyAll(require('fs'));
@@ -18,6 +17,7 @@ export const eventValidator = [
   check('type').isIn(typeAcceppted).withMessage('select at least one category'),
   check('dateTime').trim().not().isEmpty().withMessage('valid date is required'),
   check('price').trim().not().isEmpty().withMessage('price is required'),
+  check('price').trim().isInt().withMessage('must be a number'),
 ]
 export const myValidationResult = (req: any,res:any,next:any) =>{
   const result = validationResult(req)

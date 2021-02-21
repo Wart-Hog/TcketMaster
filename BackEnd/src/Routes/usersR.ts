@@ -35,10 +35,10 @@ router.post('',newUserValidator,myValidationResult,validateUsername,async ({body
     await fs.writeFileSync('users_list.json', JSON.stringify(users_list, null, 2));
     return res.status(201).json({message:"writed"})
 })
-router.put('/:username/details',checkTokenHeader,findUserIndex,validateUpdateUsername, async ({body: {name="",username="",password=""}}: any,res: any)=>{
+router.put('/:username/details',checkTokenHeader,findUserIndex,validateUpdateUsername,newUserValidator[3],myValidationResult,
+        async ({body: {name="",username="",password=""}}: any,res: any)=>{
     const {usernameIndex} = res.locals
     const readList: any = await readFromJson('users_list.json', res)
-    if(username == readList[usernameIndex].name )
     readList[usernameIndex].name = name == "" ? readList[usernameIndex].name : name
     readList[usernameIndex].username = username == "" ? readList[usernameIndex].username : username
     readList[usernameIndex].password = password == "" ? readList[usernameIndex].password : password

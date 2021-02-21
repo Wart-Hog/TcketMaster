@@ -26,9 +26,7 @@ export class HomeComponent implements OnInit {
       description: "See all sport events",
       link: "http://localhost:4200/events/sport"
     }
-
   ]
-
   constructor() { }
   setCurrentType =() =>{
     localStorage.setItem('type',this.currentType)

@@ -11,7 +11,7 @@
           "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
           "type": "music",
           "place": "milan",
-          "dateTime": "03/07/90",
+          "dateTime": "canceled",
           "price": 40
         }
       },
@@ -31,9 +31,9 @@
     "admin": true
   },
   {
-    "name": "a",
-    "username": "aa",
-    "password": "aaa",
+    "name": "name",
+    "username": "username",
+    "password": "password",
     "tickets": [
       {
         "id": "b22c0ef9-b311-4cf7-89b7-a580664d2d52",
@@ -47,7 +47,7 @@
         }
       },
       {
-        "id": "a2c5706c-43d8-4648-b220-83509402ae47",
+        "id": "f78dfcd7-8b5a-48e9-bcb4-5339a29aa9d8",
         "event": {
           "name": "Motorhead",
           "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
@@ -58,7 +58,7 @@
         }
       }
     ],
-    "token": "Jof7GSekLZRz4WGSoK8RL3",
+    "token": "74kEgqjb9cex7xGpCwTFib",
     "admin": true
   },
   {
@@ -79,26 +79,6 @@
       }
     ],
     "admin": false,
-    "token": "7eKnaqETKg8qyvD5uVF55i"
-  },
-  {
-    "name": "testName",
-    "username": "testUsername",
-    "password": "testPassword",
-    "tickets": [
-      {
-        "id": "1a3613da-6aae-4cef-9da0-54770ad9f801",
-        "event": {
-          "name": "Motorhead",
-          "id": "beda3f20-4321-4cd9-a969-b89c9969149f",
-          "type": "music",
-          "place": "milan",
-          "dateTime": "03/07/90",
-          "price": 40
-        }
-      }
-    ],
-    "token": "QQqdWrYvUy5tA2gAN4tRsh",
-    "admin": true
+    "token": "7e5Y5VpMh9kMFTFk1PbhM7"
   }
 ]

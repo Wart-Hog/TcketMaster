@@ -39,11 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var bluebird_1 = __importDefault(require("bluebird"));
 var supertest_1 = __importDefault(require("supertest"));
-//import { getTestToken } from '../Routes/usersR';
-var fs = bluebird_1.default.promisifyAll(require('fs'));
-var users_list = require('../../users_list.json');
 var app = require('../app');
 var testToken = "";
 describe("Post auth required", function () { return __awaiter(void 0, void 0, void 0, function () {

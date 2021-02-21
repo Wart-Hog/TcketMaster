@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { promise } from 'protractor';
 import { ITicket } from '../../../../BackEnd/src/Interfaces/ITicket';
 
 @Injectable({
@@ -25,7 +24,6 @@ export class UserService {
     let headers = new HttpHeaders()
     headers = headers.set('token',sessionStorage.getItem('token') || "")
     let ticketId = sessionStorage.getItem('ticketID')
-    console.log(ticketId)
     return this.httpClient.delete(`${this.url}/${this.username}/tickets/${ticketId}`,{headers}).toPromise() as Promise<any>
   }
   modifyAdmin = (isAdmin: boolean, username: string) : Promise<any> => this.httpClient.put(`${this.url}/${username}`, { admin: isAdmin }).toPromise()as Promise<any>

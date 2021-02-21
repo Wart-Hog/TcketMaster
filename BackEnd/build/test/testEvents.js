@@ -39,7 +39,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//import { getTestToken } from '../middle/middlewere';
 var app = require('../app');
 var supertest_1 = __importDefault(require("supertest"));
 var testIdEvent = "";
@@ -73,6 +72,28 @@ describe('create event', function () {
                 case 1:
                     id = (_a.sent()).body.id;
                     testIdEvent = id;
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('/unsuccess creating event, missing param [400]', function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: //ok
+                return [4 /*yield*/, supertest_1.default(app).post('/events').set("token", "" + testToken).send({ type: "music", place: "testPlace", dateTime: "1/1/2000", price: "10" }).expect(400)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('/unsuccess creating event, price NaN [400]', function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: //ok
+                return [4 /*yield*/, supertest_1.default(app).post('/events').set("token", "" + testToken).send({ name: "testEvento", type: "music", place: "testPlace", dateTime: "1/1/2000", price: "cento" }).expect(400)];
+                case 1:
+                    _a.sent();
                     return [2 /*return*/];
             }
         });

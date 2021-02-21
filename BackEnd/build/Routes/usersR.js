@@ -106,7 +106,7 @@ exports.router.post('', middlewere_1.newUserValidator, middlewere_1.myValidation
         });
     });
 });
-exports.router.put('/:username/details', middlewere_1.checkTokenHeader, middlewere_1.findUserIndex, middlewere_1.validateUpdateUsername, function (_a, res) {
+exports.router.put('/:username/details', middlewere_1.checkTokenHeader, middlewere_1.findUserIndex, middlewere_1.validateUpdateUsername, middlewere_1.newUserValidator[3], middlewere_1.myValidationResult, function (_a, res) {
     var _b = _a.body, _c = _b.name, name = _c === void 0 ? "" : _c, _d = _b.username, username = _d === void 0 ? "" : _d, _e = _b.password, password = _e === void 0 ? "" : _e;
     return __awaiter(void 0, void 0, void 0, function () {
         var usernameIndex, readList;
@@ -117,8 +117,7 @@ exports.router.put('/:username/details', middlewere_1.checkTokenHeader, middlewe
                     return [4 /*yield*/, middlewere_1.readFromJson('users_list.json', res)];
                 case 1:
                     readList = _f.sent();
-                    if (username == readList[usernameIndex].name)
-                        readList[usernameIndex].name = name == "" ? readList[usernameIndex].name : name;
+                    readList[usernameIndex].name = name == "" ? readList[usernameIndex].name : name;
                     readList[usernameIndex].username = username == "" ? readList[usernameIndex].username : username;
                     readList[usernameIndex].password = password == "" ? readList[usernameIndex].password : password;
                     return [4 /*yield*/, fs.writeFileSync('users_list.json', JSON.stringify(readList, null, 2))];

@@ -1,10 +1,4 @@
-import bluebird from 'bluebird';
 import request from 'supertest'
-import { IUser } from '../Interfaces/IUser';
-import { writeOnJson } from '../middle/middlewere';
-//import { getTestToken } from '../Routes/usersR';
-let fs = bluebird.promisifyAll(require('fs'));
-var users_list = require ('../../users_list.json')
 const app = require('../app');
 let testToken = ""
 

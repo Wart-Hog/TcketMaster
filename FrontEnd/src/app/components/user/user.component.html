@@ -1,18 +1,6 @@
 <h1>Ciao {{user.name}}!</h1>
 <h2>Informazioni personali:</h2>
 <div class="row">
-    <!-- <div class="card, col-3" style="width: 18rem;">
-        <img class="card-img-top" src="https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg" alt="Card image cap">
-        <div class="card-body">
-        <h5 class="card-title">{{user.name}}</h5>
-        <p class="card-text">Username: {{user.username}}</p>
-        <p class="card-text">Admin: {{user.admin}}</p>
-        <p class="card-text">Password: {{user.password}}</p>
-        <p class="card-text">Biglietti acquistati: {{user.tickets.length}}</p>
-        <button>Modifica</button>
-        </div>
-    </div> -->
-
     <div class="card, col-3" style="width: 18rem;">
         <img class="card-img-top" src="https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg" alt="Card image cap">
         <div class="card-body">
@@ -58,10 +46,10 @@
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="form_main">
-                        <h4 class="heading"><strong>Crea Nuovo </strong> Evento <span></span></h4>
+                        <h4 class="heading"><strong>Crea Nuovo Evento</strong></h4>
                     <div class="form">
-                        <form  name="contactFrm">
-                            <input type="text" required="" placeholder="Nome evento" value="" name="name" class="txt"  [(ngModel)] = "name">
+                        <form>
+                            <input type="text" required="" placeholder="Nome evento" value="" name="eventName" class="txt"  [(ngModel)] = "eventName">
                             <input type="text" required="" placeholder="Luogo" value="" name="place" class="txt" [(ngModel)] = "place">
                             <input type="text" required="" placeholder="Prezzo" value="" name="email" class="txt" [(ngModel)] = "price">
                             Tipo: <select name="type" [(ngModel)] = "type">
@@ -77,13 +65,12 @@
                 </div>
             </div> 
             
-            
             <div class="col-md-4">
                 <div class="form_main">
-                        <h4 class="heading"><strong>Promuovi/Rimuovi </strong> Admin <span></span></h4>
+                        <h4 class="heading"><strong>Promuovi/Rimuovi Admin</strong></h4>
                     <div class="form">
-                        <form id="contactFrm" name="contactFrm">
-                            <input type="text" required="" placeholder="Username" value="" name="username" class="txt"  [(ngModel)] = "username">
+                        <form>
+                            <input type="text" required="" placeholder="Username" name="usernameToPromove" class="txt"  [(ngModel)] = "usernameToPromove">
                             Admin: <input name = "admin" type="checkbox" [(ngModel)] = "admin">
                             <br>
                             <p class="text-danger">{{errorModifyAdmin}}</p>
@@ -91,8 +78,19 @@
                         </form>
                     </div>
                 </div>
-            </div>            
-
+            </div>        
+            <div class="col-md-4">
+                <div class="form_main">
+                        <h4 class="heading"><strong>Elimina evento </strong></h4>
+                    <div class="form">
+                        <form>
+                            <input type="text" required="" placeholder="event Id" value="" name="eventId" class="txt"  [(ngModel)] = "eventId">
+                            <p class="text-danger">{{errorDeleteEvent}}</p>
+                            <input type="submit" value="elimina" name="submit" class="txt2"  (click) = "deleteEvent()">
+                        </form>
+                    </div>
+                </div>
+            </div>    
         </div>
     </div>
 </div>

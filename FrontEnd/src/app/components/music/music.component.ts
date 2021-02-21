@@ -13,15 +13,23 @@ export class MusicComponent implements OnInit {
   public id = []
   public isLogged = false
   constructor(private eventService: EventServiceService, private userService: UserService) { }
-
+  
   async ngOnInit() {
-    this.events = await this.eventService.getMusicEvents()
-    this.checkLogged()
+    try{
+      this.events = await this.eventService.getMusicEvents()
+      this.checkLogged()
+    }catch(error){
+      return error
+    }
   }
-  buyTicket = (i:number) =>{
+  buyTicket = async (i:number) =>{
     sessionStorage.setItem("ticket", this.events[i].id)
-    this.userService.buyTicket()
-    window.location.replace('http://localhost:4200/user')
+    try{
+      await this.userService.buyTicket()
+      window.location.replace('http://localhost:4200/user')
+    }catch(err){
+      return err
+    }
   }
   checkLogged = () =>{
     this.isLogged = sessionStorage.getItem("token") ? true : false

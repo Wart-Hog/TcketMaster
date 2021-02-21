@@ -1,7 +1,5 @@
 
-//import { getTestToken } from '../middle/middlewere';
 const app = require('../app');
-import { before } from 'mocha';
 import request from 'supertest'
 let testIdEvent = ""
 let testToken = ""
@@ -19,6 +17,12 @@ describe('create event',()=>{
     it('/success creating event [201]',async ()=>{//ok
         const {body: {id}} = await request(app).post('/events').set("token",`${testToken}`).send({name:"testEvento",type:"music",place:"testPlace",dateTime:"1/1/2000",price:"10"}).expect(201)
         testIdEvent = id
+    });
+    it('/unsuccess creating event, missing param [400]',async ()=>{//ok
+        await request(app).post('/events').set("token",`${testToken}`).send({type:"music",place:"testPlace",dateTime:"1/1/2000",price:"10"}).expect(400)
+    });
+    it('/unsuccess creating event, price NaN [400]',async ()=>{//ok
+        await request(app).post('/events').set("token",`${testToken}`).send({name:"testEvento",type:"music",place:"testPlace",dateTime:"1/1/2000",price:"cento"}).expect(400)
     });
     it('/get created event', (done) => {//ok 
         request(app).get(`/events/${testIdEvent}`).expect(200,done);

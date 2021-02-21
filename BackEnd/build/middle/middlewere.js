@@ -41,7 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateUpdateUsername = exports.validateUsername = exports.readFromJson = exports.writeOnJson = exports.findUserIndex = exports.checkTokenHeader = exports.checkDate = exports.myValidationResult = exports.eventValidator = exports.newUserValidator = void 0;
 var express_validator_1 = require("express-validator");
-var users_list = require('../../users_list.json');
 var moment_1 = __importDefault(require("moment"));
 var bluebird_1 = __importDefault(require("bluebird"));
 var fs = bluebird_1.default.promisifyAll(require('fs'));
@@ -58,6 +57,7 @@ exports.eventValidator = [
     express_validator_1.check('type').isIn(typeAcceppted).withMessage('select at least one category'),
     express_validator_1.check('dateTime').trim().not().isEmpty().withMessage('valid date is required'),
     express_validator_1.check('price').trim().not().isEmpty().withMessage('price is required'),
+    express_validator_1.check('price').trim().isInt().withMessage('must be a number'),
 ];
 var myValidationResult = function (req, res, next) {
     var result = express_validator_1.validationResult(req);
