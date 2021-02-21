@@ -6,6 +6,7 @@
       <th scope="col">Date</th>
       <th scope="col">Price</th>
       <th scope="col"></th>
+      <th scope="col"></th>
   </tr>
   </thead>
   <tbody>
@@ -14,6 +15,7 @@
     <td>{{e.place | titlecase}}</td>
     <td>{{e.dateTime}}</td>
     <td >{{e.price | currency}}</td>
+    <td><button class="btn btn-success" (click) = "show(i)">ID</button></td>
     <td *ngIf = "isLogged"><button name="id" class = "btn btn-primary" style="background-color:cornflowerblue;" (click)='buyTicket(i)'>Acquista</button></td>
     <td *ngIf = "!isLogged"><button class = "btn btn-primary" routerLink = "/login">Log to buy</button></td>
   </tr>

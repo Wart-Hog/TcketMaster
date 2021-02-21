@@ -11,6 +11,7 @@ import { IEvent } from '../../../../../BackEnd/src/Interfaces/IEvent';
 export class MusicComponent implements OnInit {
   public events : IEvent[] = []
   public id = []
+  public toShow =""
   public isLogged = false
   constructor(private eventService: EventServiceService, private userService: UserService) { }
   
@@ -33,5 +34,9 @@ export class MusicComponent implements OnInit {
   }
   checkLogged = () =>{
     this.isLogged = sessionStorage.getItem("token") ? true : false
+  }
+  show = (i:number) =>{
+    this.toShow = this.events[i].id
+    alert(this.toShow);
   }
 }

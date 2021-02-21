@@ -62,29 +62,5 @@
     "place": "luogo",
     "dateTime": "18-02-2021",
     "price": "40"
-  },
-  {
-    "name": "event",
-    "id": "27ed19dd-2404-4e7b-9548-e45630b30880",
-    "type": "theatre",
-    "place": "luogo",
-    "dateTime": "10-02-2021",
-    "price": "30"
-  },
-  {
-    "name": "music",
-    "id": "9b2cf1a8-b032-4528-9925-0ceaaae5fd8d",
-    "type": "music",
-    "place": "luogo",
-    "dateTime": "21-02-2021",
-    "price": "10"
-  },
-  {
-    "name": "nuovo",
-    "id": "7d8f4f49-4671-4440-887e-38fdcdda8e7a",
-    "type": "theatre",
-    "place": "ct",
-    "dateTime": "01-01-2021",
-    "price": "1"
   }
 ]

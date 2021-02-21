@@ -12,6 +12,7 @@ export class TheatreComponent implements OnInit {
   public events : IEvent[] = []
   public id = []
   isLogged = false
+  toShow = ""
   constructor(private eventService: EventServiceService, private userService: UserService) { }
 
   async ngOnInit() {
@@ -34,4 +35,9 @@ export class TheatreComponent implements OnInit {
   checkLogged = () =>{
     this.isLogged = sessionStorage.getItem("token") ? true : false
   }
+  show = (i:number) =>{
+    this.toShow = this.events[i].id
+    alert(this.toShow);
+  }
+  
 }
